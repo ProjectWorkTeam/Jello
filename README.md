@@ -14,12 +14,11 @@ App Academy Group Project
 
 ## Table of Contents
 
-- [Sign Up a User](#sign-up-a-user)
-- [User Endpoints](#user-endpoints)
-- [Board Endpoints](#board-endpoints)
-- [List Endpoints](#list-endpoints)
-- [Card Endpoints](#card-endpoints)
-- [Label Endpoints](#label-endpoints)
+- [Users](#users)
+  - [Create a New User (POST /users)](#post-users)
+  - [Get User Information (GET /users/{UserID})](#get-usersuserid)
+  - [Update User Information (PUT /users/{UserID})](#put-usersuserid)
+  - [Delete a User (DELETE /users/{UserID})](#delete-usersuserid)
 
 
 # API Documentation
