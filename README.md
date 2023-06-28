@@ -7,7 +7,7 @@ App Academy Group Project
 <!--!!START SILENT -->
 ![jello-database-schema]
 
-[jello-database-schema]: (Jello.png)
+[jello-database-schema]: Jello.png
 
 
 ## API Documentation
