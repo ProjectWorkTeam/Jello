@@ -155,3 +155,14 @@ class CardLabel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     card_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('cards.id')), nullable=False)
     label_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('labels.id')), nullable=False)
+
+
+class Image(db.Model):
+    __tablename__ = 'images'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    url = db.Column(db.String, nullable=False)
