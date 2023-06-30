@@ -136,7 +136,7 @@ def seed_labels():
     db.session.add(label_3)
     db.session.commit()
 
-def undo_lists():
+def undo_labels():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.labels RESTART IDETNTIY CASCARD;")
     else:

@@ -1,8 +1,8 @@
 """changed seeders
 
-Revision ID: d805c47670ac
+Revision ID: 27467c431be5
 Revises: 
-Create Date: 2023-06-30 17:32:31.779282
+Create Date: 2023-06-30 17:43:22.315580
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd805c47670ac'
+revision = '27467c431be5'
 down_revision = None
 branch_labels = None
 depends_on = None
