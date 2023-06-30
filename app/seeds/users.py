@@ -1,4 +1,4 @@
-from app.models import db, User, environment, SCHEMA
+from app.models.user import db, User, Board, List, Card, Label, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
@@ -28,5 +28,112 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
+    db.session.commit()
+
+
+def seed_boards():
+    board_1 = Board(
+        board_name = "A Board", owner_id = 1
+    )
+
+    board_2 = Board(
+        board_name = "Poop Board", owner_id = 2
+    )
+
+    board_3 = Board(
+        board_name = "Jello Board", owner_id = 3
+    )
+
+    db.session.add(board_1)
+    db.session.add(board_2)
+    db.session.add(board_3)
+    db.session.commit()
+
+def undo_boards():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.boards RESTART IDENTITY CASCARD;")
+    else:
+        db.session.execute(text("DELETE FROM boards"))
+
+    db.session.commit()
+
+
+
+def seed_lists():
+    list_1 = List(
+        list_name = "A List", board_id = 1
+    )
+
+    list_2 = List(
+        list_name = "Poop List", board_id = 2
+    )
+
+    list_3 = List(
+        list_name = "Jello List", board_id = 3
+    )
+
+    db.session.add(list_1)
+    db.session.add(list_2)
+    db.session.add(list_3)
+    db.session.commit()
+
+def undo_lists():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.lists RESTART IDETNTIY CASCARD;")
+    else:
+        db.session.execute(text("DELETE FROM lists"))
+
+    db.session.commit()
+
+
+def seed_cards():
+    card_1 = Card(
+        card_title = "Please eat", card_text = "You better eat", list_id = 1
+    )
+
+    card_2 = Card(
+        card_title = "Poopie", card_text = "poopie poopie", list_id = 2
+    )
+
+    card_3 = Card(
+        card_title = "Jello", card_text = "more like hello", list_id = 3
+    )
+
+
+    db.session.add(card_1)
+    db.session.add(card_2)
+    db.session.add(card_3)
+    db.session.commit()
+
+def undo_cards():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.cards RESTART IDETNTIY CASCARD;")
+    else:
+        db.session.execute(text("DELETE FROM cards"))
+
+    db.session.commit()
+
+def seed_labels():
+    label_1 = Label(
+        label_name = "Un Labele", color_code = "231456"
+    )
+    label_2 = Label(
+        label_name = "Poopie", color_code = "23232"
+    )
+    label_3 = Label(
+        label_name = "Jello Label", color_code = "22333"
+    )
+
+    db.session.add(label_1)
+    db.session.add(label_2)
+    db.session.add(label_3)
+    db.session.commit()
+
+def undo_lists():
+    if environment == "production":
+        db.session.execute(f"TRUNCATE table {SCHEMA}.labels RESTART IDETNTIY CASCARD;")
+    else:
+        db.session.execute(text("DELETE FROM labels"))
+
     db.session.commit()
