@@ -10,11 +10,15 @@ class User(db.Model, UserMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    # Relationships
+    owned_boards = db.relationship('Board', back_populates='owner', cascade='all, delete-orphan')
+    comments = db.relationship('CardComment', back_populates='user')
 
     @property
     def password(self):
@@ -34,7 +38,6 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
-
 class Board(db.Model):
     __tablename__ = 'boards'
 
@@ -46,9 +49,23 @@ class Board(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     # Relationships
-    owner = db.relationship('User', backref='boards', lazy=True)
-    lists = db.relationship('List', backref='board', lazy=True)
-    members = db.relationship('BoardMember', backref='board', lazy=True)
+    owner = db.relationship('User', back_populates='owned_boards', lazy=True)
+    lists = db.relationship('List', back_populates='board', lazy=True)
+    members = db.relationship('BoardMember', back_populates='board', lazy=True)
+
+class BoardMember(db.Model):
+    __tablename__ = 'board_members'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('boards.id')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+
+    # Relationships
+    board = db.relationship('Board', back_populates='members', lazy=True)
+    user = db.relationship('User', lazy=True)  # Removed back_populates
 
 
 class List(db.Model):
@@ -62,9 +79,8 @@ class List(db.Model):
     board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('boards.id')), nullable=False)
 
     # Relationships
-    board = db.relationship('Board', backref='lists', lazy=True)
+    board = db.relationship('Board', back_populates='lists', lazy=True)
     cards = db.relationship('Card', backref='list', lazy=True, cascade="all, delete")
-
 
 class Card(db.Model):
     __tablename__ = 'cards'
@@ -78,10 +94,9 @@ class Card(db.Model):
     list_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('lists.id')), nullable=False)
 
     # Relationships
-    list = db.relationship('List', backref='cards', lazy=True)
-    comments = db.relationship('CardComment', backref='card', lazy=True, cascade="all, delete")
-    labels = db.relationship('Label', secondary=add_prefix_for_prod('card_labels'), backref=db.backref('cards', lazy=True, cascade="all, delete"))
-
+    list_ = db.relationship('List', back_populates='cards', lazy=True)
+    comments = db.relationship('CardComment', back_populates='card', lazy=True, cascade="all, delete")
+    labels = db.relationship('Label', secondary=add_prefix_for_prod('card_labels'), back_populates='cards', cascade="all, delete")
 
 class CardComment(db.Model):
     __tablename__ = 'card_comments'
@@ -95,22 +110,8 @@ class CardComment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     # Relationships
-    user = db.relationship('User', backref='comments', lazy=True, cascade="all, delete")
-
-
-class BoardMember(db.Model):
-    __tablename__ = 'board_members'
-
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
-    id = db.Column(db.Integer, primary_key=True)
-    board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('boards.id')), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-
-    # Relationships
-    user = db.relationship('User', backref='shares', lazy=True)
-
+    user = db.relationship('User', back_populates='comments', lazy=True, cascade="all, delete")
+    card = db.relationship('Card', back_populates='comments', lazy=True, cascade="all, delete")
 
 class Label(db.Model):
     __tablename__ = 'labels'
@@ -122,30 +123,11 @@ class Label(db.Model):
     name = db.Column(db.String(255), nullable=False)
     color_code = db.Column(db.String(7), nullable=False, unique=True)
 
-    def update_label_color(self, new_color):
-        # Get all cards associated with this label
-        cards = self.cards
-        for card in cards:
-            for label in card.labels:
-                if label.color_code == self.color_code:
-                    # Update the color of all labels with the same color as the current label
-                    label.color_code = new_color
-        self.color_code = new_color 
+    # Relationships
+    cards = db.relationship('Card', secondary=add_prefix_for_prod('card_labels'), back_populates='labels', lazy=True, cascade="all, delete")
 
-    def update_label_name (self, new_name):
-         # Get all labels with the same color code
-        labels = Label.query.filter_by(color_code=self.color_code).all()
-        for label in labels:                
-            label.name = new_name
-        self.name = new_name
-
-    def delete_label(self):
-        # Get all cards associated with this label
-        cards = self.cards
-        for card in cards:
-            card.labels.remove(self)
-
-
+    # Rest of Label model...
+    
 class CardLabel(db.Model):
     __tablename__ = 'card_labels'
 
@@ -156,13 +138,4 @@ class CardLabel(db.Model):
     card_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('cards.id')), nullable=False)
     label_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('labels.id')), nullable=False)
 
-
-class Image(db.Model):
-    __tablename__ = 'images'
-
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    url = db.Column(db.String, nullable=False)
+    # No relationships defined here, as this is a linking table
