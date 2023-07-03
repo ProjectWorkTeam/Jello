@@ -54,7 +54,7 @@ class Board(db.Model):
 
     # Relationships
     owner = db.relationship('User', back_populates='owned_boards', lazy=True)
-    lists = db.relationship('List', back_populates='board', lazy=True)
+    lists = db.relationship('List', back_populates='board', lazy=True, cascade="all, delete")
     members = db.relationship('BoardMember', back_populates='board', lazy=True)
 
     def to_dict(self):

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models.user import db, Board
+from app.models.user import db, Board, List
 from app.forms.forms import BoardForm
 
 
@@ -28,6 +28,7 @@ def get_boards():
 @login_required
 def create_board():
     form = BoardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         data = form.data
@@ -65,7 +66,6 @@ def update_board(board_id):
     db.session.commit()
 
     return jsonify({'message': 'Board updated successfully.'}), 200
-
 @board_routes.route('/<int:board_id>', methods=["DELETE"])
 @login_required
 def delete_board(board_id):
@@ -73,6 +73,9 @@ def delete_board(board_id):
 
     if not board:
         return jsonify({'message': 'Board not found.'}), 404
+
+    if board.owner_id != current_user.id:
+        return jsonify({'message': 'Unauthorized to delete this board.'}), 403
 
     db.session.delete(board)
     db.session.commit()
