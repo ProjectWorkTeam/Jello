@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
 from app.models.user import Card, List, CardComment
-from app.forms import CardForm, CardCommentForm
+from app.forms.forms import CardForm, CardCommentForm
 from app import db
 from .auth_routes import validation_errors_to_error_messages
 
