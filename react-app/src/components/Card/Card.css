@@ -1,0 +1,39 @@
+.list {
+    background-color: #e2e4e6;
+    width: 250px;
+    flex-shrink: 0;
+    margin-right: 10px;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.list h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.list ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 3px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.card:hover {
+    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
+    cursor: pointer;
+}

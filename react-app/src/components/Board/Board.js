@@ -1,10 +1,13 @@
 // Jello/react-app/src/components/Board/Board.js
-import React from 'react';
+import React, { useState } from 'react';
 import List from "../List/List";
 import './Board.css';
 
 function Board() {
   // Can pass variables as arg or add them below here.
+  const [openSideBar, setOpenSideBar] = useState(false);
+
+
   const board = {
     id: 1,
     name: "Trello Test Board"
@@ -24,17 +27,43 @@ function Board() {
     { id: 5, title: "Card 5", list_id: 3 },
     { id: 6, title: "Card 6", list_id: 3 },
   ];
+
+  const toggleSidebar = () => {
+    setOpenSideBar(!openSideBar);
+  }
+
+  const sidebarStyle = {
+    transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
+  };
+
+  const boardContentStyle = {
+    marginLeft: openSideBar ? '0' : '250px',
+  }
+
+
   if (!board) {
     return <div>Loading...</div>;
   }
   return (
     <div className="board">
+      <div className="sidebar" style={sidebarStyle}>
+        <button onClick={toggleSidebar}>Toggle Side Bar</button>
+        {openSideBar && (
+          <>
+            <a href="/boards">Boards</a>
+            <a href="/members">Members</a>
+            <a href="/settings">Settings</a>
+          </>
+        )}
+      </div>
+      <div className='board-content' style={boardContentStyle}>
       <h2>{board.name}</h2>
       <div className="lists-container">
         {/* Basic testing display structure, cards and lists should be fetched by list_id and board_id respectively */}
         {lists.map(list => (
           <List key={list.id} list={list} cards={cards.filter(card => card.list_id === list.id)} />
         ))}
+      </div>
       </div>
     </div>
   );
