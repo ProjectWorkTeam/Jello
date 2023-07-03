@@ -66,7 +66,6 @@ def update_board(board_id):
     db.session.commit()
 
     return jsonify({'message': 'Board updated successfully.'}), 200
-
 @board_routes.route('/<int:board_id>', methods=["DELETE"])
 @login_required
 def delete_board(board_id):
@@ -74,6 +73,9 @@ def delete_board(board_id):
 
     if not board:
         return jsonify({'message': 'Board not found.'}), 404
+
+    if board.owner_id != current_user.id:
+        return jsonify({'message': 'Unauthorized to delete this board.'}), 403
 
     db.session.delete(board)
     db.session.commit()
