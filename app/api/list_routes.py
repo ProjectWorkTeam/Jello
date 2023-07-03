@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required
-from .models import List, Board
-from . import db
+from app.models.user import List, Board, db
+
 
 
 lists = Blueprint('lists', __name__)

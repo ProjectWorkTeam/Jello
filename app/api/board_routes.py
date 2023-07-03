@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from .models import db, Board
+from app.models.user import db, Board
 from ..forms.board_form import BoardForm
 
 

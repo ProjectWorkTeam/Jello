@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import Card, List, CardComment
+from app.models.user import Card, List, CardComment
 from app.forms import CardForm, CardCommentForm
 from app import db
 from .auth_routes import validation_errors_to_error_messages
@@ -18,7 +18,7 @@ def create_card():
     if form.validate_on_submit():
         card = Card(
             title=form.data['title'],
-            text=form.data.get('description'), 
+            text=form.data.get('description'),
             list_id=form.data['list_id']
         )
         db.session.add(card)
