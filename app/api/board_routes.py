@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models.user import db, Board
+from app.models.user import db, Board, List
 from app.forms.forms import BoardForm
 
 
@@ -28,6 +28,7 @@ def get_boards():
 @login_required
 def create_board():
     form = BoardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         data = form.data
