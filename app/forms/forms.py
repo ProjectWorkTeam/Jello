@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, Length
+from wtforms import StringField, BooleanField, IntegerField
+from wtforms.validators import DataRequired, ValidationError
 
 class BoardForm(FlaskForm):
     """
@@ -15,12 +15,10 @@ class ListForm(FlaskForm):
     name = StringField('name', validators=[DataRequired(), Length(max=255)])
     board_id = IntegerField('board_id', validators=[DataRequired()])
 
+
 class CardForm(FlaskForm):
-    """
-    Form for creating a new card
-    """
-    title = StringField('title', validators=[DataRequired(), Length(max=255)])
-    text = StringField('text')  # optional
+    title = StringField('title', validators=[DataRequired()])
+    description = StringField('description')
     list_id = IntegerField('list_id', validators=[DataRequired()])
 
 class CardCommentForm(FlaskForm):
