@@ -1,8 +1,39 @@
-.list {
+.list-footer{
     display: flex;
-    width: 250px;
-    flex-shrink: 0;
-    margin-right: 10px;
-    padding: 8px;
+    align-items: center;
+    margin-left: .1rem;
+    border-radius: 1rem;
+    cursor: pointer;
 
+}
+
+.add-card {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.add-card-icon {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-left: auto
+}
+
+
+.add-card-text {
+    margin: 0;
+    margin-left: 1rem;
+
+}
+
+.list:hover {
+    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
+    cursor: pointer;
+}
+
+
+.list-footer:hover {
+    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
+    cursor: pointer;
 }
