@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+
     # Relationships
     owned_boards = db.relationship('Board', back_populates='owner', cascade='all, delete-orphan')
     comments = db.relationship('CardComment', back_populates='user')
@@ -47,6 +48,7 @@ class Board(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    position_id = db.Column(db.Integer)
 
     # Relationships
     owner = db.relationship('User', back_populates='owned_boards', lazy=True)
@@ -63,6 +65,7 @@ class BoardMember(db.Model):
     board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('boards.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
+
     # Relationships
     board = db.relationship('Board', back_populates='members', lazy=True)
     user = db.relationship('User', lazy=True)  # Removed back_populates
@@ -77,6 +80,7 @@ class List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     board_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('boards.id')), nullable=False)
+    position_id = db.Column(db.Integer)
 
     # Relationships
     board = db.relationship('Board', back_populates='lists', lazy=True)
@@ -92,6 +96,7 @@ class Card(db.Model):
     title = db.Column(db.String(255), nullable=False)
     text = db.Column(db.String, nullable=True)
     list_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('lists.id')), nullable=False)
+    position_id = db.Column(db.Integer)
 
     # Relationships
     list_ = db.relationship('List', back_populates='cards', lazy=True)
@@ -108,6 +113,7 @@ class CardComment(db.Model):
     content = db.Column(db.String, nullable=False)
     card_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('cards.id')), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    position_id = db.Column(db.Integer)
 
     # Relationships
     user = db.relationship('User', back_populates='comments', lazy=True, cascade="all, delete")
@@ -122,12 +128,13 @@ class Label(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     color_code = db.Column(db.String(7), nullable=False, unique=True)
+    position_id = db.Column(db.Integer)
 
     # Relationships
     cards = db.relationship('Card', secondary=add_prefix_for_prod('card_labels'), back_populates='labels', lazy=True, cascade="all, delete")
 
     # Rest of Label model...
-    
+
 class CardLabel(db.Model):
     __tablename__ = 'card_labels'
 
@@ -137,5 +144,6 @@ class CardLabel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     card_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('cards.id')), nullable=False)
     label_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('labels.id')), nullable=False)
+    position_id = db.Column(db.Integer)
 
     # No relationships defined here, as this is a linking table
