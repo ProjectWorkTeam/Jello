@@ -35,6 +35,8 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
             'username': self.username,
             'email': self.email
         }
@@ -54,6 +56,14 @@ class Board(db.Model):
     owner = db.relationship('User', back_populates='owned_boards', lazy=True)
     lists = db.relationship('List', back_populates='board', lazy=True)
     members = db.relationship('BoardMember', back_populates='board', lazy=True)
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'owner_id': self.owner_id,
+            'postion_id': self.position_id
+        }
 
 class BoardMember(db.Model):
     __tablename__ = 'board_members'
@@ -86,6 +96,14 @@ class List(db.Model):
     board = db.relationship('Board', back_populates='lists', lazy=True)
     cards = db.relationship('Card', backref='list', lazy=True, cascade="all, delete")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'board_id': self.board_id,
+            'position_id': self.position_id
+        }
+
 class Card(db.Model):
     __tablename__ = 'cards'
 
@@ -102,6 +120,15 @@ class Card(db.Model):
     list_ = db.relationship('List', back_populates='cards', lazy=True)
     comments = db.relationship('CardComment', back_populates='card', lazy=True, cascade="all, delete")
     labels = db.relationship('Label', secondary=add_prefix_for_prod('card_labels'), back_populates='cards', cascade="all, delete")
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'text': self.text,
+            'list_id': self.list_id,
+            'postion_id': self.position_id
+        }
 
 class CardComment(db.Model):
     __tablename__ = 'card_comments'
@@ -147,3 +174,11 @@ class CardLabel(db.Model):
     position_id = db.Column(db.Integer)
 
     # No relationships defined here, as this is a linking table
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'card_id': self.card_id,
+            'label_id': self.label_id,
+            'position_id': self.position_id
+        }
