@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.card_routes import cards
 from .api.board_routes import board_routes
 from .api.list_routes import lists
+from .api.labels_routes import labels
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(cards, url_prefix='/api/cards')
 app.register_blueprint(board_routes, url_prefix='/api/boards')
 app.register_blueprint(lists, url_prefix='/api/lists')
+app.register_blueprint(labels, url_prefix='/api/labels')
 db.init_app(app)
 Migrate(app, db)
 
