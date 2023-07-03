@@ -1,10 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Board, List
-from app.forms import BoardForm
+from .models import db, Board
+from ..forms.board_form import BoardForm
+
 
 board_routes = Blueprint('boards', __name__)
-
 
 @board_routes.route('', methods=["GET"])
 @login_required
@@ -52,4 +52,28 @@ def create_board():
 
     return "error bad"
 
+@board_routes.route('/<int:board_id>', methods=["PUT"])
+@login_required
+def update_board(board_id):
+    board = Board.query.get(board_id)
 
+    if not board:
+        return jsonify({'message': 'Board not found.'}), 404
+
+    data = request.get_json()
+    board.name = data.get('name', board.name)
+    db.session.commit()
+
+    return jsonify({'message': 'Board updated successfully.'}), 200
+
+@board_routes.route('/<int:board_id>', methods=["DELETE"])
+@login_required
+def delete_board(board_id):
+    board = Board.query.get(board_id)
+
+    if not board:
+        return jsonify({'message': 'Board not found.'}), 404
+
+    db.session.delete(board)
+    db.session.commit()
+    return jsonify({'message': 'Board deleted successfully.'}), 200
