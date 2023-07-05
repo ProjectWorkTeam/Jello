@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from app.models import Label, Card, CardLabel, db
-from app.forms import LabelForm
+from app.models.user import Label, Card, CardLabel, db
+from app.forms.forms import LabelForm
 
 labels = Blueprint('labels', __name__)
 
