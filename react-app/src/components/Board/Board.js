@@ -75,6 +75,8 @@
   import List from '../List/List';
   import BoardModal from '../BoardModal/BoardModal';
   import './Board.css';
+  import CardModal from '../CardModal/CardModal';
+
 
   function Board() {
     const [openSideBar, setOpenSideBar] = useState(false);
@@ -86,6 +88,7 @@
       { id: 2, name: 'In Progress', board_id: 1 },
       { id: 3, name: 'Completed', board_id: 1 },
     ]);
+    const [selectCard, setSelectCard] = useState(null);
 
     const board = {
       id: 1,
@@ -116,6 +119,10 @@
     const handleNewListNameChange = (e) => {
       setNewListName(e.target.value);
     };
+
+    const openCardModal = (cardId) => {
+      setSelectCard(cardId);
+    }
 
     const createList = () => {
       if (newListName.trim() === '') {
@@ -156,7 +163,10 @@
           <h2>{board.name}</h2>
           <div className="lists-container">
             {lists.map((list) => (
-              <List key={list.id} list={list} cards={cards.filter((card) => card.list_id === list.id)} />
+              <List key={list.id}
+              list={list}
+              cards={cards.filter((card) => card.list_id === list.id)}
+              openCardModal={openCardModal}/>
             ))}
             <button onClick={toggleCreateListModal}>Add a List</button>
             {isCreateListModalOpen && (
@@ -168,6 +178,9 @@
           </div>
           <button onClick={toggleModal}>Create Board</button>
           {isModalOpen && <BoardModal closeModal={toggleModal} />}
+          {selectCard && (
+            <CardModal cardId={selectCard} closeModal={() => setSelectCard(null)} />
+          )}
         </div>
       </div>
     );

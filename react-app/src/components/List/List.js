@@ -5,7 +5,7 @@ import Card from '../Card/Card';
 import './List.css';
 
 
-function List({ list, cards }) {
+function List({ list, cards, openCardModal }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function List({ list, cards }) {
         </div>
         <ul>
           {cards.map((card) => (
-            <Card key={card.id} card={card} />
+            <Card key={card.id} card={card} openCardModal={openCardModal} />
           ))}
         </ul>
         <div className="list-footer">
