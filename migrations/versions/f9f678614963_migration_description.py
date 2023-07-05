@@ -1,8 +1,8 @@
-"""changed seeders
+"""Migration description
 
-Revision ID: 27467c431be5
+Revision ID: f9f678614963
 Revises: 
-Create Date: 2023-06-30 17:43:22.315580
+Create Date: 2023-07-05 11:58:20.133819
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '27467c431be5'
+revision = 'f9f678614963'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('color_code', sa.String(length=7), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('color_code')
     )
@@ -40,6 +41,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -55,6 +57,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('board_id', sa.Integer(), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['board_id'], ['boards.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -63,6 +66,7 @@ def upgrade():
     sa.Column('title', sa.String(length=255), nullable=False),
     sa.Column('text', sa.String(), nullable=True),
     sa.Column('list_id', sa.Integer(), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['list_id'], ['lists.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -71,6 +75,7 @@ def upgrade():
     sa.Column('content', sa.String(), nullable=False),
     sa.Column('card_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -79,6 +84,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('card_id', sa.Integer(), nullable=False),
     sa.Column('label_id', sa.Integer(), nullable=False),
+    sa.Column('position_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
     sa.ForeignKeyConstraint(['label_id'], ['labels.id'], ),
     sa.PrimaryKeyConstraint('id')
