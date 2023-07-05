@@ -3,13 +3,23 @@ import { csrfFetch } from "./csrf";
 
 /*- Action Types -*/
 const GET_CARDS_LIST = 'cards/GetCardsList';
+const GET_ALL_CARDS = 'cards/GetAllCards';
 const GET_CARD = 'cards/GetCard';
-const MAKE_CARD = '/cards/MakeCard';
-const EDIT_CARD = '/cards/EditCard';
-const DELETE_CARD = '/cards/DeleteCard';
+const MAKE_CARD = 'cards/MakeCard';
+const EDIT_CARD = 'cards/EditCard';
+const DELETE_CARD = 'cards/DeleteCard';
 
 
 /*-Action Creators-*/
+
+
+/*-Get All Cards-*/
+export const getAllCards = (cards) => {
+    return {
+        type: GET_ALL_CARDS,
+        cards
+    }
+}
 
 /*-Get Card -*/
 export const getCard = (card) => {
@@ -53,7 +63,13 @@ export const deleteCard = (cardId) => {
     }
 }
 
-
+/*-Get All Cards-*/
+export const thunkAllCards = () => async (dispatch) => {
+    const response = await fetch('/api/cards');
+    const cards = await response.json();
+    console.log('after response get all cards', cards)
+    dispatch(getAllCards(cards));
+}
 
 /*-Get Card By Id Thunk-*/
 export const thunkCard = (cardId) => async (dispatch, getState) => {
@@ -137,8 +153,21 @@ const initialState = {
 
 const cardsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_ALL_CARDS:
+            return {
+                ...state,
+                cards: {
+                    ...action.cards
+                }
+        };
         case GET_CARD:
-            return {...state, cards: {...action.cards}};
+            return {
+                ...state,
+                cards: {
+                ...state.cards,
+                [action.card.id] : action.card
+            }
+        }
         default:
             return state;
     }

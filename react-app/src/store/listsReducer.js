@@ -2,12 +2,22 @@ import { csrfFetch } from "./csrf";
 
 /*- Action Types -*/
 const GET_LISTS = 'lists/GetLists';
+const GET_ALL_LISTS = 'lists/GetAllLists';
 const MAKE_LIST = 'lists/MakeList';
 const EDIT_LIST = 'lists/EditList';
 const DELETE_LIST = 'lists/DeleteList';
 
 
 /*- Action Creators-*/
+
+
+/*-Get All Lists-*/
+export const getAllLists = (lists) => {
+    return {
+        type: GET_ALL_LISTS,
+        lists
+    }
+}
 
 /*-Get Lists by Board Id-*/
 export const getBoardLists = (lists, boardId) => {
@@ -42,6 +52,15 @@ export const deleteList = (listId) => {
         type: DELETE_LIST,
         listId
     }
+}
+
+
+/*-Get All Lists Thunk-*/
+export const thunkAllLists = () => async (dispatch) => {
+    const response = await fetch('/api/lists');
+    const lists = await response.json();
+    console.log('after response get all lists', lists)
+    dispatch(getAllLists(lists));
 }
 
 
@@ -123,8 +142,21 @@ const initialState = {
 
 const listsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_ALL_LISTS:
+            return {
+                ...state,
+                lists: {
+                    ...action.lists
+                }
+        };
         case GET_LISTS:
-            return {...state, lists: {...action.lists}};
+            return {
+                ...state,
+                lists: {
+                ...state.lists,
+                [action.list.id] : action.list
+                }
+            }
         default:
             return state;
     }
