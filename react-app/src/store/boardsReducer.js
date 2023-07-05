@@ -91,6 +91,7 @@ export const thunkBoard = (boardId) => async (dispatch, getState) => {
 
 
 /*-Add a Board Thunk-*/
+/*-Add a Board Thunk-*/
 export const thunkAddBoard = (board) => async (dispatch) => {
     let response;
     try {
@@ -100,7 +101,7 @@ export const thunkAddBoard = (board) => async (dispatch) => {
             body: JSON.stringify(board)
         });
         console.log('create board thunk reached', response)
-        const boardResponse = await response.json();
+        const { board: boardResponse } = await response.json(); // Destructure and rename board from the response
         dispatch(addBoard(boardResponse));
         console.log('new board!', boardResponse);
         return boardResponse;
@@ -111,6 +112,7 @@ export const thunkAddBoard = (board) => async (dispatch) => {
         return errors;
     }
 }
+
 
 /*-Edit A Board Thunk-*/
 export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
@@ -163,51 +165,36 @@ const boardsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 boards: {
-                    ...state.boards,
-                    [action.board.id] : action.board
-                }
+                ...state.boards,
+                [action.board.id] : action.board
             }
+        }
         case GET_BOARD:
             return {
                 ...state,
                 boards: {
-                    ...state.boards,
-                    [action.board.id] : action.board
-                }
+                ...state.boards,
+                [action.board.id] : action.board
             }
+        }
         case GET_ALL_BOARDS:
             return {
                 ...state,
                 boards: {
                     ...action.boards
                 }
-        };
-        case ADD_A_BOARD:
-            return {
-                ...state,
-                boards: {
-                    ...action.boards
-                }
-        };
-        case EDIT_BOARD:
+            };
+        case ADD_A_BOARD: // Add this case
             return {
                 ...state,
                 boards: {
                     ...state.boards,
                     [action.board.id]: action.board
                 }
-        };
-        case DELETE_BOARD:
-            const boardToDelete = { ...state.boards };
-            delete boardToDelete[action.boardId];
-            return {
-                ...state,
-                boards: boardToDelete
-        };
+            };
         default:
             return state;
     }
 }
-
 
 export default boardsReducer;
