@@ -1,7 +1,7 @@
 """changed seeders
-
+Jello/migrations/versions/27467c431be5_changed_seeders.py
 Revision ID: 27467c431be5
-Revises: 
+Revises:
 Create Date: 2023-06-30 17:43:22.315580
 
 """

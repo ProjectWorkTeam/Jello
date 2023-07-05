@@ -1,3 +1,4 @@
+# Jello/app/models/user.py
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -127,7 +128,7 @@ class Card(db.Model):
             'title': self.title,
             'text': self.text,
             'list_id': self.list_id,
-            'postion_id': self.position_id
+            'position_id': self.position_id
         }
 
 class CardComment(db.Model):
