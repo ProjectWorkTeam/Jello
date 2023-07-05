@@ -2,7 +2,9 @@ import React from 'react';
 import Card from '../Card/Card';
 import './List.css';
 
+
 function List({ list, cards }) {
+  
   return (
     <div className="list-container">
     <div className="list">
