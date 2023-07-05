@@ -167,7 +167,29 @@ const cardsReducer = (state = initialState, action) => {
                 ...state.cards,
                 [action.card.id] : action.card
             }
-        }
+        };
+        case MAKE_CARD:
+            return {
+                ...state,
+                cards: {
+                    ...action.cards
+                }
+        };
+        case EDIT_CARD:
+            return {
+                ...state,
+                cards: {
+                    ...state.cards,
+                    [action.card.id]: action.card
+                }
+        };
+        case DELETE_CARD:
+            const cardToDelete = { ...state.cards };
+            delete cardToDelete[action.cardId];
+            return {
+                ...state,
+                cards: cardToDelete
+        };
         default:
             return state;
     }

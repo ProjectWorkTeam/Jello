@@ -107,7 +107,29 @@ const commentsReducer = (state = initialState, action) => {
                 ...state.cardComments,
                 [action.cardComment.id] : action.cardComment
             }
-        }
+        };
+        case POST_COMMENTS:
+            return {
+                ...state,
+                cardComments: {
+                    ...action.cardComments
+                }
+        };
+        case EDIT_COMMENTS:
+            return {
+                ...state,
+                cardComments: {
+                    ...state.cardComments,
+                    [action.cardComment.id]: action.cardComment
+                }
+        };
+        case DELETE_COMMENTS:
+            const commentsToDelete = { ...state.cardComments };
+            delete commentsToDelete[action.cardCommentId];
+            return {
+                ...state,
+                cardComments: commentsToDelete
+            }
         default:
             return state;
     }

@@ -152,6 +152,28 @@ const labelsReducer = (state = initialState, action) => {
                     [action.label.id]: action.label
              }
         };
+        case POST_LABEL:
+            return {
+                ...state,
+                labels: {
+                    ...action.labels
+                }
+        };
+        case EDIT_LABEL:
+            return {
+                ...state,
+                labels: {
+                    ...state.labels,
+                    [action.label.id]: action.label
+                }
+        };
+        case DELETE_LABEL:
+            const labelToDelete = { ...state.labels };
+            delete labelToDelete[action.labelId];
+            return {
+                ...state,
+                labels: labelToDelete
+        };
         default :
             return state;
     }

@@ -156,7 +156,29 @@ const listsReducer = (state = initialState, action) => {
                 ...state.lists,
                 [action.list.id] : action.list
                 }
-            }
+        };
+        case MAKE_LIST:
+            return {
+                ...state,
+                lists: {
+                    ...action.lists
+                }
+        };
+        case EDIT_LIST:
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    [action.list.id]: action.list
+                }
+        };
+        case DELETE_LIST:
+            const listToDelete = { ...state.lists };
+            delete listToDelete[action.listId];
+            return {
+                ...state,
+                lists: listToDelete
+        };
         default:
             return state;
     }

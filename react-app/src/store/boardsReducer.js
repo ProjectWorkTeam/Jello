@@ -182,6 +182,28 @@ const boardsReducer = (state = initialState, action) => {
                     ...action.boards
                 }
         };
+        case ADD_A_BOARD:
+            return {
+                ...state,
+                boards: {
+                    ...action.boards
+                }
+        };
+        case EDIT_BOARD:
+            return {
+                ...state,
+                boards: {
+                    ...state.boards,
+                    [action.board.id]: action.board
+                }
+        };
+        case DELETE_BOARD:
+            const boardToDelete = { ...state.boards };
+            delete boardToDelete[action.boardId];
+            return {
+                ...state,
+                boards: boardToDelete
+        };
         default:
             return state;
     }
