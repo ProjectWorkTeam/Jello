@@ -74,11 +74,13 @@
 import React, { useState } from 'react';
 import List from '../List/List';
 import BoardModal from '../BoardModal/BoardModal';
+import CardModal from '../CardModal/CardModal';
 import './Board.css';
 
 function Board() {
   const [openSideBar, setOpenSideBar] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const board = {
     id: 1,
@@ -108,6 +110,16 @@ function Board() {
     setModalOpen(!isModalOpen);
   };
 
+  const openCardModal = (cardId) => {
+    setSelectedCard(null);
+    setModalOpen(false);
+  };
+
+  const closeCardModal = () => {
+    setSelectedCard(null);
+    setModalOpen(false);
+  }
+
   const sidebarStyle = {
     transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
   };
@@ -136,11 +148,16 @@ function Board() {
         <h2>{board.name}</h2>
         <div className="lists-container">
           {lists.map((list) => (
-            <List key={list.id} list={list} cards={cards.filter((card) => card.list_id === list.id)} />
+            <List key={list.id} list={list} cards={cards.filter((card) => card.list_id === list.id)}
+            onClick={openCardModal}
+            />
           ))}
         </div>
         <button onClick={toggleModal}>Create Board</button>
         {isModalOpen && <BoardModal closeModal={toggleModal} />}
+        {selectedCard !== null && (
+          <CardModal cardId={selectedCard} closeModal={closeCardModal} />
+        )}
       </div>
     </div>
   );
