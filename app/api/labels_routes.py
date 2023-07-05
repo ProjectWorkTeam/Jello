@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models.user import Label, Card, CardLabel, db
 from app.forms.forms import LabelForm
+from .auth_routes import validation_errors_to_error_messages
 
 labels = Blueprint('labels', __name__)
 
