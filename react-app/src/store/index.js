@@ -1,10 +1,21 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import boardsReducer from './boardsReducer';
+import cardsReducer from './cardsReducer';
+import listsReducer from './listsReducer';
+import commentsReducer from './commentsReducer'
+import labelsReducer from './labelsReducer'
 
 const rootReducer = combineReducers({
   session,
+  boards: boardsReducer,
+  cards: cardsReducer,
+  labels: labelsReducer,
+  comments: commentsReducer,
+  lists: listsReducer
 });
+
 
 
 let enhancer;

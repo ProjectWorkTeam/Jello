@@ -7,7 +7,7 @@ const GET_BOARD = 'boards/GetBoard';
 const ADD_A_BOARD = 'boards/addABoard';
 const EDIT_BOARD = 'boards/editBoard';
 const DELETE_BOARD = 'boards/deleteBoard';
-
+const UPDATE_BOARD_POSITION = 'boards/updateBoardPosition';
 
 /*- Action Creators-*/
 
@@ -60,22 +60,29 @@ export const deleteBoard = (boardId) => {
     }
 }
 
+/*-Update Board Position-*/
+export const updateBoardPosition = (board) => {
+    return {
+        type: UPDATE_BOARD_POSITION,
+        board
+    }
+}
 /*-Thunks-*/
 
 
 /*-Get User Boards Thunk -*/
-export const thunkAUserBoards = (userId) => async (dispatch) => {
-   const response = await csrfFetch(`/api/boards/${userId}`);
-   if (response.ok) {
-    const userBoards = await response.json();
-    dispatch(getUserBoard(userBoards));
-    console.log('GET USER BOARDS REACHED WOOOO', userBoards)
-   }
-}
+// export const thunkAUserBoards = (userId) => async (dispatch) => {
+//    const response = await csrfFetch(`/api/boards/${userId}`);
+//    if (response.ok) {
+//     const userBoards = await response.json();
+//     dispatch(getUserBoard(userBoards));
+//     console.log('GET USER BOARDS REACHED WOOOO', userBoards)
+//    }
+// }
 
 /*-Get All Boards Thunk-*/
 export const thunkAllBoards = () => async (dispatch) => {
-    const response = await fetch('/api/boards');
+    const response = await csrfFetch('/api/boards');
     const boards = await response.json();
     console.log('after response get all boards', boards)
     dispatch(getAllBoards(boards));
@@ -150,7 +157,28 @@ export const thunkADeleteBoard = (boardId) => async (dispatch, getState) => {
     }
 }
 
+// UpdateBoardPosition
+export const thunkUpdateBoardPosition = (boardId, newPosition) => async (dispatch) => {
+    try {
+        const response = await csrfFetch(`/api/boards/${boardId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newPosition),
+        });
 
+        if (!response.ok) {
+            throw new Error('Failed to update the board position');
+        }
+
+        const updatedBoard = await response.json();
+
+        dispatch(updateBoardPosition(updatedBoard));
+    } catch (error) {
+        console.error(error);
+    }
+};
 /*- Reducer -*/
 const initialState = {
     boards: {},
@@ -204,6 +232,17 @@ const boardsReducer = (state = initialState, action) => {
                 ...state,
                 boards: boardToDelete
         };
+        case UPDATE_BOARD_POSITION: {
+            const updatedBoard = action.board;
+            return {
+              ...state,
+              boards: {
+                ...state.boards,
+                [updatedBoard.id]: updatedBoard,
+              },
+            };
+          }
+
         default:
             return state;
     }
