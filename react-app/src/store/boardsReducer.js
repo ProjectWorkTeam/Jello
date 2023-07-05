@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 /*- Action Types -*/
 const GET_USER_BOARD = 'boards/GetUserBoard';
+const GET_ALL_BOARDS = 'boards/GetAllBoards';
 const GET_BOARD = 'boards/GetBoard';
 const ADD_A_BOARD = 'boards/addABoard';
 const EDIT_BOARD = 'boards/editBoard';
@@ -23,6 +24,14 @@ export const getBoard = (board) => {
     return {
         type: GET_BOARD,
         board
+    }
+}
+
+/*-Get All Boards-*/
+export const getAllBoards = (boards) => {
+    return {
+        type: GET_ALL_BOARDS,
+        boards
     }
 }
 
@@ -62,6 +71,14 @@ export const thunkAUserBoards = (userId) => async (dispatch) => {
     dispatch(getUserBoard(userBoards));
     console.log('GET USER BOARDS REACHED WOOOO', userBoards)
    }
+}
+
+/*-Get All Boards Thunk-*/
+export const thunkAllBoards = () => async (dispatch) => {
+    const response = await fetch('/api/boards');
+    const boards = await response.json();
+    console.log('after response get all boards', boards)
+    dispatch(getAllBoards(boards));
 }
 
 /*-Get Board Thunk-*/
@@ -143,9 +160,28 @@ const initialState = {
 const boardsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USER_BOARD:
-            return {...state, boards: {...action.boards }};
+            return {
+                ...state,
+                boards: {
+                ...state.boards,
+                [action.board.id] : action.board
+            }
+        }
         case GET_BOARD:
-            return {...state, boards: {...action.boards }};
+            return {
+                ...state,
+                boards: {
+                ...state.boards,
+                [action.board.id] : action.board
+            }
+        }
+        case GET_ALL_BOARDS:
+            return {
+                ...state,
+                boards: {
+                    ...action.boards
+                }
+        };
         default:
             return state;
     }

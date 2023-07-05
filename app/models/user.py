@@ -127,7 +127,7 @@ class Card(db.Model):
             'title': self.title,
             'text': self.text,
             'list_id': self.list_id,
-            'postion_id': self.position_id
+            'position_id': self.position_id
         }
 
 class CardComment(db.Model):
