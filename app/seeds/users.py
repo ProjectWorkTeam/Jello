@@ -7,7 +7,7 @@ def seed_users():
     demo = User(
         first_name='Demo', last_name='Lition',
         username='Demo1', email='demo@aa.io', hashed_password='password')
-    
+
     marnie = User(
         first_name='Marnie', last_name='Smith',
         username='Marnie1', email='marnie@aa.io', hashed_password='password')
@@ -44,7 +44,7 @@ def seed_boards():
     )
 
     board_2 = Board(
-        name = "Poop Board", owner_id = 2
+        name = "P Board", owner_id = 2
     )
 
     board_3 = Board(
@@ -72,7 +72,7 @@ def seed_lists():
     )
 
     list_2 = List(
-        name = "Poop List", board_id = 2
+        name = "P List", board_id = 2
     )
 
     list_3 = List(
@@ -99,7 +99,7 @@ def seed_cards():
     )
 
     card_2 = Card(
-        title = "Poopie", text = "poopie poopie", list_id = 2
+        title = "Poe", text = "poe poe", list_id = 2
     )
 
     card_3 = Card(
@@ -122,13 +122,13 @@ def undo_cards():
 
 def seed_labels():
     label_1 = Label(
-        name = "Un Labele", color_code = "231456"
+        name = "Un Labele", color_code = "00FF00"
     )
     label_2 = Label(
-        name = "Poopie", color_code = "23232"
+        name = "Poe", color_code = "00FF00"
     )
     label_3 = Label(
-        name = "Jello Label", color_code = "22333"
+        name = "Jello Label", color_code = "00FF00"
     )
 
     db.session.add(label_1)
