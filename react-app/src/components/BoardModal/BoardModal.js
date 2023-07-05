@@ -54,19 +54,19 @@ const BoardModal = ({ closeModal }) => {
                     <div>
                         <img
                             src={image1}
-                            alt="Image 1"
+                            alt="Background 1"
                             className="background-img"
                             onClick={() => handleImageSelect(image1)}
                         />
                         <img
                             src={image2}
-                            alt="Image 2"
+                            alt="Background 2"
                             className="background-img"
                             onClick={() => handleImageSelect(image2)}
                         />
                         <img
                             src={image3}
-                            alt="Image 3"
+                            alt="Background 3"
                             className="background-img"
                             onClick={() => handleImageSelect(image3)}
                         />
@@ -75,7 +75,7 @@ const BoardModal = ({ closeModal }) => {
                 <div>
                     <h3>Selected Image Preview</h3>
                     {selectedImage && (
-                        <img src={selectedImage} className="background-img" alt="Selected Image" />
+                        <img src={selectedImage} className="background-img" alt="Selected Background" />
                     )}
                 </div>
                 <div>

@@ -1,0 +1,133 @@
+.Nav {
+    height: 3.75rem;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    font-size: 2rem;
+    font-weight: 1000;
+    background-color: white;
+    color: black;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-left: 0.9rem;
+}
+
+.Creds {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    color: #172B4D;
+    cursor: pointer;
+    height: 100%;
+    padding: 0rem 1.25rem;
+}
+
+.SignUp {
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 100%;
+    background-color: #4576fc;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.SignUp:hover {
+    background-color: darkblue;
+}
+
+.Info-Body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 96%;
+    height: 86vh;
+    background-color: purple;
+    padding: 3.1rem;
+}
+
+.Body {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    max-width: 30rem;
+    margin: auto;
+}
+
+.header {
+    font-size: 3rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.63rem;
+}
+
+.text-body {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 0.94rem;
+}
+
+.SignUp-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #4576fc;
+    height: fit-content;
+    width: fit-content;
+    padding: 1.25rem 1.13rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 100ms;
+    border-radius: 0.38rem;
+    user-select: none;
+}
+
+.SignUp-body:hover {
+    background-color: #2c54c2;
+}
+
+.background-img {
+    display: flex;
+    align-items: flex-end;
+    width: 75rem;
+    margin-left: auto;
+    justify-content: center;
+    padding-top: 25rem;
+}
+
+.background-img>img {
+    width: 39.5rem;
+    height: 34.88rem;
+}
+
+.Wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.1rem;
+    width: 100%;
+    height: 100vh;
+}
