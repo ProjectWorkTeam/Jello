@@ -12,11 +12,10 @@ const BoardList = () => {
   useEffect(() => {
     dispatch(thunkAllBoards());
   }, [dispatch]);
-
   const handleDragEnd = (result) => {
-    const { destination, source } = result;
+    const { destination, source, draggableId } = result;
     if (!destination || destination.index === source.index) return;
-    const boardToMove = boards[source.index];
+    const boardToMove = sortedBoards[0][source.index];
     const newPositionId = destination.index + 1;
     dispatch(thunkUpdateBoardPosition(boardToMove.id, { position_id: newPositionId }));
   };
@@ -30,9 +29,10 @@ const BoardList = () => {
     <DragDropContext onDragEnd={handleDragEnd}>
       <div>
         <h1>Board List</h1>
-        <Droppable droppableId="boardList">
+        <Droppable droppableId="boardList" >
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div classname="board_list"
+              {...provided.droppableProps} ref={provided.innerRef}>
               {sortedBoards[0].map((board, index) => (
                 <BoardTile key={board.id} board={board} index={index} />
               ))}
