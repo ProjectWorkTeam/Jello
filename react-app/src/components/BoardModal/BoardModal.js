@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import image1 from '../../assets/image1.jpg';
 import image2 from '../../assets/image2.jpg';
 import image3 from '../../assets/image3.jpg';
@@ -11,6 +12,7 @@ const BoardModal = ({ closeModal }) => {
     const [selectedImage, setSelectedImage] = useState(image1);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleImageSelect = (image) => {
         setSelectedImage(image);
@@ -20,7 +22,7 @@ const BoardModal = ({ closeModal }) => {
         setBoardName(e.target.value);
     };
 
-    const handleCreateBoard = () => {
+    const handleCreateBoard = async () => {
         if (boardName.trim() === '' || selectedImage === '') {
             // Handle error case
             return;
@@ -31,7 +33,10 @@ const BoardModal = ({ closeModal }) => {
             image: selectedImage,
         };
 
-        dispatch(thunkAddBoard(newBoard)); // Dispatch the thunkAddBoard action with the new board details
+        const createdBoard = await dispatch(thunkAddBoard(newBoard)); // Dispatch the thunkAddBoard action with the new board details
+        if (createdBoard) {
+            history.push(`/boards/${createdBoard.board.id}`); // Navigates to the new board's page
+        }
 
         closeModal();
     };
