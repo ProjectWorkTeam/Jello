@@ -1,7 +1,7 @@
 """changed seeders
 
 Revision ID: 27467c431be5
-Revises: 
+Revises:
 Create Date: 2023-06-30 17:43:22.315580
 
 """
@@ -22,8 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('color_code', sa.String(length=7), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('color_code')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
