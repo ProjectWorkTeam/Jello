@@ -8,6 +8,7 @@ from app.utils import generate_error_response, generate_success_response, create
 
 cards = Blueprint('cards', __name__)
 
+# Get cards by list
 @cards.route('/list/<int:list_id>', methods=['GET'])
 @login_required
 def get_cards_for_list(list_id):
@@ -17,6 +18,7 @@ def get_cards_for_list(list_id):
     cards = Card.query.filter_by(list_id=list_id).all()
     return generate_success_response([card.to_dict() for card in cards])
 
+# Get card details
 @cards.route('/<int:card_id>', methods=['GET'])
 @login_required
 def get_card(card_id):
@@ -25,6 +27,7 @@ def get_card(card_id):
         return generate_error_response("Card not found", 404)
     return generate_success_response(card.to_dict())
 
+# Create card
 @cards.route('/', methods=['POST'])
 @login_required
 def create_card():
@@ -44,6 +47,7 @@ def create_card():
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+# Update card details
 @cards.route('/<int:card_id>', methods=['PUT'])
 @login_required
 def update_card(card_id):
@@ -59,6 +63,7 @@ def update_card(card_id):
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+# Delete a card
 @cards.route('/<int:card_id>', methods=['DELETE'])
 @login_required
 def delete_card(card_id):
@@ -74,6 +79,7 @@ def delete_card(card_id):
     db.session.commit()
     return generate_success_response({"message": "Card deleted successfully"})
 
+# Update Card List
 @cards.route('/<int:card_id>/list/<int:list_id>', methods=['PUT'])
 @login_required
 def update_card_list(card_id, list_id):
