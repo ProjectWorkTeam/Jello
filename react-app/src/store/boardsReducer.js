@@ -163,18 +163,18 @@ const boardsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 boards: {
-                ...state.boards,
-                [action.board.id] : action.board
+                    ...state.boards,
+                    [action.board.id] : action.board
+                }
             }
-        }
         case GET_BOARD:
             return {
                 ...state,
                 boards: {
-                ...state.boards,
-                [action.board.id] : action.board
+                    ...state.boards,
+                    [action.board.id] : action.board
+                }
             }
-        }
         case GET_ALL_BOARDS:
             return {
                 ...state,
@@ -208,5 +208,6 @@ const boardsReducer = (state = initialState, action) => {
             return state;
     }
 }
+
 
 export default boardsReducer;
