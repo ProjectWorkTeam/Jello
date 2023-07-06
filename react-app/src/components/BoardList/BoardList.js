@@ -20,12 +20,13 @@ const BoardList = () => {
 
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-    console.log(draggableId)
+    console.log('\n','DraggableId',draggableId,'\n')
     // Assuming that your draggableId is in the format 'board_id'
     const boardId = draggableId.split('_')[1];
 
     // Your new position_id will be the destination index
-    const newPositionId = destination.index;
+    const newPositionId = destination.index + 1
+    console.log('\n',"Destination",destination)
 
     const newBoardState = {
       id: boardId,
