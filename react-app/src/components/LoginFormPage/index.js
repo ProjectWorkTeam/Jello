@@ -35,7 +35,7 @@ function LoginFormPage() {
   };
 
   return (
-    <div className="login-container">
+    <div className="container">
       <div className="top">
         <div className="logo-container" onClick={handleLogoClick}>
           <div className="logo-wrapper">
@@ -44,36 +44,42 @@ function LoginFormPage() {
           <div className="logo-text">Jello</div>
         </div>
       </div>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit} className="login-form">
+      <h1 className="title">Log In</h1>
+      <form onSubmit={handleSubmit} className="form-wrapper">
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
         <div className="form-group">
-          <label>Email</label>
+          {/* <label>Email</label> */}
           <input
             type="text"
             value={email}
+            placeholder="Email"
+            className="inputs"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div className="form-group">
-          <label>Password</label>
+          {/* <label>Password</label> */}
           <input
             type="password"
             value={password}
+            placeholder="Password"
+            className="inputs"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Log In</button>
+        <button className="buttons" type="submit">Log In</button>
       </form>
-      <button className="demo" onClick={demo}>
-        Demo User
-      </button>
+      <div className="demo-wrapper">
+        <button className="buttons" onClick={demo}>
+          Demo User
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,10 +1,11 @@
-.login-container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 4rem;
 }
 
-.login-form {
+.form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,13 +15,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group label {
     margin-bottom: 0.5rem;
 }
 
-.login-form input {
+.form-wrapper input {
     padding: 0.5rem;
+}
+
+.inputs {
+    width: 15rem;
+    border-radius: 0.38rem;
+    border-color: lightgray;
+}
+
+.buttons{
+    padding: .8rem;
+    width: 16.4rem;
+    background-color: #0065FF;
+    font-weight: 600;
+    color: white;
+    border:none;
+    border-radius: 0.38rem
+}
+
+.title {
+    font-family: Roboto,Helvetica Neue,sans-serif;
+    color: gray
+}
+
+.demo-wrapper {
+    padding-top: 1.5rem;
 }
