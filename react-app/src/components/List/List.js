@@ -8,6 +8,9 @@ import './List.css';
 function List({ list, cards, openCardModal }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
+  const [addingCard, setAddingCard] = useState(false);
+  const [newCardTitle, setNewCardTitle] = useState('');
+  const [addCards, setCards] = useState([])
   const dispatch = useDispatch();
 
   const handleTitleClick = () => {
@@ -25,6 +28,29 @@ function List({ list, cards, openCardModal }) {
       setEditMode(false);
     }
   };
+
+  const toggleAddingCard = () => {
+    setAddingCard(!addingCard);
+    setNewCardTitle('');
+  };
+
+  const handleCardTitleChange = (e) => {
+    setNewCardTitle(e.target.value);
+  };
+
+  const handleNewCard = () => {
+    if (newCardTitle.trim() === '') {
+      return;
+    }
+    const newCard = {
+      id: cards.length + 1,
+      title: newCardTitle,
+      list_id: list.id,
+    };
+    setCards([...addCards, newCard]);
+    setAddingCard(false);
+    setNewCardTitle('');
+  }
 
   return (
     <div className="list-container">
@@ -51,10 +77,25 @@ function List({ list, cards, openCardModal }) {
           ))}
         </ul>
         <div className="list-footer">
-          <div className="add-card">
+          {!addingCard ? (
+          <div className="add-card" onClick={toggleAddingCard}>
             <a className="add-card-icon">+</a>
             <h4 className="add-card-text">Add A Card</h4>
           </div>
+          ) : (
+            <div className="add-card-form">
+              <input
+                type="text"
+                value={newCardTitle}
+                onChange={handleCardTitleChange}
+                placeholder="Enter card title"
+              />
+            <div className="add-card-actions">
+              <button onClick={handleNewCard}>Save</button>
+              <button onClick={toggleAddingCard}>Cancel</button>
+            </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
