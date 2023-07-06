@@ -3,7 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 const BoardTile = ({ board, index }) => {
   return (
-    <Draggable draggableId={`board-${board.id}`} index={index}>
+    <Draggable draggableId={`board_${board.id}`} index={index}>
       {(provided) => (
         <div
           className="board-tile"
