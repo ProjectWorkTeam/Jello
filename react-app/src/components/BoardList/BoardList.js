@@ -8,12 +8,13 @@ import BoardModal from '../BoardModal/BoardModal'; // Import the BoardModal comp
 const BoardList = () => {
   const dispatch = useDispatch();
   const boards = useSelector((state) => Object.values(state.boards.boards) || []);
-  const sortedBoards = [...boards].sort((a, b) => a.position_id - b.position_id);
+  const sortedBoards = boards.sort((a, b) => a.position_id - b.position_id);
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage the visibility of the modal
 
   useEffect(() => {
     dispatch(thunkAllBoards());
   }, [dispatch]);
+
   console.log('\n', "Boards", boards, '\n')
   console.log('\n', "Sorted Boards", sortedBoards[0], '\n')
 
@@ -35,7 +36,9 @@ const BoardList = () => {
       position_id: newPositionId
     };
 
-    dispatch(thunkUpdateBoardPosition(newBoardState));
+    dispatch(thunkUpdateBoardPosition(newBoardState)).then(() => {
+      dispatch(thunkAllBoards());
+    });
   };
 
   const handleCreateBoard = async (newBoard) => {
