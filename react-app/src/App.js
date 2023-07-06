@@ -7,6 +7,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import Board from "./components/Board/Board";
+import LandingPage from "./components/LandingPage/Landing";
 
 
 function App() {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/board">
             <Board />
+          </Route>
+          <Route path="/">
+            <LandingPage />
           </Route>
         </Switch>
       )}
