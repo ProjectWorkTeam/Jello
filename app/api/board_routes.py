@@ -42,7 +42,7 @@ def create_board():
     return generate_error_response("Invalid form submission.", 400)
 
 
-# Update a board's name
+# Update a board's name and position
 @board_routes.route('/<int:board_id>', methods=["PUT"])
 @login_required
 def update_board(board_id):
@@ -55,10 +55,32 @@ def update_board(board_id):
         return generate_error_response("Unauthorized to update this board.", 403)
 
     data = request.get_json()
-    board.name = data.get('name', board.name)
+
+    # Check if new name is provided
+    if 'name' in data:
+        board.name = data['name']
+
+    # Check if new position is provided
+    if 'position_id' in data:
+        old_position = board.position_id
+        new_position = data['position_id']
+
+        # Shift positions of other boards if necessary
+        if new_position > old_position:
+            boards_to_update = Board.query.filter(Board.position_id > old_position, Board.position_id <= new_position).all()
+            for b in boards_to_update:
+                b.position_id -= 1
+        elif new_position < old_position:
+            boards_to_update = Board.query.filter(Board.position_id >= new_position, Board.position_id < old_position).all()
+            for b in boards_to_update:
+                b.position_id += 1
+
+        board.position_id = new_position
+
     db.session.commit()
 
     return generate_success_response({'message': 'Board updated successfully.'})
+
 
 # Delete a board
 @board_routes.route('/<int:board_id>', methods=["DELETE"])
@@ -81,29 +103,3 @@ def delete_board(board_id):
     db.session.commit()
 
     return generate_success_response({'message': 'Board deleted successfully.'})
-
-# Update board position
-@board_routes.route('/<int:board_id>/position', methods=['PUT'])
-@login_required
-def update_board_position(board_id):
-    body = request.json
-    new_position = body.get('position_id')
-    board = Board.query.get(board_id)
-
-    if not board:
-        return generate_error_response('Board not found', 404)
-
-    # Get the current position of the board
-    current_position = board.position_id
-
-    if new_position != current_position:
-        # Find the board which is currently at the new position
-        swapped_board = Board.query.filter_by(owner_id=current_user.id, position_id=new_position).first()
-
-        if swapped_board:
-            # Swap positions of the two boards
-            swapped_board.position_id = current_position
-            board.position_id = new_position
-            db.session.commit()
-
-    return generate_success_response(board.to_dict())

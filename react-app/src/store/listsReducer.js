@@ -58,6 +58,7 @@ export const deleteList = (listId) => {
 export const thunkAllLists = () => async (dispatch) => {
   const response = await fetch('/api/lists');
   const lists = await response.json();
+    console.log('after response get all lists', lists)
   dispatch(getAllLists(lists));
 }
 
@@ -144,7 +145,29 @@ const listsReducer = (state = initialState, action) => {
                 ...state.lists,
                 [action.list.id] : action.list
                 }
+        };
+        case MAKE_LIST:
+            return {
+                ...state,
+                lists: {
+                    ...action.lists
+                }
+        };
+        case EDIT_LIST:
+            return {
+                ...state,
+                lists: {
+                    ...state.lists,
+                    [action.list.id]: action.list
             }
+        };
+        case DELETE_LIST:
+            const listToDelete = { ...state.lists };
+            delete listToDelete[action.listId];
+            return {
+                ...state,
+                lists: listToDelete
+        };
         default:
             return state;
     }

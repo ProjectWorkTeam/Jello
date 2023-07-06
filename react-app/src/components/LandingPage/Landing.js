@@ -65,7 +65,7 @@ const LandingPage = () => {
     const history = useHistory();
 
     if (currentUser) {
-        history.push("/board");
+        history.push("/home");
     }
 
     const login = () => {
