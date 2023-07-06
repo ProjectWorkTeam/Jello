@@ -82,28 +82,24 @@ def delete_board(board_id):
 
     return generate_success_response({'message': 'Board deleted successfully.'})
 
-# Update board position
-@board_routes.route('/<int:board_id>/position', methods=['PUT'])
+# Update the order of the boards Please god let this work ty ty :cryingemoji:
+@board_routes.route('/order', methods=["PUT"])
 @login_required
-def update_board_position(board_id):
-    body = request.json
-    new_position = body.get('position_id')
-    board = Board.query.get(board_id)
+def update_board_order():
+    data = request.get_json()
 
-    if not board:
-        return generate_error_response('Board not found', 404)
+#only change if board.position_id
+#query all boards, reorder based on difference between received boardstate
+    if 'order' not in data:
+        return generate_error_response("Missing required 'order' field.", 400)
 
-    # Get the current position of the board
-    current_position = board.position_id
+    for index, board_id in enumerate(data['order']):
+        board = Board.query.get(board_id)
+        if board:
+            board.position_id = index + 1
+        else:
+            return generate_error_response(f"Board with id {board_id} not found.", 404)
 
-    if new_position != current_position:
-        # Find the board which is currently at the new position
-        swapped_board = Board.query.filter_by(owner_id=current_user.id, position_id=new_position).first()
+    db.session.commit()
 
-        if swapped_board:
-            # Swap positions of the two boards
-            swapped_board.position_id = current_position
-            board.position_id = new_position
-            db.session.commit()
-
-    return generate_success_response(board.to_dict())
+    return generate_success_response({'message': 'Board order updated successfully.'})
