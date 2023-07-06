@@ -5,14 +5,23 @@ import { thunkCard, thunkCardList, thunkEditCard } from '../../store/cardsReduce
 import { useModal } from '../../context/Modal';
 import './CardModal.css';
 
-const CardModal = () => {
-    const { cardId } = useParams();
+const CardModal = ({cardId, closeModal}) => {
+
+
     const dispatch = useDispatch();
     const history = useHistory();
-    const card = useSelector(state => state.cards.cards[cardId]);
+    const card = useSelector(state => state.cards.cards.find(card => card.id === cardId));
     const [isEdit, setIsEdit] = useState(false);
-    const [cardName, setCardName] = useState(card ? card.name :  '');
-    const [cardText, setCardText] = useState(card ? card.text : '');
+    const [cardName, setCardName] = useState('');
+    const [cardText, setCardText] = useState('');
+
+
+    useEffect(() => {
+        if (card) {
+          setCardName(card.title);
+          setCardText(card.text);
+        }
+      }, [card]);
 
 
     const handleCardTitleClick = () => {
@@ -28,15 +37,22 @@ const CardModal = () => {
     }
 
     const handleCardSave = (e) => {
-        dispatch(thunkEditCard(cardId, { name: cardName, description: cardText}));
+        dispatch(thunkEditCard(cardId, { title: cardName, text: cardText}));
         setIsEdit(false);
+    }
+
+    const handleCloseModal = () => {
+        closeModal();
+    }
+
+    if (!card) {
+        return null;
     }
 
 
     return (
-        <div id="card-modal">
-            <div id="card-modal-background"> </div>
-            <div id="card-modal-content">
+        <div className="card-modal-container">
+            <div className="card-modal" onClick={(e) => e.stopPropagation()}>
                 {isEdit ? (
                 <div>
                     <input
@@ -53,15 +69,16 @@ const CardModal = () => {
                 </div>
                 ) : (
                 <div>
-                 <h2 id="card-title" onClick={handleCardTitleClick}>
+                 <h2 id="card-title">
                     {card.title}
                 </h2>
-                <p id="card-text" onClick={handleCardTitleClick}>
+                <p id="card-text">
                     {card.text}
                 </p>
                 </div>
             )}
             </div>
+            <button onClick={handleCloseModal}>Close</button> 
         </div>
     )
 }

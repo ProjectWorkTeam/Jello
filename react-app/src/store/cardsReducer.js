@@ -1,4 +1,4 @@
-import { csrfFetch } from "./csrf";
+
 
 
 /*- Action Types -*/
@@ -82,7 +82,7 @@ export const thunkCard = (cardId) => async (dispatch, getState) => {
 
 /*-Get Card By List Id Thunk=*/
 export const thunkCardList = (listId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/cards/${listId}`);
+    const response = await fetch(`/api/cards/${listId}`);
     if (response.ok) {
         const cardLists = await response.json();
         dispatch(getCardLists(cardLists));
@@ -94,7 +94,7 @@ export const thunkCardList = (listId) => async (dispatch) => {
 export const thunkMakeCard = (card) => async (dispatch) => {
     let response;
     try {
-        response = await csrfFetch('/api/cards', {
+        response = await fetch('/api/cards', {
             method: 'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(card)
@@ -115,7 +115,7 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
     console.log('edit card thunk reached', card)
     let response;
     try {
-        response = await csrfFetch(`/api/cards/${cardId}`, {
+        response = await fetch(`/api/cards/${cardId}`, {
             method: 'PUT',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(card)
@@ -133,7 +133,7 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
 export const thunkDeleteCard = (cardId) => async (dispatch, getState) => {
     let response;
     try {
-        response = await csrfFetch(`/api/cards/${cardId}`, {
+        response = await fetch(`/api/cards/${cardId}`, {
             method: 'DELETE'
         });
         const deleteCard = await response.json();

@@ -3,14 +3,16 @@ import { useDispatch } from 'react-redux';
 import { thunkEditList } from '../../store/listsReducer';
 import Card from '../Card/Card';
 import './List.css';
+import CardModal from '../CardModal/CardModal';
+import OpenModalButton from '../OpenModalButton';
 
-
-function List({ list, cards, openCardModal }) {
+function List({ list, cards }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
   const [addingCard, setAddingCard] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
-  const [addCards, setCards] = useState([])
+  const [addCards, setCards] = useState([]);
+  const [selectCard, setSelectCard] = useState(null);
   const dispatch = useDispatch();
 
   const handleTitleClick = () => {
@@ -50,7 +52,15 @@ function List({ list, cards, openCardModal }) {
     setCards([...addCards, newCard]);
     setAddingCard(false);
     setNewCardTitle('');
-  }
+  };
+
+  const openCardModal = (cardId) => {
+    setSelectCard(cardId);
+  };
+
+  const closeCardModal = () => {
+    setSelectCard(null);
+  };
 
   return (
     <div className="list-container">
@@ -73,15 +83,19 @@ function List({ list, cards, openCardModal }) {
         </div>
         <ul>
           {cards.map((card) => (
-            <Card key={card.id} card={card} openCardModal={openCardModal} />
+            <Card
+              key={card.id}
+              card={card}
+              openCardModal={openCardModal}
+            />
           ))}
         </ul>
         <div className="list-footer">
           {!addingCard ? (
-          <div className="add-card" onClick={toggleAddingCard}>
-            <a className="add-card-icon">+</a>
-            <h4 className="add-card-text">Add A Card</h4>
-          </div>
+            <div className="add-card" onClick={toggleAddingCard}>
+              <a className="add-card-icon">+</a>
+              <h4 className="add-card-text">Add A Card</h4>
+            </div>
           ) : (
             <div className="add-card-form">
               <input
@@ -90,14 +104,21 @@ function List({ list, cards, openCardModal }) {
                 onChange={handleCardTitleChange}
                 placeholder="Enter card title"
               />
-            <div className="add-card-actions">
-              <button onClick={handleNewCard}>Save</button>
-              <button onClick={toggleAddingCard}>Cancel</button>
-            </div>
+              <div className="add-card-actions">
+                <button onClick={handleNewCard}>Save</button>
+                <button onClick={toggleAddingCard}>Cancel</button>
+              </div>
             </div>
           )}
         </div>
       </div>
+      {selectCard && (
+        <OpenModalButton
+          modalComponent={<CardModal cardId={selectCard} closeModal={closeCardModal} />}
+          buttonText=""
+          onModalClose={closeCardModal}
+        />
+      )}
     </div>
   );
 }

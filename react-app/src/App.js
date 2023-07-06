@@ -28,7 +28,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/board">
+          <Route path="/board/:cardId?">
             <Board />
           </Route>
           <Route path="/">
