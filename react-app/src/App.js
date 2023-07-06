@@ -8,7 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import Board from "./components/Board/Board";
 import BoardList from "./components/BoardList/BoardList";
-
+import LandingPage from "./components/LandingPage/Landing";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +34,9 @@ function App() {
           <Route path="/dashboard">
             <h1>Dashboard</h1>
             <BoardList />
+          </Route>
+          <Route path="/">
+            <LandingPage />
           </Route>
         </Switch>
       )}

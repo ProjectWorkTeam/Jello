@@ -62,7 +62,7 @@ export const deleteBoard = (boardId) => {
 /*-Update Board Position-*/
 export const updateBoardPosition = (updatedBoard) => {
     return {
-        type: 'UPDATE_BOARD_POSITION',
+        type: UPDATE_BOARD_POSITION,
         payload: updatedBoard,
     }
 }
@@ -118,6 +118,7 @@ export const thunkAddBoard = (board) => async (dispatch) => {
         return errors;
     }
 }
+
 
 /*-Edit A Board Thunk-*/
 export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
@@ -215,15 +216,15 @@ const boardsReducer = (state = initialState, action) => {
                     ...state.boards,
                     [action.board.id]: action.board
                 }
-            };
+        };
         case DELETE_BOARD:
             const boardToDelete = { ...state.boards };
             delete boardToDelete[action.boardId];
             return {
                 ...state,
                 boards: boardToDelete
-            };
-        case 'UPDATE_BOARD_POSITION':
+        };
+        case UPDATE_BOARD_POSITION:
             const updatedBoard = action.payload;
             return {
                 ...state,
