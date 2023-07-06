@@ -40,7 +40,21 @@ export const postComments = (cardComment) => {
 }
 
 
+/*-Edit Comment-*/
+export const editComments = (cardComment) => {
+    return {
+        type: EDIT_COMMENTS,
+        cardComment
+    }
+}
 
+/*-Delete Comment-*/
+export const deleteComments = (cardCommentId) => {
+    return {
+        type: DELETE_COMMENTS,
+        cardCommentId
+    }
+}
 
 
 
@@ -70,7 +84,7 @@ export const thunkPostComments = (cardComment) => async (dispatch) => {
     try {
         response = await csrfFetch('/api/cardComments', {
             method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(cardComment)
         });
         console.log('post comment thunk reached', response);
@@ -78,7 +92,42 @@ export const thunkPostComments = (cardComment) => async (dispatch) => {
         dispatch(postComments(commentResponse));
         console.log('new comment!', commentResponse);
         return commentResponse;
-    } catch(err) {
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    }
+}
+
+/*-Edit Comments Thunk-*/
+export const thunkEditComments = (cardCommentId, cardComment) => async (dispatch) => {
+    console.log('edit comment thunk reached', cardComment)
+    let response;
+    try {
+        response = await fetch(`/api/cardComments/${cardCommentId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(cardComment)
+        });
+        const commentToEdit = await response.json();
+        dispatch(editComments(commentToEdit));
+        return commentToEdit;
+    } catch (err) {
+        const errors = await err.json();
+        return errors;
+    }
+}
+
+/*-Delete A Comment Thunk-*/
+export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
+    let response;
+    try {
+        response = await fetch(`/api/cardComments/${cardCommentId}`, {
+            method: 'DELETE'
+        });
+        const deleteComent = await response.json();
+        dispatch(deleteComments(cardCommentId));
+        return deleteComent;
+    } catch (err) {
         const errors = await err.json();
         return errors;
     }
@@ -92,29 +141,29 @@ const initialState = {
 
 
 const commentsReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case GET_ALL_COMMENTS:
             return {
                 ...state,
                 cardComments: {
                     ...action.cardComments
                 }
-        };
+            };
         case GET_COMMENTS:
             return {
                 ...state,
                 cardComments: {
-                ...state.cardComments,
-                [action.cardComment.id] : action.cardComment
-            }
-        };
+                    ...state.cardComments,
+                    [action.cardComment.id]: action.cardComment
+                }
+            };
         case POST_COMMENTS:
             return {
                 ...state,
                 cardComments: {
                     ...action.cardComments
                 }
-        };
+            };
         case EDIT_COMMENTS:
             return {
                 ...state,
@@ -122,7 +171,7 @@ const commentsReducer = (state = initialState, action) => {
                     ...state.cardComments,
                     [action.cardComment.id]: action.cardComment
                 }
-        };
+            };
         case DELETE_COMMENTS:
             const commentsToDelete = { ...state.cardComments };
             delete commentsToDelete[action.cardCommentId];
