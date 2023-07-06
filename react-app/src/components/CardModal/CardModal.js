@@ -37,7 +37,7 @@ const CardModal = ({cardId, closeModal}) => {
     }
 
     const handleCardSave = (e) => {
-        dispatch(thunkEditCard(cardId, { title: cardName, text: cardText}));
+        dispatch(thunkCard(cardId, { title: cardName, text: cardText}));
         setIsEdit(false);
     }
 
@@ -78,7 +78,7 @@ const CardModal = ({cardId, closeModal}) => {
                 </div>
             )}
             </div>
-            <button onClick={handleCloseModal}>Close</button> 
+            <button onClick={handleCloseModal}>Close</button>
         </div>
     )
 }

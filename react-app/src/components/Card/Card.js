@@ -14,12 +14,7 @@ function Card({ card, openCardModal}) {
   };
 
   const handleCardClick = () => {
-    if (isMenuOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-      openCardModal(card.id)
-    }
+    openCardModal(card.id)
   };
 
   return (
