@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { thunkAddBoard } from '../../store/boardsReducer';
 import image1 from '../../assets/image1.jpg';
 import image2 from '../../assets/image2.jpg';
 import image3 from '../../assets/image3.jpg';
-import { thunkAddBoard } from '../../store/boardsReducer';
 import './boardModal.css';
 
 const BoardModal = ({ closeModal }) => {
     const [boardName, setBoardName] = useState('');
-    const [selectedImage, setSelectedImage] = useState(image1);
+    const [selectedImage, setSelectedImage] = useState('');
 
     const dispatch = useDispatch();
+    const history = useHistory(); // Hook to manage navigation
 
     const handleImageSelect = (image) => {
         setSelectedImage(image);
@@ -20,7 +22,7 @@ const BoardModal = ({ closeModal }) => {
         setBoardName(e.target.value);
     };
 
-    const handleCreateBoard = () => {
+    const handleCreateBoard = async () => {
         if (boardName.trim() === '' || selectedImage === '') {
             // Handle error case
             return;
@@ -31,9 +33,11 @@ const BoardModal = ({ closeModal }) => {
             image: selectedImage,
         };
 
-        dispatch(thunkAddBoard(newBoard)); // Dispatch the thunkAddBoard action with the new board details
-
-        closeModal();
+        const createdBoard = await dispatch(thunkAddBoard(newBoard)); // Dispatch the thunkAddBoard action with the new board details
+        if (createdBoard) {
+            closeModal();
+            history.push(`/boards/${createdBoard.id}`); // Navigate to the new board's page
+        }
     };
 
     return (
@@ -54,19 +58,19 @@ const BoardModal = ({ closeModal }) => {
                     <div>
                         <img
                             src={image1}
-                            alt="Background 1"
+                            alt="Image 1"
                             className="background-img"
                             onClick={() => handleImageSelect(image1)}
                         />
                         <img
                             src={image2}
-                            alt="Background 2"
+                            alt="Image 2"
                             className="background-img"
                             onClick={() => handleImageSelect(image2)}
                         />
                         <img
                             src={image3}
-                            alt="Background 3"
+                            alt="Image 3"
                             className="background-img"
                             onClick={() => handleImageSelect(image3)}
                         />
@@ -75,7 +79,7 @@ const BoardModal = ({ closeModal }) => {
                 <div>
                     <h3>Selected Image Preview</h3>
                     {selectedImage && (
-                        <img src={selectedImage} className="background-img" alt="Selected Background" />
+                        <img src={selectedImage} className="background-img" alt="Selected Image" />
                     )}
                 </div>
                 <div>
