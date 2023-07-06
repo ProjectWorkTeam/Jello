@@ -1,4 +1,3 @@
-// Jello/react-app/src/App.js
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
@@ -22,16 +21,16 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/login" >
+          <Route path="/login">
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/board">
+          <Route path="/board/:boardid">
             <Board />
           </Route>
-          <Route path="/dashboard">
+          <Route path="/home">
             <h1>Dashboard</h1>
             <BoardList />
           </Route>
