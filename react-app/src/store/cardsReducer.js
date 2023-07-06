@@ -154,6 +154,7 @@ const initialState = {
 const cardsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_CARDS:
+            console.log('Action: GET_ALL_CARDS', action.cards);
             return {
                 ...state,
                 cards: {
