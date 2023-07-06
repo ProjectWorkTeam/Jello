@@ -16,7 +16,7 @@ export const getComments = (cardComments, cardId) => {
     return {
         type: GET_COMMENTS,
         payload: {
-            cardComments: cardComments,
+            cardComment: cardComments,
             cardId: cardId
         }
     }
@@ -154,14 +154,15 @@ const commentsReducer = (state = initialState, action) => {
                 ...state,
                 cardComments: {
                     ...state.cardComments,
-                    [action.cardComment.id]: action.cardComment
+                    [action.payload.cardComment.id]: action.payload.cardComment
                 }
             };
         case POST_COMMENTS:
             return {
                 ...state,
                 cardComments: {
-                    ...action.cardComments
+                    ...state.cardComments,
+                    [action.cardComment.id]: action.cardComment
                 }
             };
         case EDIT_COMMENTS:
