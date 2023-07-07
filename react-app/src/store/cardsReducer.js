@@ -1,25 +1,18 @@
-import { csrfFetch } from "./csrf";
-
-
 /*- Action Types -*/
-const GET_CARDS_LIST = 'cards/GetCardsList';
-const GET_ALL_CARDS = 'cards/GetAllCards';
+const GET_CARDS_BY_LIST = 'cards/getCardsByList';
 const GET_CARD = 'cards/GetCard';
 const MAKE_CARD = 'cards/MakeCard';
 const EDIT_CARD = 'cards/EditCard';
 const DELETE_CARD = 'cards/DeleteCard';
 
 
+const initialState = {
+    cards : {},
+}
+
 /*-Action Creators-*/
 
-
 /*-Get All Cards-*/
-export const getAllCards = (cards) => {
-    return {
-        type: GET_ALL_CARDS,
-        cards
-    }
-}
 
 /*-Get Card -*/
 export const getCard = (card) => {
@@ -30,15 +23,10 @@ export const getCard = (card) => {
 }
 
 /*-Get Card by List-*/
-export const getCardLists = (cards, listId) => {
-    return {
-        type: GET_CARDS_LIST,
-        payload: {
-            cards: cards,
-            listId: listId
-        }
-    }
-}
+const getCardsByList = (listId, cards) => ({
+    type: GET_CARDS_BY_LIST,
+    payload: { listId, cards },
+  });
 
 /*-Make Card-*/
 export const makeCard = (card) => {
@@ -63,14 +51,6 @@ export const deleteCard = (cardId) => {
     }
 }
 
-/*-Get All Cards-*/
-export const thunkAllCards = () => async (dispatch) => {
-    const response = await fetch('/api/cards');
-    const cards = await response.json();
-    console.log('after response get all cards', cards)
-    dispatch(getAllCards(cards));
-}
-
 /*-Get Card By Id Thunk-*/
 export const thunkCard = (cardId) => async (dispatch, getState) => {
     const response = await fetch(`/api/cards/${cardId}`);
@@ -81,20 +61,23 @@ export const thunkCard = (cardId) => async (dispatch, getState) => {
 
 
 /*-Get Card By List Id Thunk=*/
-export const thunkCardList = (listId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/cards/${listId}`);
+export const thunkGetCardsByList = (listId) => async (dispatch) => {
+    const response = await fetch(`/api/cards/list/${listId}`);
     if (response.ok) {
-        const cardLists = await response.json();
-        dispatch(getCardLists(cardLists));
-        console.log('CARD LISTS', cardLists)
+      const cards = await response.json();
+      dispatch(getCardsByList(listId, cards));
+    } else {
+      console.log('Error fetching cards by list');
     }
-}
+  };
+
+
 
 /*-Make Card Thunk-*/
 export const thunkMakeCard = (card) => async (dispatch) => {
     let response;
     try {
-        response = await csrfFetch('/api/cards', {
+        response = await fetch('/api/cards', {
             method: 'POST',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(card)
@@ -115,7 +98,7 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
     console.log('edit card thunk reached', card)
     let response;
     try {
-        response = await csrfFetch(`/api/cards/${cardId}`, {
+        response = await fetch(`/api/cards/${cardId}`, {
             method: 'PUT',
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(card)
@@ -133,7 +116,7 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
 export const thunkDeleteCard = (cardId) => async (dispatch, getState) => {
     let response;
     try {
-        response = await csrfFetch(`/api/cards/${cardId}`, {
+        response = await fetch(`/api/cards/${cardId}`, {
             method: 'DELETE'
         });
         const deleteCard = await response.json();
@@ -146,20 +129,24 @@ export const thunkDeleteCard = (cardId) => async (dispatch, getState) => {
 }
 
 /*-Reducer-*/
-const initialState = {
-    cards : {},
-}
 
 
 const cardsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_CARDS:
-            return {
-                ...state,
-                cards: {
-                    ...action.cards
-                }
-        };
+        case GET_CARDS_BY_LIST: {
+            const newState = { ...state };
+            const { listId, cards } = action.payload;
+
+            // Store each card with card id as the key
+            cards.forEach(card => {
+              newState.cards[card.id] = card;
+            });
+
+            // Store list of card ids for each list id
+            newState[listId] = cards.map(card => card.id);
+
+            return newState;
+          }
         case GET_CARD:
             return {
                 ...state,

@@ -1,46 +1,8 @@
-const [openSideBar, setOpenSideBar] = useState(false);
-const [isModalOpen, setModalOpen] = useState(false);
-const [isCreateListModalOpen, setCreateListModalOpen] = useState(false);
-const [newListName, setNewListName] = useState("");
 
-const toggleSidebar = () => {
-    setOpenSideBar(!openSideBar);
-  };
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
 
-  const toggleCreateListModal = () => {
-    setCreateListModalOpen(!isCreateListModalOpen);
-  };
 
-  const handleNewListNameChange = (e) => {
-    setNewListName(e.target.value);
-  };
 
-  const createList = () => {
-    if (newListName.trim() === '') {
-      // Handle error case
-      return;
-    }
-    const newList = {
-      id: lists.length + 1,
-      name: newListName,
-      board_id: board.id,
-    };
-    dispatch(thunkMakeList(newList));
-    setNewListName("");
-    toggleCreateListModal();
-  };
-
-  const sidebarStyle = {
-    transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
-  };
-
-  const boardContentStyle = {
-    marginLeft: openSideBar ? '0' : '250px',
-  };
 
   return (
     <div className="board">
@@ -54,6 +16,7 @@ const toggleSidebar = () => {
           </>
         )}
       </div>
+
       <div className="board-content" style={boardContentStyle}>
         <h2>{board.name}</h2>
         <div className="lists-container">
