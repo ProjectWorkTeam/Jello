@@ -1,93 +1,124 @@
-  import React, { useState } from 'react';
-  import { useParams } from "react-router-dom";
-  import List from '../List/List';
-  import BoardModal from '../BoardModal/BoardModal';
-  import './Board.css';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch, useSelector } from 'react-redux';
+import { thunkAllBoards } from '../../store/boardsReducer';
+import { thunkBoardLists, thunkMakeList } from '../../store/listsReducer';
+import { thunkGetCardsByList, thunkMoveCard } from '../../store/cardsReducer';
+import { DragDropContext } from 'react-beautiful-dnd';
+import List from '../List/List';
+import BoardModal from '../BoardModal/BoardModal';
+import './Board.css';
 
-  function Board() {
-    const { boardid } = useParams(); // this is the boardid pulled from url paremeter, we can use it to hit our database.
-    const [openSideBar, setOpenSideBar] = useState(false);
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [isCreateListModalOpen, setCreateListModalOpen] = useState(false);
-    const [newListName, setNewListName] = useState("");
+function Board() {
+  const dispatch = useDispatch();
+  const [openSideBar, setOpenSideBar] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isCreateListModalOpen, setCreateListModalOpen] = useState(false);
+  const [newListName, setNewListName] = useState("");
+  const boards = useSelector((state) => Object.values(state.boards.boards) || []);
+  const { boardid } = useParams();
+  const [board, setBoard] = useState();
+  useEffect(() => {
+    dispatch(thunkAllBoards());
+  }, [dispatch]);
+  useEffect(() => {
+    const foundBoard = boards.find(b => b.id === parseInt(boardid, 10));
+    setBoard(foundBoard);
+    if (foundBoard && foundBoard.id) {
+      // console.log('\n', 'FoundBoard === True', foundBoard.id)
+    }
+  }, [boards, boardid]);
+  console.log('\n', 'Board_board.js', board);
+  useEffect(() => {
+    if (board && board.id) {
+      dispatch(thunkBoardLists(board.id));
+    }
+  }, [dispatch, board]);
+  const lists = useSelector(state => state.lists.lists[parseInt(boardid, 10)] || []);
+  console.log('\n', 'lists_board.js', lists);
+  useEffect(() => {
+    lists.forEach(list => {
+      dispatch(thunkGetCardsByList(list.id));
+    });
+  }, [dispatch, lists]);
+  const cards = useSelector(state => state.cards || {});
+  console.log('\n', 'cards_board.js', cards);
 
-    // for Boards/Lists/Comments etc, we're gonna need to pull and send to our db and manage state with redux useSelector
-    const [lists, setLists] = useState([
-      { id: 1, name: 'To do', board_id: 1 },
-      { id: 2, name: 'In Progress', board_id: 1 },
-      { id: 3, name: 'Completed', board_id: 1 },
-    ]);
+  const toggleSidebar = () => {
+    setOpenSideBar(!openSideBar);
+  };
 
-    const board = {
-      id: 1,
-      name: 'Trello Test Board',
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
+  const toggleCreateListModal = () => {
+    setCreateListModalOpen(!isCreateListModalOpen);
+  };
+
+  const handleNewListNameChange = (e) => {
+    setNewListName(e.target.value);
+  };
+
+  const createList = () => {
+    if (newListName.trim() === '') {
+      // Handle error case
+      return;
+    }
+    const newList = {
+      id: lists.length + 1,
+      name: newListName,
+      board_id: board.id,
     };
+    dispatch(thunkMakeList(newList));
+    setNewListName("");
+    toggleCreateListModal();
+  };
 
-    const cards = [
-      { id: 1, title: 'Card 1', list_id: 1 },
-      { id: 2, title: 'Card 2', list_id: 1 },
-      { id: 3, title: 'Card 3', list_id: 2 },
-      { id: 4, title: 'Card 4', list_id: 2 },
-      { id: 5, title: 'Card 5', list_id: 3 },
-      { id: 6, title: 'Card 6', list_id: 3 },
-    ];
+  const handleDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
 
-    const toggleSidebar = () => {
-      setOpenSideBar(!openSideBar);
-    };
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+    console.log("draggableId", draggableId)
+    console.log("source",source)
+    console.log("destination",destination)
+    const cardId = draggableId
+    const newListId = destination.droppableId
+    const newPositionId = destination.index + 1
 
-    const toggleModal = () => {
-      setModalOpen(!isModalOpen);
-    };
+    // Dispatch an action to update the card's list and position
+    // dispatch(thunkMoveCard(cardId, { list_id: newListId, position_id: newPositionId })); BROKEN DO NOT USE ATM
+  }
 
-    const toggleCreateListModal = () => {
-      setCreateListModalOpen(!isCreateListModalOpen);
-    };
 
-    const handleNewListNameChange = (e) => {
-      setNewListName(e.target.value);
-    };
+  const sidebarStyle = {
+    transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
+  };
 
-    const createList = () => {
-      if (newListName.trim() === '') {
-        // Handle error case
-        return;
-      }
-      const newList = {
-        id: lists.length + 1,
-        name: newListName,
-        board_id: 1,
-      };
-      setLists([...lists, newList]);
-      setNewListName("");
-      toggleCreateListModal();
-    };
+  const boardContentStyle = {
+    marginLeft: openSideBar ? '0' : '250px',
+  };
 
-    const sidebarStyle = {
-      transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
-    };
-
-    const boardContentStyle = {
-      marginLeft: openSideBar ? '0' : '250px',
-    };
-
-    return (
-      <div className="board">
-        <div className="sidebar" style={sidebarStyle}>
-          <button onClick={toggleSidebar}>Toggle Side Bar</button>
-          {openSideBar && (
-            <>
-              <a href="/boards">Boards</a>
-              <a href="/members">Members</a>
-              <a href="/settings">Settings</a>
-            </>
-          )}
-        </div>
-        <div className="board-content" style={boardContentStyle}>
-          <h2>{board.name}</h2>
-          <div className="lists-container">
+  return (
+    <div className="board">
+      <h1>Board Testing</h1>
+      <div className="sidebar" style={sidebarStyle}>
+        <button onClick={toggleSidebar}>Toggle Side Bar</button>
+        {openSideBar && (
+          <>
+            <a href="/home">Dashboard</a>
+            <a href="/members">Members</a>
+            <a href="/settings">Settings</a>
+          </>
+        )}
+      </div>
+      <div className="board-content" style={boardContentStyle}>
+        <h2>{board?.name}</h2>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
             {lists.map((list) => (
-              <List key={list.id} list={list} cards={cards.filter((card) => card.list_id === list.id)} />
+              <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
             ))}
             <button onClick={toggleCreateListModal}>Add a List</button>
             {isCreateListModalOpen && (
@@ -97,11 +128,12 @@
               </div>
             )}
           </div>
-          <button onClick={toggleModal}>Create Board</button>
-          {isModalOpen && <BoardModal closeModal={toggleModal} />}
-        </div>
+        </DragDropContext>
       </div>
-    );
-  }
+      <button onClick={toggleModal}>Create New Board</button>
+      {isModalOpen && <BoardModal closeModal={toggleModal} />}
+    </div>
+  );
+}
 
-  export default Board;
+export default Board;

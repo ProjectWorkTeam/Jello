@@ -35,6 +35,13 @@ function LoginFormModal() {
     }
   };
 
+  const demo = async () => {
+    const data = await dispatch(login('demo@lit.com', 'demopass'))
+    if (data) {
+      setErrors(data);
+    }
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -64,6 +71,11 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <div className="demo-wrapper">
+        <button className="buttons" onClick={demo}>
+          Demo User
+        </button>
+      </div>
     </>
   );
 }

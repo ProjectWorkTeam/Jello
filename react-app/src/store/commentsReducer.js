@@ -39,12 +39,6 @@ export const postComments = (cardComment) => {
     }
 }
 
-
-
-
-
-
-
 /*-Get Comments Thunk-*/
 export const thunkComments = (cardId) => async (dispatch) => {
     const response = await csrfFetch(`/api/cardComments${cardId}`);

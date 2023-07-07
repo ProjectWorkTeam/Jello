@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { thunkEditList } from '../../store/listsReducer';
+import { thunkEditList, thunkMoveCard } from '../../store/listsReducer';
+import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
 import './List.css';
 
@@ -44,11 +45,18 @@ function List({ list, cards }) {
           </h3>
           <h3 className="list-actions">...</h3>
         </div>
-        <ul>
-          {cards.map((card) => (
-            <Card key={card.id} card={card} />
-          ))}
-        </ul>
+        <div>
+          <Droppable droppableId={String(list.id)}>
+            {(provided) => (
+              <ul {...provided.droppableProps} ref={provided.innerRef}>
+                {cards?.map((card, index) => (
+                  <Card key={card.id} card={card} index={index} />
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </div>
         <div className="list-footer">
           <div className="add-card">
             <a className="add-card-icon">+</a>

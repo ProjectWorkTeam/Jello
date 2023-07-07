@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { thunkAllBoards, thunkUpdateBoardPosition, thunkAddBoard } from '../../store/boardsReducer';
+import { thunkAllBoards, thunkUpdateBoardPosition, thunkAddBoard, thunkADeleteBoard } from '../../store/boardsReducer';
 import BoardTile from '../BoardTile/BoardTile';
 import BoardModal from '../BoardModal/BoardModal'; // Import the BoardModal component
 
@@ -41,14 +41,18 @@ const BoardList = () => {
     });
   };
 
+  const handleDelete = (boardId) => {
+    if (window.confirm('Are you sure you want to delete this board?')) {
+      dispatch(thunkADeleteBoard(boardId)).then(() => {
+        dispatch(thunkAllBoards());
+      });
+    }
+  }
+
   const handleCreateBoard = async (newBoard) => {
     dispatch(thunkAddBoard(newBoard));
     setIsModalOpen(false); // Close the modal after creating a board
   };
-
-  if (boards.length < 1) {
-    return <p>No boards found.</p>;
-  }
 
   return (
     <div>
@@ -60,8 +64,15 @@ const BoardList = () => {
             {(provided) => (
               <div className="board_list"
                 {...provided.droppableProps} ref={provided.innerRef}>
-                {sortedBoards[0].map((board, index) => (
-                  <BoardTile key={board.id} board={board} index={index} />
+                {sortedBoards.map((board, index) => (
+                  <div key={board.id}>
+                    <BoardTile
+                      board={board}
+                      index={index}
+                      dispatch={dispatch}
+                      deleteBoard={thunkADeleteBoard} />
+                    <button onClick={() => handleDelete(board.id)}>Delete</button>
+                  </div>
                 ))}
                 {provided.placeholder}
               </div>
@@ -72,6 +83,5 @@ const BoardList = () => {
       {isModalOpen && <BoardModal closeModal={() => setIsModalOpen(false)} onCreateBoard={handleCreateBoard} />}
     </div>
   );
-};
-
+}
 export default BoardList;
