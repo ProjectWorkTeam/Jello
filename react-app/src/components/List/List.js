@@ -42,23 +42,29 @@ function List({ list, cards }) {
   };
 
   const handleInputSubmit = async () => {
+    if (newCardTitle.trim() === '' || newCardDescription.trim() === '') {
+      alert('Please fill out both the title and description fields.');
+      return;
+    }
+  
     const newCard = {
       title: newCardTitle,
       description: newCardDescription,
       listId: list.id,
     };
-
+  
     const createdCard = await dispatch(thunkMakeCard(newCard));
-
+  
     if (createdCard) {
       const { id, listId } = createdCard;
       dispatch(thunkMoveCard(id, { listId, positionId: cards.length }));
     }
-
+  
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
   };
+  
 
   const toggleAddingCard = () => {
     setAddingCard(!addingCard);
