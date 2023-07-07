@@ -37,8 +37,8 @@ function List({ list, cards }) {
   };
 
   const handleInputSubmit = async () => {
-    if (newCardTitle.trim() === '' || newCardDescription.trim() === '') {
-      alert('Please fill out both the title and description fields.');
+    if (newCardTitle.trim() === '') {
+      alert('Please enter a title for the card.');
       return;
     }
   
