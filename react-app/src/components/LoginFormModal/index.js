@@ -13,11 +13,25 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(data);
+
+    // Validation checks
+    const validationErrors = {};
+    if (!email) {
+      validationErrors.email = "Email is required";
+    }
+    if (!password) {
+      validationErrors.password = "Password is required";
+    }
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(Object.values(validationErrors));
     } else {
-        closeModal()
+      const data = await dispatch(login(email, password));
+      if (data) {
+        setErrors(data);
+      } else {
+        closeModal();
+      }
     }
   };
 
@@ -33,7 +47,7 @@ function LoginFormModal() {
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

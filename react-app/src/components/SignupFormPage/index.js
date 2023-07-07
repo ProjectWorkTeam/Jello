@@ -21,17 +21,38 @@ function SignupFormPage() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
-			const data = await dispatch(signUp(firstName, lastName, username, email, password));
-			if (data && data.errors) {
-				setErrors(data.errors);
-			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
+		
+		// Validation checks
+		const errors = {};
+		if (!/.+@.+\..+/.test(email)) {
+		  errors.email = "Invalid email format";
 		}
-	};
+		if (username.length < 4) {
+		  errors.username = "Username must be at least 4 characters";
+		}
+		if (firstName === "") {
+		  errors.firstName = "First Name is required";
+		}
+		if (lastName === "") {
+		  errors.lastName = "Last Name is required";
+		}
+		if (password.length < 6) {
+		  errors.password = "Password must be at least 6 characters";
+		}
+		if (password !== confirmPassword) {
+		  errors.confirmPassword = "Confirm Password field must be the same as the Password field";
+		}
+		
+		if (Object.keys(errors).length > 0) {
+		  setErrors(Object.values(errors));
+		} else {
+		  const data = await dispatch(signUp(firstName, lastName, username, email, password));
+		  if (data && data.errors) {
+			setErrors(data.errors);
+		  }
+		}
+	  };
+	  
 
 	const handleLogoClick = () => {
 		history.push("/");
