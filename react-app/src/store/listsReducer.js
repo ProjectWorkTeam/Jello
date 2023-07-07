@@ -88,16 +88,24 @@ export const thunkEditList = (listId, list) => async (dispatch) => {
     response = await fetch(`/api/lists/${listId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(list)
+      body: JSON.stringify({
+        list_name: list.list_name,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const listToEdit = await response.json();
     dispatch(editList(listToEdit));
     return listToEdit;
   } catch (err) {
-    const errors = await err.json();
-    return errors;
+    console.error(err);  // changed this line as well for better error visibility
+    return;
   }
 }
+
 
 /*-Delete A List Thunk-*/
 export const thunkDeleteList = (listId) => async (dispatch) => {
@@ -134,12 +142,14 @@ const listsReducer = (state = initialState, action) => {
       newState = { ...state };
       newState.lists[action.list.boardId] = [...newState.lists[action.list.boardId], action.list];
       return newState;
-    case EDIT_LIST:
-      newState = { ...state };
-      newState.lists[action.list.boardId] = newState.lists[action.list.boardId].map(list =>
-        list.id === action.list.id ? action.list : list
-      );
-      return newState
+      case EDIT_LIST:
+        newState = { ...state };
+        if (newState.lists[action.list.boardId]) {
+          newState.lists[action.list.boardId] = newState.lists[action.list.boardId].map(list =>
+            list.id === action.list.id ? action.list : list
+          );
+        }
+        return newState;
     case DELETE_LIST:
       newState = { ...state };
       for (const boardId in newState.lists) {
