@@ -70,12 +70,23 @@ export const thunkComments = (cardId) => async (dispatch) => {
 }
 
 /*-Get All Comments Thunk-*/
-export const thunkAllComments = () => async (dispatch) => {
-    const response = await fetch('/api/cardComments');
-    const comments = await response.json();
-    console.log('after response get all comments', comments);
-    dispatch(getAllComments(comments));
-}
+// export const thunkAllComments = () => async (dispatch) => {
+//     const response = await fetch('/api/cardComments');
+//     const comments = await response.json();
+//     console.log('after response get all comments', comments);
+//     dispatch(getAllComments(comments));
+// }
+/*-Get All Comments Thunk-*/
+export const thunkAllComments = (cardId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/cardComments/${cardId}`);
+    if (response.ok) {
+        const comments = await response.json();
+        dispatch(getAllComments(comments));
+        console.log('All Comments:', comments);
+    }
+};
+
+
 
 
 /*-Post Comments Thunk-*/
@@ -118,20 +129,38 @@ export const thunkEditComments = (cardCommentId, cardComment) => async (dispatch
 }
 
 /*-Delete A Comment Thunk-*/
+// export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
+//     let response;
+//     try {
+//         response = await fetch(`/api/cardComments/${cardCommentId}`, {
+//             method: 'DELETE'
+//         });
+//         const deleteComent = await response.json();
+//         dispatch(deleteComments(cardCommentId));
+//         return deleteComent;
+//     } catch (err) {
+//         const errors = await err.json();
+//         return errors;
+//     }
+// }
 export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
-    let response;
     try {
-        response = await fetch(`/api/cardComments/${cardCommentId}`, {
-            method: 'DELETE'
+        const response = await fetch(`/api/cardComments/${cardCommentId}`, {
+            method: 'DELETE',
         });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete comment');
+        }
+
         const deleteComent = await response.json();
         dispatch(deleteComments(cardCommentId));
         return deleteComent;
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+        console.error(err);
+        return { message: 'Failed to delete comment' };
     }
-}
+};
 
 
 /*-Reducer-*/

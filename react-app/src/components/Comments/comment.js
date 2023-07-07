@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { thunkPostComments, thunkEditComments, thunkDeleteCard } from './yourCommentsFile';
+import { postComments, thunkEditComments, thunkDeleteCard } from "../../store/commentsReducer";
 
 const CommentForm = ({ cardId, comments }) => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const CommentForm = ({ cardId, comments }) => {
             await dispatch(thunkEditComments(editCommentId, { content: comment }));
             setEditCommentId(null);
         } else {
-            await dispatch(thunkPostComments({ cardId, content: comment }));
+            await dispatch(postComments({ cardId, content: comment }));
         }
 
         setComment('');
@@ -42,15 +42,19 @@ const CommentForm = ({ cardId, comments }) => {
                 />
                 <button type="submit">{editCommentId ? 'Update Comment' : 'Post Comment'}</button>
             </form>
-            <ul>
-                {comments.map((comment) => (
-                    <li key={comment.id}>
-                        {comment.content}
-                        <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
-                        <button onClick={() => handleDelete(comment.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+            {comments.length > 0 ? (
+                <ul>
+                    {comments.map((comment) => (
+                        <li key={comment.id}>
+                            {comment.content}
+                            <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
+                            <button onClick={() => handleDelete(comment.id)}>Delete</button>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>No comments yet.</p>
+            )}
         </div>
     );
 };
