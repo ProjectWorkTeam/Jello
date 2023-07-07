@@ -1,5 +1,5 @@
 .board {
-    display: grid;
+    display: flex;
     grid-template-columns: auto 1fr;
     height: 100vh;
   }
