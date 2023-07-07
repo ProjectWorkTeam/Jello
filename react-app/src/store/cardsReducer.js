@@ -101,15 +101,20 @@ export const thunkGetCardsByList = (listId) => async (dispatch) => {
 };
 
 
-
+/*-Make Card Thunk-*/
 /*-Make Card Thunk-*/
 export const thunkMakeCard = (card) => async (dispatch) => {
     let response;
     try {
-        response = await fetch('/api/cards', {
+        response = await fetch('/api/cards/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(card)
+            body: JSON.stringify({
+                title: card.title,
+                description: card.description || '',
+                list_id: card.listId,  
+                position: card.position,
+            })
         });
         console.log('create card thunk reached', response);
         const cardResponse = await response.json();
@@ -121,6 +126,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
         return errors;
     }
 }
+
 
 /*-Edit A Card Thunk-*/
 export const thunkEditCard = (cardId, card) => async (dispatch) => {
@@ -194,13 +200,17 @@ const cardsReducer = (state = initialState, action) => {
                 card.position = positionId;
             }
             return newState;
-        case MAKE_CARD:
-            return {
-                ...state,
-                cards: {
-                    ...action.cards
-                }
-            };
+            case MAKE_CARD: {
+                return {
+                    ...state,
+                    cards: {
+                        ...state.cards,
+                        [action.card.id]: action.card
+                    },
+                    [action.card.list_id]: [...state[action.card.list_id], action.card.id]
+                };
+            }
+            
         case EDIT_CARD:
             return {
                 ...state,
