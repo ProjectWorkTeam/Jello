@@ -121,6 +121,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
         console.log('new card!', cardResponse);
         return cardResponse;
     } catch (err) {
+        console.log('\n','ERROR CardsReducer',err, '\n')
         const errors = await err.json();
         return errors;
     }

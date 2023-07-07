@@ -54,7 +54,7 @@ export const thunkBoardLists = (boardId) => async (dispatch) => {
   if (response.ok) {
     const boardLists = await response.json();
     dispatch(getBoardLists(boardLists.lists, boardId));
-    console.log('\n','List Reducer ThunkBoardLists',boardLists,'\n')
+    console.log('\n', 'List Reducer ThunkBoardLists', boardLists, '\n')
     return boardLists
   }
 }
@@ -64,17 +64,19 @@ export const thunkBoardLists = (boardId) => async (dispatch) => {
 export const thunkMakeList = (list) => async (dispatch) => {
   let response;
   try {
-    response = await fetch('/api/lists', {
+    response = await fetch('/api/lists/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(list)
+      body: JSON.stringify({
+        list_name: list.list_name,
+        board_id: list.board_id
+      })
     });
     const listResponse = await response.json();
     dispatch(makeList(listResponse));
     return listResponse;
   } catch (err) {
-    const errors = await err.json();
-    return errors;
+    return
   }
 }
 
@@ -119,8 +121,8 @@ const listsReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case GET_LISTS:
-  newState = { ...state, lists: { ...state.lists, ...action.payload.lists } };
-  return newState;
+      newState = { ...state, lists: { ...state.lists, ...action.payload.lists } };
+      return newState;
 
     case MAKE_LIST:
       newState = { ...state };

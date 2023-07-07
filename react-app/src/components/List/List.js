@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
-import { thunkEditList} from '../../store/listsReducer'
+import { thunkEditList } from '../../store/listsReducer'
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 import './List.css';
 
@@ -113,7 +113,7 @@ function List({ list, cards }) {
               <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef}>
                 {cards?.map((card, index) => (
                   <div>
-                  <Card key={card.id} card={card} index={index} />
+                    <Card key={card.id} card={card} index={index} />
                   </div>
                 ))}
 

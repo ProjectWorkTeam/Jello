@@ -21,18 +21,17 @@ def get_lists_by_board(board_id):
 @login_required
 def create_list():
     body = request.json
-    list_name = body.get('list_name')
+    name = body.get('list_name')
     board_id = body.get('board_id')
-    board = Board.query.get(board_id)
 
-    if not board:
+    if not board_id:
         return generate_error_response('Board not found', 404)
 
     # Count the current lists and assign new position
     current_lists = List.query.filter_by(board_id=board_id).count()
     position_id = current_lists + 1
 
-    new_list = List(name=list_name, board_id=board_id, position_id=position_id)
+    new_list = List(name=name, board_id=board_id, position_id=position_id)
     db.session.add(new_list)
     db.session.commit()
 
