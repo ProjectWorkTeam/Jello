@@ -5,8 +5,7 @@ import Card from '../Card/Card';
 import { thunkEditList} from '../../store/listsReducer'
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 import './List.css';
-import CardModal from '../CardModal/CardModal';
-import OpenModalButton from '../OpenModalButton';
+
 
 function List({ list, cards }) {
   const [editMode, setEditMode] = useState(false);
@@ -14,7 +13,7 @@ function List({ list, cards }) {
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newCardDescription, setNewCardDescription] = useState('');
   const [isAdding, setIsAdding] = useState(false);
-  const [selectCard, setSelectCard] = useState(null);
+
   const [addingCard, setAddingCard] = useState(false);
   const [addCards, setCards] = useState([]);
 
@@ -46,25 +45,25 @@ function List({ list, cards }) {
       alert('Please enter a title for the card.');
       return;
     }
-  
+
     const newCard = {
       title: newCardTitle,
       description: newCardDescription,
       listId: list.id,
     };
-  
+
     const createdCard = await dispatch(thunkMakeCard(newCard));
-  
+
     if (createdCard) {
       const { id, listId } = createdCard;
       dispatch(thunkMoveCard(id, { listId, positionId: cards.length }));
     }
-  
+
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
   };
-  
+
 
   const toggleAddingCard = () => {
     setAddingCard(!addingCard);
@@ -89,14 +88,6 @@ function List({ list, cards }) {
     setNewCardTitle('');
   };
 
-  const openCardModal = (cardId) => {
-    setSelectCard(cardId);
-  };
-
-  const closeCardModal = () => {
-    setSelectCard(null);
-  };
-
   return (
     <div className="list-container">
       <div className="list">
@@ -115,26 +106,23 @@ function List({ list, cards }) {
           </h3>
           <h3 className="list-actions">...</h3>
         </div>
+
         <div className="cards-list">
           <Droppable droppableId={String(list.id)}>
             {(provided) => (
-              <ul className="card-buttons"{...provided.droppableProps} ref={provided.innerRef}>
+              <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef}>
                 {cards?.map((card, index) => (
-                  <li key={card.id}>
-                  <OpenModalButton
-                    key={card.id}
-                    modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
-                    buttonText={card.title}
-                    onModalClose={closeCardModal}
-                              />
-                    <Card card={card} openCardModal={openCardModal} />
-                    </li>
-                    ))}
+                  <div>
+                  <Card key={card.id} card={card} index={index} />
+                  </div>
+                ))}
+
                 {provided.placeholder}
               </ul>
             )}
           </Droppable>
         </div>
+
         <div className="list-footer">
           {isAdding ? (
             <div>
