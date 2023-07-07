@@ -111,7 +111,42 @@ const LandingPage = () => {
                 </div>
             </div>
             <div className="about">
-             <h4>About : Alex Kim, Kim Harris, Peter Guan, Joey Enright</h4>
+                <div className="developer">
+                    <h4>Alex Kim</h4>
+                    <a href="https://www.linkedin.com/in/alexgkim/">
+                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    </a>
+                    <a href="https://github.com/Alex-Kim-SD">
+                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    </a>
+                </div>
+                <div className="developer">
+                    <h4>Kim Harris</h4>
+                    <a href="https://www.linkedin.com/in/scarlettrobe/">
+                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    </a>
+                    <a href="https://github.com/scarlettrobe">
+                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    </a>
+                </div>
+                <div className="developer">
+                    <h4>Peter Guan</h4>
+                    <a href="https://www.linkedin.com/in/scarlettrobe/">
+                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    </a>
+                    <a href="https://github.com/RetepG">
+                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    </a>
+                </div>
+                <div className="developer">
+                    <h4>Joey Enright</h4>
+                    <a href="https://www.linkedin.com/in/joey-enright-656057168/">
+                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    </a>
+                    <a href="https://github.com/Jojovial">
+                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    </a>
+                </div>
             </div>
         </div>
     );

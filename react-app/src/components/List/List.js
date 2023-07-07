@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { thunkEditList, thunkMoveCard } from '../../store/listsReducer';
 import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
+import { thunkEditList} from '../../store/listsReducer'
+import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 import './List.css';
 import CardModal from '../CardModal/CardModal';
 import OpenModalButton from '../OpenModalButton';
@@ -10,10 +11,13 @@ import OpenModalButton from '../OpenModalButton';
 function List({ list, cards }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
-  const [addingCard, setAddingCard] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
-  const [addCards, setCards] = useState([]);
+  const [newCardDescription, setNewCardDescription] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
   const [selectCard, setSelectCard] = useState(null);
+  const [addingCard, setAddingCard] = useState(false);
+  const [addCards, setCards] = useState([]);
+
   const dispatch = useDispatch();
 
   const handleTitleClick = () => {
@@ -24,12 +28,36 @@ function List({ list, cards }) {
     setTitle(e.target.value);
   };
 
-  const handleTitleSubmit = async (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      await dispatch(thunkEditList(list.id, { name: title }));
-      setEditMode(false);
+  const handleTitleSubmit = async () => {
+    await dispatch(thunkEditList(list.id, { name: title }));
+    setEditMode(false);
+  };
+
+  const handleInputChange = (e) => {
+    setNewCardTitle(e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setNewCardDescription(e.target.value);
+  };
+
+  const handleInputSubmit = async () => {
+    const newCard = {
+      title: newCardTitle,
+      description: newCardDescription,
+      listId: list.id,
+    };
+
+    const createdCard = await dispatch(thunkMakeCard(newCard));
+
+    if (createdCard) {
+      const { id, listId } = createdCard;
+      dispatch(thunkMoveCard(id, { listId, positionId: cards.length }));
     }
+
+    setNewCardTitle('');
+    setNewCardDescription('');
+    setIsAdding(false);
   };
 
   const toggleAddingCard = () => {
@@ -73,7 +101,6 @@ function List({ list, cards }) {
                 type="text"
                 value={title}
                 onChange={handleTitleChange}
-                onKeyDown={handleTitleSubmit}
                 autoFocus
               />
             ) : (
@@ -103,23 +130,27 @@ function List({ list, cards }) {
           </Droppable>
         </div>
         <div className="list-footer">
-          {!addingCard ? (
-            <div className="add-card" onClick={toggleAddingCard}>
-              <a className="add-card-icon">+</a>
-              <h4 className="add-card-text">Add A Card</h4>
-            </div>
-          ) : (
-            <div className="add-card-form">
+          {isAdding ? (
+            <div>
               <input
                 type="text"
                 value={newCardTitle}
-                onChange={handleCardTitleChange}
-                placeholder="Enter card title"
+                onChange={handleInputChange}
+                placeholder="Enter a title for this card..."
+                autoFocus
               />
-              <div className="add-card-actions">
-                <button onClick={handleNewCard}>Save</button>
-                <button onClick={toggleAddingCard}>Cancel</button>
-              </div>
+              <input
+                type="text"
+                value={newCardDescription}
+                onChange={handleDescriptionChange}
+                placeholder="Enter a description for this card..."
+              />
+              <button onClick={handleInputSubmit}>Submit</button>
+            </div>
+          ) : (
+            <div className="add-card" onClick={() => setIsAdding(true)}>
+              <a className="add-card-icon">+</a>
+              <h4 className="add-card-text">Add a card</h4>
             </div>
           )}
         </div>
