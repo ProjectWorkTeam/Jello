@@ -10,6 +10,7 @@ import './boardModal.css';
 const BoardModal = ({ closeModal }) => {
   const [boardName, setBoardName] = useState('');
   const [selectedImage, setSelectedImage] = useState(image_1_icon); // Set image1 as the default selected image
+  const [isNameValid, setIsNameValid] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory(); // Hook to manage navigation
@@ -19,11 +20,13 @@ const BoardModal = ({ closeModal }) => {
   };
 
   const handleBoardNameChange = (e) => {
-    setBoardName(e.target.value);
+    const name = e.target.value;
+    setBoardName(name);
+    setIsNameValid(name.trim().length > 0); // Check if the name has at least one character
   };
 
   const handleCreateBoard = async () => {
-    if (boardName.trim() === '' || selectedImage === '') {
+    if (!isNameValid || selectedImage === '') {
       // Handle error case
       return;
     }
@@ -35,7 +38,7 @@ const BoardModal = ({ closeModal }) => {
 
     try {
       const createdBoard = await dispatch(thunkAddBoard(newBoard));
-      console.log('\n','Created Board BoardModal.js',createdBoard);
+      console.log('\n', 'Created Board BoardModal.js', createdBoard);
 
       if (createdBoard) {
         closeModal();
@@ -65,19 +68,22 @@ const BoardModal = ({ closeModal }) => {
             <img
               src={image_1_icon}
               alt="background1"
-              className={`modal-background-img ${selectedImage === image_1_icon ? 'selected' : ''}`}
+              className={`modal-background-img ${selectedImage === image_1_icon ? 'selected' : ''
+                }`}
               onClick={() => handleImageSelect(image_1_icon)}
             />
             <img
               src={image_2_icon}
               alt="background2"
-              className={`modal-background-img ${selectedImage === image_2_icon ? 'selected' : ''}`}
+              className={`modal-background-img ${selectedImage === image_2_icon ? 'selected' : ''
+                }`}
               onClick={() => handleImageSelect(image_2_icon)}
             />
             <img
               src={image_3_icon}
               alt="background3"
-              className={`modal-background-img ${selectedImage === image_3_icon ? 'selected' : ''}`}
+              className={`modal-background-img ${selectedImage === image_3_icon ? 'selected' : ''
+                }`}
               onClick={() => handleImageSelect(image_3_icon)}
             />
           </div>
@@ -85,15 +91,25 @@ const BoardModal = ({ closeModal }) => {
         <div>
           <h3>Selected Image Preview</h3>
           {selectedImage && (
-            <img src={selectedImage} className="modal-background-img" alt="Selected background" />
+            <img
+              src={selectedImage}
+              className="modal-background-img"
+              alt="Selected background"
+            />
           )}
         </div>
         <div>
-          <button onClick={handleCreateBoard}>Create</button>
-          <button onClick={(e) => {
-            e.stopPropagation(); // Stop event propagation immediately
-            closeModal();
-          }}>Cancel</button>
+          <button onClick={handleCreateBoard} disabled={!isNameValid}>
+            Create
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // Stop event propagation immediately
+              closeModal();
+            }}
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
