@@ -110,6 +110,9 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
+            <div className="about">
+             <h4>About : Alex Kim, Kim Harris, Peter Guan, Joey Enright</h4>
+            </div>
         </div>
     );
 };

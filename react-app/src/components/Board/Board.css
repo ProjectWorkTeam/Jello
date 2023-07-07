@@ -9,14 +9,25 @@
     flex-direction: column;
     width: 250px;
     background-color: aqua;
-    transition: width 0.3s ease;
+    transition: width 0.5s ease;
 }
 
 .sidebar.open {
     transform: translateX(0);
+    transition: width 0.5s ease;
 }
 
+.toggle-side-button{
+    border-radius: 20px;
+    width: 2rem;
+    height: 2rem;
+    transform: translateX(13rem);
+    transition: transform 0.3s ease;
+}
 
+.toggle-side-button:hover{
+    transform: translateX(13rem) scale(1.1);
+}
 
 .board-content {
     overflow-y: auto;
@@ -32,16 +43,19 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 16px;
+    transition: margin-left 0.3s ease;
+    margin-left: 0;
 }
 
 .list {
     background-color: #e2e4e6;
     width: 250px;
-
-
     border-radius: 20px;
     padding: 8px;
 }
+
+
+
 
 .list-header {
     display: flex;
@@ -68,3 +82,43 @@
     font-weight: bold;
     margin-bottom: 5px;
   }
+.add-list-button {
+    background-color: #e2e4e6;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.add-list-button:hover {
+    background-color: #d0d2d4;
+}
+
+.create-board-button {
+    background-color: #e2e4e6;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.create-board-button:hover {
+    background-color: #d0d2d4;
+}
+
+
+.create-list-input {
+    border: .03rem solid grey;
+    border-radius: .5rem;
+}
+
+.create-list-button {
+    background-color: #e2e4e6;
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}

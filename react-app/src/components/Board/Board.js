@@ -75,13 +75,13 @@
     };
 
     const boardContentStyle = {
-      marginLeft: openSideBar ? '0' : '250px',
+      paddingLeft: openSideBar ? '2rem' : '0',
     };
 
     return (
       <div className="board">
-        <div className="sidebar" style={sidebarStyle}>
-          <button onClick={toggleSidebar}>Toggle Side Bar</button>
+        <div className={`sidebar ${openSideBar ? 'open' : ''}`} style={sidebarStyle}>
+          <button className="toggle-side-button"onClick={toggleSidebar}>O</button>
           {openSideBar && (
             <>
               <a href="/boards">Boards</a>
@@ -90,7 +90,7 @@
             </>
           )}
         </div>
-        <div className="board-content" style={boardContentStyle}>
+        <div className={`board-content ${openSideBar ? 'sidebar-open' : ''}`} style={boardContentStyle}>
           <h2>{board.name}</h2>
           <div className="lists-container">
             {lists.map((list) => (
@@ -99,15 +99,15 @@
               cards={cards.filter((card) => card.list_id === list.id)}
               />
             ))}
-            <button onClick={toggleCreateListModal}>Add a List</button>
+            <button className="add-list-button"onClick={toggleCreateListModal}>Add a List</button>
             {isCreateListModalOpen && (
               <div className="create-list-modal">
-                <input type="text" value={newListName} onChange={handleNewListNameChange} />
-                <button onClick={createList}>Create List</button>
+                <input className="create-list-input"type="text" value={newListName} onChange={handleNewListNameChange} />
+                <button className="create-list-button"onClick={createList}>Create List</button>
               </div>
             )}
           </div>
-          <button onClick={toggleModal}>Create Board</button>
+          <button className="create-board-button" onClick={toggleModal}>Create Board</button>
           {isModalOpen && <BoardModal closeModal={toggleModal} />}
 
         </div>

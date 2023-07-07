@@ -37,3 +37,12 @@
     box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
     cursor: pointer;
 }
+
+
+
+.card-buttons {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+

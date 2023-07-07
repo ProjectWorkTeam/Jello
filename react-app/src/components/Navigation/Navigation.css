@@ -1,7 +1,33 @@
 .profile-dropdown {
-  position: absolute;
+  position: relative;
+
 }
 
 .hidden {
   display: none;
+}
+
+.nav-contents {
+  display: flex;
+  list-style: none;
+  width: 100%;
+  justify-content: space-between;
+
+}
+
+
+
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 10%;
+  border-bottom: .1rem solid grey;
+
+}
+
+
+.home-link {
+  text-decoration: none;
+  list-style: none;
 }

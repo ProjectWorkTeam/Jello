@@ -81,22 +81,21 @@ function List({ list, cards }) {
           </h3>
           <h3 className="list-actions">...</h3>
         </div>
-        <ul>
+        <div className="cards-list">
+        <ul className="card-buttons">
           {cards.map((card) => (
-            <Card
-              key={card.id}
-              card={card}
-              openCardModal={openCardModal}
-            >
-            <OpenModalButton
-             modalComponent={<CardModal cardId={selectCard} closeModal={closeCardModal} />}
-              buttonText="hi"
-              onModalClose={closeCardModal}
-                />
-            </Card>
-
+          <li key={card.id}>
+        <OpenModalButton
+          key={card.id}
+          modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
+          buttonText={card.title}
+          onModalClose={closeCardModal}
+                    />
+          <Card card={card} openCardModal={openCardModal} />
+          </li>
           ))}
         </ul>
+        </div>
         <div className="list-footer">
           {!addingCard ? (
             <div className="add-card" onClick={toggleAddingCard}>
@@ -119,9 +118,6 @@ function List({ list, cards }) {
           )}
         </div>
       </div>
-      {selectCard && (
-        <CardModal cardId={selectCard} closeModal={closeCardModal} />
-      )}
     </div>
   );
 }
