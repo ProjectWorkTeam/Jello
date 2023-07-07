@@ -7,6 +7,28 @@ from sqlalchemy import asc
 
 board_routes = Blueprint('boards', __name__)
 
+# Get details of a specific board
+@board_routes.route('/<int:board_id>', methods=["GET"])
+@login_required
+def get_board_details(board_id):
+    board = Board.query.get(board_id)
+    print('\n','Board:',board,'\n')
+
+    if not board:
+        return generate_error_response("Board not found.", 404)
+
+    if board.owner_id != current_user.id:
+        return generate_error_response("Unauthorized to access this board.", 403)
+
+    board_data = {
+        'id': board.id,
+        'name': board.name,
+        'owner_id': board.owner_id,
+        'position_id': board.position_id
+    }
+
+    return generate_success_response({'board': board_data})
+
 # GET all boards owned by user
 @board_routes.route('', methods=["GET"])
 @login_required
@@ -42,7 +64,7 @@ def create_board():
     return generate_error_response("Invalid form submission.", 400)
 
 
-# Update a board's name and position
+# Update a board's name and/or position
 @board_routes.route('/<int:board_id>', methods=["PUT"])
 @login_required
 def update_board(board_id):

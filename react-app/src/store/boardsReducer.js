@@ -1,6 +1,5 @@
 
 /*- Action Types -*/
-const GET_USER_BOARD = 'boards/GetUserBoard';
 const GET_ALL_BOARDS = 'boards/GetAllBoards';
 const GET_BOARD = 'boards/GetBoard';
 const ADD_A_BOARD = 'boards/addABoard';
@@ -9,14 +8,11 @@ const DELETE_BOARD = 'boards/deleteBoard';
 const UPDATE_BOARD_POSITION = 'boards/updateBoardPosition';
 
 /*- Action Creators-*/
+const initialState = {
+    singeBoard: {},
+    boards: {},
 
-/*-Get User Boards-*/
-export const getUserBoard = (userId) => {
-    return {
-        type: GET_USER_BOARD,
-        userId
-    }
-}
+};
 
 /*- Get A Board-*/
 export const getBoard = (board) => {
@@ -26,7 +22,7 @@ export const getBoard = (board) => {
     }
 }
 
-/*-Get All Boards-*/
+/*-Get All User Boards-*/
 export const getAllBoards = (boards) => {
     return {
         type: GET_ALL_BOARDS,
@@ -70,26 +66,6 @@ export const updateBoardPosition = (updatedBoard) => {
 
 /*-Thunks-*/
 
-
-/*-Get User Boards Thunk -*/
-// export const thunkAUserBoards = (userId) => async (dispatch) => {
-//    const response = await fetch(`/api/boards/${userId}`);
-//    if (response.ok) {
-//     const userBoards = await response.json();
-//     dispatch(getUserBoard(userBoards));
-//     console.log('GET USER BOARDS REACHED WOOOO', userBoards)
-//    }
-// }
-
-/*-Get All Boards Thunk-*/
-export const thunkAllBoards = () => async (dispatch) => {
-    const response = await fetch('/api/boards');
-    const boards = await response.json();
-    console.log('after response get all boards', boards)
-    dispatch(getAllBoards(boards));
-}
-
-
 /*-Get Board Thunk-*/
 export const thunkBoard = (boardId) => async (dispatch, getState) => {
     const response = await fetch(`/api/boards/${boardId}`);
@@ -98,6 +74,13 @@ export const thunkBoard = (boardId) => async (dispatch, getState) => {
     console.log('GET BOARD BY ID REACHED WAHOO', boards)
 }
 
+/*-Get All Boards Thunk-*/
+export const thunkAllBoards = () => async (dispatch) => {
+    const response = await fetch('/api/boards');
+    const boards = await response.json();
+    console.log('after response get all boards', boards)
+    dispatch(getAllBoards(boards));
+}
 
 /*-Add a Board Thunk-*/
 export const thunkAddBoard = (board) => async (dispatch) => {
@@ -144,30 +127,30 @@ export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
 }
 
 
-export const thunkADeleteBoard = (boardId) => async (dispatch, getState) => {
+export const thunkADeleteBoard = (boardId) => async (dispatch) => {
     let response;
     try {
-      response = await fetch(`/api/boards/${boardId}`, {
-        method: 'DELETE'
-      });
-      const deleteBoardResponse = await response.json();
-      if(response.ok) {
-        dispatch(deleteBoard(boardId));
-        return deleteBoardResponse;
-      } else {
-        throw new Error(deleteBoardResponse.message || 'Unable to delete board');
-      }
+        response = await fetch(`/api/boards/${boardId}`, {
+            method: 'DELETE'
+        });
+        const deleteBoardResponse = await response.json();
+        if (response.ok) {
+            dispatch(deleteBoard(boardId));
+            return deleteBoardResponse;
+        } else {
+            throw new Error(deleteBoardResponse.message || 'Unable to delete board');
+        }
     } catch (err) {
-      console.error(err.message);
+        console.error(err.message);
     }
-  }
+}
 
 
 // UpdateBoardPosition
 export const thunkUpdateBoardPosition = (newBoardState) => async (dispatch) => {
     const response = await fetch(`/api/boards/${newBoardState.id}`, {
         method: 'PUT',
-        headers: { 'Content-Type' : 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newBoardState)
     });
     const updatedBoard = await response.json();
@@ -177,28 +160,14 @@ export const thunkUpdateBoardPosition = (newBoardState) => async (dispatch) => {
 
 
 /*- Reducer -*/
-const initialState = {
-    boards: {},
 
-};
 
 const boardsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_USER_BOARD:
-            return {
-                ...state,
-                boards: {
-                    ...state.boards,
-                    [action.board.id]: action.board
-                }
-            }
         case GET_BOARD:
             return {
                 ...state,
-                boards: {
-                    ...state.boards,
-                    [action.board.id]: action.board
-                }
+                singleBoard: action.board
             }
         case GET_ALL_BOARDS:
             return {
@@ -207,15 +176,14 @@ const boardsReducer = (state = initialState, action) => {
                     ...action.boards
                 }
             };
-            case ADD_A_BOARD:
-                return {
-                  ...state,
-                  boards: {
+        case ADD_A_BOARD:
+            return {
+                ...state,
+                boards: {
                     ...state.boards,
                     [action.board.id]: action.board
-                  }
-                };
-
+                }
+            };
         case EDIT_BOARD:
             return {
                 ...state,
@@ -223,14 +191,14 @@ const boardsReducer = (state = initialState, action) => {
                     ...state.boards,
                     [action.board.id]: action.board
                 }
-        };
+            };
         case DELETE_BOARD:
             const boardToDelete = { ...state.boards };
             delete boardToDelete[action.boardId];
             return {
                 ...state,
                 boards: boardToDelete
-        };
+            };
         case UPDATE_BOARD_POSITION:
             const updatedBoard = action.payload;
             return {
@@ -240,7 +208,6 @@ const boardsReducer = (state = initialState, action) => {
                     [updatedBoard.id]: updatedBoard
                 }
             };
-
         default:
             return state;
     }
