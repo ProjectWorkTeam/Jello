@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { thunkAllBoards, thunkUpdateBoardPosition, thunkAddBoard } from '../../store/boardsReducer';
+import { thunkAllBoards, thunkUpdateBoardPosition, thunkAddBoard, thunkADeleteBoard } from '../../store/boardsReducer';
 import BoardTile from '../BoardTile/BoardTile';
 import BoardModal from '../BoardModal/BoardModal'; // Import the BoardModal component
 
@@ -61,7 +61,12 @@ const BoardList = () => {
               <div className="board_list"
                 {...provided.droppableProps} ref={provided.innerRef}>
                 {sortedBoards[0].map((board, index) => (
-                  <BoardTile key={board.id} board={board} index={index} />
+                  <BoardTile
+                  key={board.id}
+                  board={board}
+                  index={index}
+                  dispatch={dispatch}
+                  deleteBoard={thunkADeleteBoard} />
                 ))}
                 {provided.placeholder}
               </div>
