@@ -30,9 +30,10 @@ export const getBoard = (board) => {
 export const getAllBoards = (boards) => {
     return {
         type: GET_ALL_BOARDS,
-        boards
+        boards: boards.boards
     }
 }
+
 
 /*-Add A Board-*/
 export const addBoard = (board) => {
@@ -87,6 +88,7 @@ export const thunkAllBoards = () => async (dispatch) => {
     console.log('after response get all boards', boards)
     dispatch(getAllBoards(boards));
 }
+
 
 /*-Get Board Thunk-*/
 export const thunkBoard = (boardId) => async (dispatch, getState) => {

@@ -60,7 +60,7 @@ const BoardList = () => {
             {(provided) => (
               <div className="board_list"
                 {...provided.droppableProps} ref={provided.innerRef}>
-                {sortedBoards[0].map((board, index) => (
+                {sortedBoards.map((board, index) => (
                   <BoardTile
                   key={board.id}
                   board={board}
