@@ -24,7 +24,7 @@ function LoginFormPage() {
   };
 
   const demo = async () => {
-    const data = await dispatch(login('demo@aa.io', 'password'))
+    const data = await dispatch(login('demo@lit.com', 'demopass'))
     if (data) {
       setErrors(data);
     }

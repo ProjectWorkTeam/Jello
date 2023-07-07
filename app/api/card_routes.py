@@ -79,24 +79,57 @@ def delete_card(card_id):
     db.session.commit()
     return generate_success_response({"message": "Card deleted successfully"})
 
-# Update Card List
-@cards.route('/<int:card_id>/list/<int:list_id>', methods=['PUT'])
+# Update Card Position
+@cards.route('/<int:card_id>/position', methods=["PUT"])
 @login_required
-def update_card_list(card_id, list_id):
+def update_card_position(card_id):
     card = Card.query.get(card_id)
+
     if not card:
-        return generate_error_response("Card not found", 404)
+        return generate_error_response("Card not found.", 404)
+# we don't currently have .owner_id as a card thing, but we should have something like this later potentially
+    # if card.owner_id != current_user.id:
+    #     return generate_error_response("Unauthorized to update this card.", 403)
+
+    data = request.get_json()
+
+    new_list_id = data.get('list_id')
+    new_position_id = data.get('position_id')
+
+    if new_list_id is None or new_position_id is None:
+        return generate_error_response("Both list_id and position_id must be provided.", 400)
 
     old_list_id = card.list_id
-    if old_list_id != list_id:
-        old_position_id = card.position_id
-        cards_above_in_old_list = Card.query.filter(Card.list_id == old_list_id, Card.position_id > old_position_id).all()
-        for card_above in cards_above_in_old_list:
-            card_above.position_id -= 1
+    old_position_id = card.position_id
 
-        max_position_in_new_list = db.session.query(db.func.max(Card.position_id)).filter_by(list_id=list_id).scalar()
-        card.position_id = max_position_in_new_list + 1 if max_position_in_new_list else 1
+    # If card is moved to a new list
+    if old_list_id != new_list_id:
+        # Shift positions of other cards in the old list to fill the gap left by the card
+        old_list_cards_to_update = Card.query.filter(Card.list_id == old_list_id, Card.position_id > old_position_id).all()
+        for c in old_list_cards_to_update:
+            c.position_id -= 1
 
-    card.list_id = list_id
+        # Shift positions of other cards in the new list to make room for the new card
+        new_list_cards_to_update = Card.query.filter(Card.list_id == new_list_id, Card.position_id >= new_position_id).all()
+        for c in new_list_cards_to_update:
+            c.position_id += 1
+
+    # If card is moved within the same list
+    else:
+        # Shift positions of other cards if necessary
+        if new_position_id > old_position_id:
+            cards_to_update = Card.query.filter(Card.list_id == old_list_id, Card.position_id > old_position_id, Card.position_id <= new_position_id).all()
+            for c in cards_to_update:
+                c.position_id -= 1
+        elif new_position_id < old_position_id:
+            cards_to_update = Card.query.filter(Card.list_id == old_list_id, Card.position_id >= new_position_id, Card.position_id < old_position_id).all()
+            for c in cards_to_update:
+                c.position_id += 1
+
+    # Update card's list and position
+    card.list_id = new_list_id
+    card.position_id = new_position_id
+
     db.session.commit()
-    return card.to_dict(), 200
+
+    return generate_success_response({'message': 'Card updated successfully.'})

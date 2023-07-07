@@ -54,10 +54,6 @@ const BoardList = () => {
     setIsModalOpen(false); // Close the modal after creating a board
   };
 
-  if (boards.length < 1) {
-    return <p>No boards found.</p>;
-  }
-
   return (
     <div>
       <h1>Board List</h1>

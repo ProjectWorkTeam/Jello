@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkAllBoards } from '../../store/boardsReducer';
 import { thunkBoardLists, thunkMakeList } from '../../store/listsReducer';
-import { thunkGetCardsByList } from '../../store/cardsReducer';
+import { thunkGetCardsByList, thunkMoveCard } from '../../store/cardsReducer';
+import { DragDropContext } from 'react-beautiful-dnd';
 import List from '../List/List';
 import BoardModal from '../BoardModal/BoardModal';
 import './Board.css';
@@ -74,6 +75,23 @@ function Board() {
     toggleCreateListModal();
   };
 
+  const handleDragEnd = (result) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) return;
+    if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+    console.log("draggableId", draggableId)
+    console.log("source",source)
+    console.log("destination",destination)
+    const cardId = draggableId
+    const newListId = destination.droppableId
+    const newPositionId = destination.index + 1
+
+    // Dispatch an action to update the card's list and position
+    // dispatch(thunkMoveCard(cardId, { list_id: newListId, position_id: newPositionId })); BROKEN DO NOT USE ATM
+  }
+
+
   const sidebarStyle = {
     transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
   };
@@ -97,19 +115,25 @@ function Board() {
       </div>
       <div className="board-content" style={boardContentStyle}>
         <h2>{board?.name}</h2>
-        <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
-          {lists.map((list) => (
-            <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
-          ))}
-        </div>
-        <div className="create-list-modal">
-              <input type="text" value={newListName} onChange={handleNewListNameChange} />
-              <button onClick={createList}>Create List</button>
-            </div>
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
+            {lists.map((list) => (
+              <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
+            ))}
+            <button onClick={toggleCreateListModal}>Add a List</button>
+            {isCreateListModalOpen && (
+              <div className="create-list-modal">
+                <input type="text" value={newListName} onChange={handleNewListNameChange} />
+                <button onClick={createList}>Create List</button>
+              </div>
+            )}
+          </div>
+        </DragDropContext>
       </div>
       <button onClick={toggleModal}>Create New Board</button>
       {isModalOpen && <BoardModal closeModal={toggleModal} />}
     </div>
-  )
+  );
 }
+
 export default Board;
