@@ -102,6 +102,10 @@ function Board() {
             <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
           ))}
         </div>
+        <div className="create-list-modal">
+              <input type="text" value={newListName} onChange={handleNewListNameChange} />
+              <button onClick={createList}>Create List</button>
+            </div>
       </div>
       <button onClick={toggleModal}>Create New Board</button>
       {isModalOpen && <BoardModal closeModal={toggleModal} />}
