@@ -56,7 +56,7 @@ export const editBoard = (board) => {
 export const deleteBoard = (boardId) => {
     return {
         type: DELETE_BOARD,
-        boardId
+        payload: boardId
     }
 }
 
@@ -144,21 +144,24 @@ export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
 }
 
 
-/*Delete A Board Thunk-*/
 export const thunkADeleteBoard = (boardId) => async (dispatch, getState) => {
     let response;
     try {
-        response = await fetch(`/api/boards/${boardId}`, {
-            method: 'DELETE'
-        });
-        const deleteBoard = await response.json();
+      response = await fetch(`/api/boards/${boardId}`, {
+        method: 'DELETE'
+      });
+      const deleteBoardResponse = await response.json();
+      if(response.ok) {
         dispatch(deleteBoard(boardId));
-        return deleteBoard;
+        return deleteBoardResponse;
+      } else {
+        throw new Error(deleteBoardResponse.message || 'Unable to delete board');
+      }
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+      console.error(err.message);
     }
-}
+  }
+
 
 // UpdateBoardPosition
 export const thunkUpdateBoardPosition = (newBoardState) => async (dispatch) => {
@@ -204,13 +207,15 @@ const boardsReducer = (state = initialState, action) => {
                     ...action.boards
                 }
             };
-        case ADD_A_BOARD:
-            return {
-                ...state,
-                boards: {
-                    ...action.boards
-                }
-            };
+            case ADD_A_BOARD:
+                return {
+                  ...state,
+                  boards: {
+                    ...state.boards,
+                    [action.board.id]: action.board
+                  }
+                };
+
         case EDIT_BOARD:
             return {
                 ...state,

@@ -4,12 +4,6 @@ import { Link } from 'react-router-dom';
 
 const BoardTile = ({ board, index, dispatch, deleteBoard }) => {
 
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this board?')) {
-      dispatch(deleteBoard(board.id));
-    }
-  }
-
   return (
     <Draggable draggableId={`board_${board.id}`} index={index}>
       {(provided) => (
@@ -23,7 +17,7 @@ const BoardTile = ({ board, index, dispatch, deleteBoard }) => {
             >
               <h3>{board.name}</h3>
             </div>
-          </Link> <button onClick={handleDelete}>Delete</button>
+          </Link>
         </div>
       )}
     </Draggable>

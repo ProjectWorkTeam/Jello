@@ -41,6 +41,14 @@ const BoardList = () => {
     });
   };
 
+  const handleDelete = (boardId) => {
+    if (window.confirm('Are you sure you want to delete this board?')) {
+      dispatch(thunkADeleteBoard(boardId)).then(() => {
+        dispatch(thunkAllBoards());
+      });
+    }
+  }
+
   const handleCreateBoard = async (newBoard) => {
     dispatch(thunkAddBoard(newBoard));
     setIsModalOpen(false); // Close the modal after creating a board
@@ -61,12 +69,14 @@ const BoardList = () => {
               <div className="board_list"
                 {...provided.droppableProps} ref={provided.innerRef}>
                 {sortedBoards.map((board, index) => (
-                  <BoardTile
-                  key={board.id}
-                  board={board}
-                  index={index}
-                  dispatch={dispatch}
-                  deleteBoard={thunkADeleteBoard} />
+                  <div key={board.id}>
+                    <BoardTile
+                      board={board}
+                      index={index}
+                      dispatch={dispatch}
+                      deleteBoard={thunkADeleteBoard} />
+                    <button onClick={() => handleDelete(board.id)}>Delete</button>
+                  </div>
                 ))}
                 {provided.placeholder}
               </div>
@@ -77,6 +87,5 @@ const BoardList = () => {
       {isModalOpen && <BoardModal closeModal={() => setIsModalOpen(false)} onCreateBoard={handleCreateBoard} />}
     </div>
   );
-};
-
+}
 export default BoardList;

@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { thunkAddBoard } from '../../store/boardsReducer';
-import image1 from '../../assets/image1.jpg';
-import image2 from '../../assets/image2.jpg';
-import image3 from '../../assets/image3.jpg';
+import image_1_icon from '../../assets/image_1_icon.jpg';
+import image_2_icon from '../../assets/image_2_icon.jpg';
+import image_3_icon from '../../assets/image_3_icon.jpg';
 import './boardModal.css';
 
 const BoardModal = ({ closeModal }) => {
   const [boardName, setBoardName] = useState('');
-  const [selectedImage, setSelectedImage] = useState(image1); // Set image1 as the default selected image
+  const [selectedImage, setSelectedImage] = useState(image_1_icon); // Set image1 as the default selected image
 
   const dispatch = useDispatch();
   const history = useHistory(); // Hook to manage navigation
@@ -33,10 +33,16 @@ const BoardModal = ({ closeModal }) => {
       image: selectedImage,
     };
 
-    const createdBoard = await dispatch(thunkAddBoard(newBoard)); // Dispatch the thunkAddBoard action with the new board details
-    if (createdBoard) {
-      closeModal();
-      history.push(`/boards/${createdBoard.id}`); // Navigate to the new board's page
+    try {
+      const createdBoard = await dispatch(thunkAddBoard(newBoard));
+      console.log('\n','Created Board BoardModal.js',createdBoard);
+
+      if (createdBoard) {
+        closeModal();
+        history.push(`/boards/${createdBoard.board.id}`);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -57,22 +63,22 @@ const BoardModal = ({ closeModal }) => {
           <h3>Choose a Background Image</h3>
           <div>
             <img
-              src={image1}
+              src={image_1_icon}
               alt="background1"
-              className={`modal-background-img ${selectedImage === image1 ? 'selected' : ''}`}
-              onClick={() => handleImageSelect(image1)}
+              className={`modal-background-img ${selectedImage === image_1_icon ? 'selected' : ''}`}
+              onClick={() => handleImageSelect(image_1_icon)}
             />
             <img
-              src={image2}
+              src={image_2_icon}
               alt="background2"
-              className={`modal-background-img ${selectedImage === image2 ? 'selected' : ''}`}
-              onClick={() => handleImageSelect(image2)}
+              className={`modal-background-img ${selectedImage === image_2_icon ? 'selected' : ''}`}
+              onClick={() => handleImageSelect(image_2_icon)}
             />
             <img
-              src={image3}
+              src={image_3_icon}
               alt="background3"
-              className={`modal-background-img ${selectedImage === image3 ? 'selected' : ''}`}
-              onClick={() => handleImageSelect(image3)}
+              className={`modal-background-img ${selectedImage === image_3_icon ? 'selected' : ''}`}
+              onClick={() => handleImageSelect(image_3_icon)}
             />
           </div>
         </div>
