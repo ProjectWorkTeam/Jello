@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { thunkEditList } from '../../store/listsReducer';
+import { thunkEditList, thunkMoveCard } from '../../store/listsReducer';
+import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
 import './List.css';
 import CardModal from '../CardModal/CardModal';
@@ -82,19 +83,24 @@ function List({ list, cards }) {
           <h3 className="list-actions">...</h3>
         </div>
         <div className="cards-list">
-        <ul className="card-buttons">
-          {cards.map((card) => (
-          <li key={card.id}>
-        <OpenModalButton
-          key={card.id}
-          modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
-          buttonText={card.title}
-          onModalClose={closeCardModal}
-                    />
-          <Card card={card} openCardModal={openCardModal} />
-          </li>
-          ))}
-        </ul>
+          <Droppable droppableId={String(list.id)}>
+            {(provided) => (
+              <ul className="card-buttons"{...provided.droppableProps} ref={provided.innerRef}>
+                {cards?.map((card, index) => (
+                  <li key={card.id}>
+                  <OpenModalButton
+                    key={card.id}
+                    modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
+                    buttonText={card.title}
+                    onModalClose={closeCardModal}
+                              />
+                    <Card card={card} openCardModal={openCardModal} />
+                    </li>
+                    ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
         </div>
         <div className="list-footer">
           {!addingCard ? (

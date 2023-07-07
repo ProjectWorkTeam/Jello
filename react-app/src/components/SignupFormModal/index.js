@@ -17,17 +17,37 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (password === confirmPassword) {
+		
+		// Validation checks
+		const validationErrors = {};
+		if (firstName.trim() === "") {
+			validationErrors.firstName = "First Name is required";
+		}
+		if (lastName.trim() === "") {
+			validationErrors.lastName = "Last Name is required";
+		}
+		if (username.trim() === "") {
+			validationErrors.username = "Username is required";
+		}
+		if (!/.+@.+\..+/.test(email)) {
+			validationErrors.email = "Invalid email format";
+		}
+		if (password.length < 6) {
+			validationErrors.password = "Password must be at least 6 characters";
+		}
+		if (password !== confirmPassword) {
+			validationErrors.confirmPassword = "Confirm Password must match the Password field";
+		}
+		
+		if (Object.keys(validationErrors).length > 0) {
+			setErrors(Object.values(validationErrors));
+		} else {
 			const data = await dispatch(signUp(firstName, lastName, username, email, password));
 			if (data && data.errors) {
 				setErrors(data.errors);
 			} else {
 				closeModal();
 			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
 		}
 	};
 

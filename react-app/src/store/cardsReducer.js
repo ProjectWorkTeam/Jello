@@ -1,27 +1,28 @@
-
-
-
 /*- Action Types -*/
-const GET_CARDS_LIST = 'cards/GetCardsList';
-const GET_ALL_CARDS = 'cards/GetAllCards';
+const GET_CARDS_BY_LIST = 'cards/getCardsByList';
 const GET_CARD = 'cards/GetCard';
 const MAKE_CARD = 'cards/MakeCard';
 const EDIT_CARD = 'cards/EditCard';
+const MOVE_CARD = "MOVE_CARD";
 const DELETE_CARD = 'cards/DeleteCard';
 
 
-/*-Action Creators-*/
-
-
-/*-Get All Cards-*/
-export const getAllCards = (cards) => {
-    return {
-        type: GET_ALL_CARDS,
-        cards
-    }
+const initialState = {
+    cards: {},
 }
 
+/*-Action Creators-*/
+
+/*-Get All Cards-*/
+
 /*-Get Card -*/
+const moveCard = (cardId, listId, positionId) => ({
+    type: MOVE_CARD,
+    cardId,
+    listId,
+    positionId,
+});
+
 export const getCard = (card) => {
     return {
         type: GET_CARD,
@@ -30,15 +31,10 @@ export const getCard = (card) => {
 }
 
 /*-Get Card by List-*/
-export const getCardLists = (cards, listId) => {
-    return {
-        type: GET_CARDS_LIST,
-        payload: {
-            cards: cards,
-            listId: listId
-        }
-    }
-}
+const getCardsByList = (listId, cards) => ({
+    type: GET_CARDS_BY_LIST,
+    payload: { listId, cards },
+});
 
 /*-Make Card-*/
 export const makeCard = (card) => {
@@ -63,14 +59,6 @@ export const deleteCard = (cardId) => {
     }
 }
 
-/*-Get All Cards-*/
-export const thunkAllCards = () => async (dispatch) => {
-    const response = await fetch('/api/cards');
-    const cards = await response.json();
-    console.log('after response get all cards', cards)
-    dispatch(getAllCards(cards));
-}
-
 /*-Get Card By Id Thunk-*/
 export const thunkCard = (cardId) => async (dispatch, getState) => {
     const response = await fetch(`/api/cards/${cardId}`);
@@ -79,16 +67,40 @@ export const thunkCard = (cardId) => async (dispatch, getState) => {
     console.log('GET CARD BY ID REACHED YAHOO', cards)
 }
 
+export const thunkMoveCard = (cardId, data) => async (dispatch) => {
+    const response = await fetch(`/api/cards/${cardId}/position`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+        const { list_id, position_id } = await response.json();
+        dispatch(moveCard(cardId, list_id, position_id));
+        return null;
+    } else {
+        const errorData = await response.json();
+        if (errorData.errors) {
+            return errorData.errors;
+        }
+    }
+};
+
 
 /*-Get Card By List Id Thunk=*/
-export const thunkCardList = (listId) => async (dispatch) => {
-    const response = await fetch(`/api/cards/${listId}`);
+export const thunkGetCardsByList = (listId) => async (dispatch) => {
+    const response = await fetch(`/api/cards/list/${listId}`);
     if (response.ok) {
-        const cardLists = await response.json();
-        dispatch(getCardLists(cardLists));
-        console.log('CARD LISTS', cardLists)
+        const cards = await response.json();
+        dispatch(getCardsByList(listId, cards));
+    } else {
+        console.log('Error fetching cards by list');
     }
-}
+};
+
+
 
 /*-Make Card Thunk-*/
 export const thunkMakeCard = (card) => async (dispatch) => {
@@ -96,7 +108,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
     try {
         response = await fetch('/api/cards', {
             method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(card)
         });
         console.log('create card thunk reached', response);
@@ -104,7 +116,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
         dispatch(makeCard(cardResponse));
         console.log('new card!', cardResponse);
         return cardResponse;
-    } catch(err) {
+    } catch (err) {
         const errors = await err.json();
         return errors;
     }
@@ -117,13 +129,13 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
     try {
         response = await fetch(`/api/cards/${cardId}`, {
             method: 'PUT',
-            headers: {'Content-Type' : 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(card)
         });
         const cardToEdit = await response.json();
         dispatch(editCard(cardToEdit));
         return cardToEdit;
-    } catch(err) {
+    } catch (err) {
         const errors = await err.json();
         return errors;
     }
@@ -139,43 +151,56 @@ export const thunkDeleteCard = (cardId) => async (dispatch, getState) => {
         const deleteCard = await response.json();
         dispatch(deleteCard(cardId));
         return deleteCard;
-    } catch(err) {
+    } catch (err) {
         const errors = await err.json();
         return errors;
     }
 }
 
 /*-Reducer-*/
-const initialState = {
-    cards : {},
-}
 
 
 const cardsReducer = (state = initialState, action) => {
+    let newState;
     switch (action.type) {
-        case GET_ALL_CARDS:
-            console.log('Action: GET_ALL_CARDS', action.cards);
-            return {
-                ...state,
-                cards: {
-                    ...action.cards
-                }
-        };
+        case GET_CARDS_BY_LIST: {
+            const newState = { ...state };
+            const { listId, cards } = action.payload;
+
+            // Store each card with card id as the key
+            cards.forEach(card => {
+                newState.cards[card.id] = card;
+            });
+
+            // Store list of card ids for each list id
+            newState[listId] = cards.map(card => card.id);
+
+            return newState;
+        }
         case GET_CARD:
             return {
                 ...state,
                 cards: {
-                ...state.cards,
-                [action.card.id] : action.card
+                    ...state.cards,
+                    [action.card.id]: action.card
+                }
+            };
+        case MOVE_CARD:
+            newState = { ...state };
+            const { cardId, listId, positionId } = action;
+            // You may need to adjust the below code depending on your state structure
+            const card = newState.lists[state.lists[listId]].cards.find(card => card.id === cardId);
+            if (card) {
+                card.position = positionId;
             }
-        };
+            return newState;
         case MAKE_CARD:
             return {
                 ...state,
                 cards: {
                     ...action.cards
                 }
-        };
+            };
         case EDIT_CARD:
             return {
                 ...state,
@@ -183,14 +208,14 @@ const cardsReducer = (state = initialState, action) => {
                     ...state.cards,
                     [action.card.id]: action.card
                 }
-        };
+            };
         case DELETE_CARD:
             const cardToDelete = { ...state.cards };
             delete cardToDelete[action.cardId];
             return {
                 ...state,
                 cards: cardToDelete
-        };
+            };
         default:
             return state;
     }

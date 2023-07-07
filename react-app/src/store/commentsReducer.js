@@ -39,26 +39,6 @@ export const postComments = (cardComment) => {
     }
 }
 
-
-/*-Edit Comment-*/
-export const editComments = (cardComment) => {
-    return {
-        type: EDIT_COMMENTS,
-        cardComment
-    }
-}
-
-/*-Delete Comment-*/
-export const deleteComments = (cardCommentId) => {
-    return {
-        type: DELETE_COMMENTS,
-        cardCommentId
-    }
-}
-
-
-
-
 /*-Get Comments Thunk-*/
 export const thunkComments = (cardId) => async (dispatch) => {
     const response = await csrfFetch(`/api/cardComments${cardId}`);
@@ -99,39 +79,39 @@ export const thunkPostComments = (cardComment) => async (dispatch) => {
 }
 
 /*-Edit Comments Thunk-*/
-export const thunkEditComments = (cardCommentId, cardComment) => async (dispatch) => {
-    console.log('edit comment thunk reached', cardComment)
-    let response;
-    try {
-        response = await fetch(`/api/cardComments/${cardCommentId}`, {
-            method: 'PUT',
-            headers: {'Content-Type' : 'application/json'},
-            body: JSON.stringify(cardComment)
-        });
-        const commentToEdit = await response.json();
-        dispatch(editComments(commentToEdit));
-        return commentToEdit;
-    } catch(err) {
-        const errors = await err.json();
-        return errors;
-    }
-}
+// export const thunkEditComments = (cardCommentId, cardComment) => async (dispatch) => {
+//     console.log('edit comment thunk reached', cardComment)
+//     let response;
+//     try {
+//         response = await fetch(`/api/cardComments/${cardCommentId}`, {
+//             method: 'PUT',
+//             headers: {'Content-Type' : 'application/json'},
+//             body: JSON.stringify(cardComment)
+//         });
+//         const commentToEdit = await response.json();
+//         dispatch(editComments(commentToEdit));
+//         return commentToEdit;
+//     } catch(err) {
+//         const errors = await err.json();
+//         return errors;
+//     }
+// }
 
-/*-Delete A Comment Thunk-*/
-export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
-    let response;
-    try {
-        response = await fetch(`/api/cardComments/${cardCommentId}`, {
-            method: 'DELETE'
-        });
-        const deleteComent = await response.json();
-        dispatch(deleteComments(cardCommentId));
-        return deleteComent;
-    } catch(err) {
-        const errors = await err.json();
-        return errors;
-    }
-}
+// /*-Delete A Comment Thunk-*/
+// export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
+//     let response;
+//     try {
+//         response = await fetch(`/api/cardComments/${cardCommentId}`, {
+//             method: 'DELETE'
+//         });
+//         const deleteComent = await response.json();
+//         dispatch(deleteComments(cardCommentId));
+//         return deleteComent;
+//     } catch(err) {
+//         const errors = await err.json();
+//         return errors;
+//     }
+// }
 
 
 /*-Reducer-*/
