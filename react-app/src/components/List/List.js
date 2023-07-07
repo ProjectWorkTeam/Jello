@@ -87,7 +87,14 @@ function List({ list, cards }) {
               key={card.id}
               card={card}
               openCardModal={openCardModal}
-            />
+            >
+            <OpenModalButton
+             modalComponent={<CardModal cardId={selectCard} closeModal={closeCardModal} />}
+              buttonText="hi"
+              onModalClose={closeCardModal}
+                />
+            </Card>
+
           ))}
         </ul>
         <div className="list-footer">
@@ -113,11 +120,7 @@ function List({ list, cards }) {
         </div>
       </div>
       {selectCard && (
-        <OpenModalButton
-          modalComponent={<CardModal cardId={selectCard} closeModal={closeCardModal} />}
-          buttonText=""
-          onModalClose={closeCardModal}
-        />
+        <CardModal cardId={selectCard} closeModal={closeCardModal} />
       )}
     </div>
   );

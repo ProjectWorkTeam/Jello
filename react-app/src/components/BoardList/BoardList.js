@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { thunkAllBoards, thunkUpdateBoardPosition } from '../../store/boardsReducer';
 import BoardTile from '../BoardTile/BoardTile';
+import './BoardList.css'
 
 const BoardList = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,17 @@ const BoardList = () => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <div>
+      <div className="workspace-container">
+        <div className="workspace-info">
+          <h3>Work Space</h3>
+        </div>
+      </div>
+      <div className="sidebar-container">
+        <div className="side-bar">
+          <h3>Side Bar</h3>
+        </div>
+      </div>
+      <div className="board-list-container">
         <h1>Board List</h1>
         <Droppable droppableId="boardList">
           {(provided) => (
