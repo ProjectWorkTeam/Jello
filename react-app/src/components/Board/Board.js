@@ -99,15 +99,7 @@ function Board() {
         <h2>{board?.name}</h2>
         <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
           {lists.map((list) => (
-            <div key={list.id} className="list" style={{ margin: "10px", flex: 1 }}>
-              <h2>{list.name}</h2>
-              {cards[list.id]?.map((cardId) => (
-                <div key={cardId} className="card">
-                  <h3>{cards.cards[cardId].title}</h3>
-                  <p>{cards.cards[cardId].text}</p>
-                </div>
-              ))}
-            </div>
+            <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
           ))}
         </div>
       </div>

@@ -45,7 +45,7 @@ function List({ list, cards }) {
           <h3 className="list-actions">...</h3>
         </div>
         <ul>
-          {cards.map((card) => (
+          {cards?.map((card) => (
             <Card key={card.id} card={card} />
           ))}
         </ul>
