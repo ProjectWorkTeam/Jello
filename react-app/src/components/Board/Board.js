@@ -117,6 +117,8 @@ function Board() {
 
   const handleSaveBoardName = async () => {
     if (editedBoardName.trim() === '') {
+      // Handle empty board name error
+      alert("Board name cannot be empty");
       return;
     }
     const action = await dispatch(thunkAEditBoard(board.id, { name: editedBoardName }));
@@ -127,6 +129,7 @@ function Board() {
     setIsEditing(false);
     setEditedBoardName("");
   };
+  
 
 
 
