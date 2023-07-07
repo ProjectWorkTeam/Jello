@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkAllBoards } from '../../store/boardsReducer';
+import { thunkAllBoards, thunkAEditBoard, getAllBoards } from '../../store/boardsReducer';
 import { thunkBoardLists, thunkMakeList } from '../../store/listsReducer';
 import { thunkGetCardsByList, thunkMoveCard } from '../../store/cardsReducer';
 import { DragDropContext } from 'react-beautiful-dnd';
 import List from '../List/List';
-import BoardModal from '../BoardModal/BoardModal';
 import CardModal from '../CardModal/CardModal';
 import './Board.css';
 
@@ -19,16 +18,16 @@ function Board() {
   const boards = useSelector((state) => Object.values(state.boards.boards) || []);
   const { boardid } = useParams();
   const [board, setBoard] = useState();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedBoardName, setEditedBoardName] = useState("");
 
   useEffect(() => {
     dispatch(thunkAllBoards());
   }, [dispatch]);
+
   useEffect(() => {
     const foundBoard = boards.find(b => b.id === parseInt(boardid, 10));
     setBoard(foundBoard);
-    if (foundBoard && foundBoard.id) {
-      // console.log('\n', 'FoundBoard === True', foundBoard.id)
-    }
   }, [boards, boardid]);
   // console.log('\n', 'Board_board.js', board);
   useEffect(() => {
@@ -111,6 +110,30 @@ function Board() {
     dispatch(thunkBoardLists(board.id))
   }
 
+  const handleEditBoardName = () => {
+    setIsEditing(true);
+    setEditedBoardName(board.name);
+  };
+
+  const handleSaveBoardName = async () => {
+    if (editedBoardName.trim() === '') {
+      return;
+    }
+    const action = await dispatch(thunkAEditBoard(board.id, { name: editedBoardName }));
+    if (!action.error) {
+      setBoard(prevBoard => ({ ...prevBoard, name: editedBoardName }));
+    }
+    dispatch(thunkAllBoards())
+    setIsEditing(false);
+    setEditedBoardName("");
+  };
+
+
+
+  const handleCancelEditBoardName = () => {
+    setIsEditing(false);
+    setEditedBoardName("");
+  };
 
   const sidebarStyle = {
     transform: openSideBar ? 'translateX(0)' : 'translateX(-100%)',
@@ -134,7 +157,24 @@ function Board() {
         )}
       </div>
       <div className={`board-content ${openSideBar ? 'sidebar-open' : ''}`} style={boardContentStyle}>
-        <h2>{board?.name}</h2>
+        <div className="board-header">
+          {!isEditing ? (
+            <h2>{board?.name}</h2>
+          ) : (
+            <div>
+              <input
+                type="text"
+                value={editedBoardName}
+                onChange={(e) => setEditedBoardName(e.target.value)}
+              />
+              <button onClick={handleSaveBoardName}>Save</button>
+              <button onClick={handleCancelEditBoardName}>Cancel</button>
+            </div>
+          )}
+          {!isEditing && (
+            <i class="fa-solid fa-pen-to-square" onClick={handleEditBoardName}></i>
+          )}
+        </div>
 
         <DragDropContext onDragEnd={handleDragEnd}>
 
@@ -154,7 +194,7 @@ function Board() {
         </DragDropContext>
 
       </div>
-   </div>
+    </div>
   );
 }
 
