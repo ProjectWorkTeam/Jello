@@ -117,6 +117,7 @@ function Board() {
       <div className={`board-content ${openSideBar ? 'sidebar-open' : ''}`} style={boardContentStyle}>
         <h2>{board?.name}</h2>
         <DragDropContext onDragEnd={handleDragEnd}>
+      
           <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
             {lists.map((list) => (
               <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />

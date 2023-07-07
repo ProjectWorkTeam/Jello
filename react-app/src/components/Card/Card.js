@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import CardModal from '../CardModal/CardModal';
+import OpenModalButton from '../OpenModalButton';
 import './Card.css';
 
-function Card({ card, index, openCardModal }) {
+function Card({ card, index }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
-
+  const [selectCard, setSelectCard] = useState(null);
 
   const openMenu = () => {
     setMenuOpen(true);
@@ -15,6 +17,14 @@ function Card({ card, index, openCardModal }) {
   };
   const handleCardClick = () => {
     openCardModal(card.id)
+  };
+
+  const openCardModal = (cardId) => {
+    setSelectCard(cardId);
+  };
+
+  const closeCardModal = () => {
+    setSelectCard(null);
   };
 
   if (!card) return null;
@@ -30,7 +40,12 @@ function Card({ card, index, openCardModal }) {
             <li>Delete</li>
           </ul>
         </div>
-      )}
+      )}<OpenModalButton
+      key={card.id}
+      modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
+      buttonText={card.title}
+      onModalClose={closeCardModal}
+                />
         </div>
       )}
     </Draggable>
