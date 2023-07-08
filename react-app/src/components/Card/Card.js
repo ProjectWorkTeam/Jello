@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import CardModal from '../CardModal/CardModal';
 import OpenModalButton from '../OpenModalButton';
@@ -34,18 +34,18 @@ function Card({ card, index }) {
         <div className="card" onClick={handleCardClick} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <p className="card-title">{card.title}</p>
           {isMenuOpen && (
-        <div className="card-menu">
-          <ul>
-            <li>Edit</li>
-            <li>Delete</li>
-          </ul>
-        </div>
-      )}<OpenModalButton
-      key={card.id}
-      modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
-      buttonText={card.title}
-      onModalClose={closeCardModal}
-                />
+            <div className="card-menu">
+              <ul>
+                <li>Edit</li>
+                <li>Delete</li>
+              </ul>
+            </div>
+          )}<OpenModalButton
+            key={card.id}
+            modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
+            buttonText={card.title}
+            onModalClose={closeCardModal}
+          />
         </div>
       )}
     </Draggable>

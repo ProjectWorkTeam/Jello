@@ -19,6 +19,7 @@ function Board() {
   const boards = useSelector((state) => Object.values(state.boards.boards) || []);
   const { boardid } = useParams();
   const [board, setBoard] = useState();
+
   useEffect(() => {
     dispatch(thunkAllBoards());
   }, [dispatch]);
@@ -67,13 +68,13 @@ function Board() {
       return;
     }
     const newList = {
-      id: lists.length + 1,
-      name: newListName,
+      list_name: newListName,
       board_id: board.id,
     };
     dispatch(thunkMakeList(newList));
     setNewListName("");
     toggleCreateListModal();
+    dispatch(thunkBoardLists(board.id))
   };
 
   const handleDragEnd = (result) => {
@@ -82,8 +83,8 @@ function Board() {
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
     console.log("draggableId", draggableId)
-    console.log("source",source)
-    console.log("destination",destination)
+    console.log("source", source)
+    console.log("destination", destination)
     const cardId = draggableId
     const newListId = destination.droppableId
     const newPositionId = destination.index + 1
@@ -105,7 +106,7 @@ function Board() {
     <div className="board">
       <h1>Board Testing</h1>
       <div className={`sidebar ${openSideBar ? 'open' : ''}`} style={sidebarStyle}>
-      <button className="toggle-side-button"onClick={toggleSidebar}>O</button>
+        <button className="toggle-side-button" onClick={toggleSidebar}>O</button>
         {openSideBar && (
           <>
             <a href="/home">Dashboard</a>
@@ -116,22 +117,24 @@ function Board() {
       </div>
       <div className={`board-content ${openSideBar ? 'sidebar-open' : ''}`} style={boardContentStyle}>
         <h2>{board?.name}</h2>
+
         <DragDropContext onDragEnd={handleDragEnd}>
-      
+
           <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
             {lists.map((list) => (
               <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
             ))}
-            <button className="add-list-button"onClick={toggleCreateListModal}>Add a List</button>
+            <button className="add-list-button" onClick={toggleCreateListModal}>Add a List</button>
             {isCreateListModalOpen && (
               <div className="create-list-modal">
-                <input className="create-list-input"type="text" value={newListName} onChange={handleNewListNameChange} />
-                <button className="create-list-button"onClick={createList}>Create List</button>
+                <input className="create-list-input" type="text" value={newListName} onChange={handleNewListNameChange} />
+                <button className="create-list-button" onClick={createList}>Create List</button>
               </div>
             )}
           </div>
 
         </DragDropContext>
+
       </div>
       <button onClick={toggleModal}>Create New Board</button>
       {isModalOpen && <BoardModal closeModal={toggleModal} />}
