@@ -144,7 +144,7 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: card.title,
-                description: card.text || '', // Use "text" property instead of "description"
+                description: card.text || '',
                 list_id: card.list_id,
             }),
         });
