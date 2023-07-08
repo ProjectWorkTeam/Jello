@@ -6,8 +6,9 @@
 
 .sidebar-container {
     width: 20rem;
+    height: 600px;
     border-right: 0.2rem solid #aaa;
-    background-color: rgba(255, 255, 255, 0.7); /* Making sidebar slightly opaque */
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
 }
 
@@ -19,15 +20,15 @@
 
 .main-workspace {
     border-bottom: 0.2rem solid #aaa;
-    color: #2b3e50; /* Dark blue color */
+    color: #2b3e50;
 }
 
 .workspace-content {
     flex-grow: 1;
-    overflow: hidden; /* Ensure the workspace-content itself does not scroll */
+    overflow: hidden;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.4);
-    height: calc(100vh 100px); /* Replace these with actual values */
+    height: 600px;
     display: flex;
     flex-direction: column;
 }
@@ -47,13 +48,13 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 0;
-    overflow-y: auto; /* Enable scrolling */
-    height: 100%; /* Take full height */
+    overflow-y: auto;
+    height: 100%;
 }
 
 
 .board-tile {
-    background-color: rgba(235, 236, 240, 0.7); /* Making board-tile slightly opaque */
+    background-color: rgba(235, 236, 240, 0.7); 
     border-radius: 0.4rem;
     box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
     padding: 1.2rem;
