@@ -62,7 +62,7 @@ function Board() {
     setNewListName(e.target.value);
   };
 
-  const createList = () => {
+  const createList = async () => {
     if (newListName.trim() === '') {
       // Handle error case
       return;
@@ -71,10 +71,10 @@ function Board() {
       list_name: newListName,
       board_id: board.id,
     };
-    dispatch(thunkMakeList(newList));
+    await dispatch(thunkMakeList(newList));
     setNewListName("");
     toggleCreateListModal();
-    dispatch(thunkBoardLists(board.id))
+    dispatch(thunkBoardLists(board.id));
   };
 
   const handleDragEnd = (result) => {

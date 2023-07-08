@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
-import { thunkEditList } from '../../store/listsReducer'
+import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer'
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
+
 import './List.css';
 
 
@@ -64,6 +65,14 @@ function List({ list, cards }) {
     setIsAdding(false);
   };
 
+  const handleDeleteList = async () => {
+    if (window.confirm("Are you sure you want to delete this list?")) {
+      await dispatch(thunkDeleteList(list.id));
+      // After the list is deleted, update the state.
+      await dispatch(thunkBoardLists(list.board_id));
+    }
+  };
+
 
   const toggleAddingCard = () => {
     setAddingCard(!addingCard);
@@ -105,6 +114,7 @@ function List({ list, cards }) {
             )}
           </h3>
           <h3 className="list-actions">...</h3>
+          <button onClick={handleDeleteList}>Delete</button> {/* Delete button added here */}
         </div>
 
         <div className="cards-list">
