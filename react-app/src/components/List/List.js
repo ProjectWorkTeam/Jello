@@ -67,9 +67,8 @@ function List({ list, cards }) {
 
   const handleDeleteList = async () => {
     if (window.confirm("Are you sure you want to delete this list?")) {
-      await dispatch(thunkDeleteList(list.id));
-      // After the list is deleted, update the state.
-      await dispatch(thunkBoardLists(list.board_id));
+      dispatch(thunkDeleteList(list.id));
+      dispatch(thunkBoardLists(list.board_id));
     }
   };
 

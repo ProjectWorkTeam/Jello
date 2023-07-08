@@ -89,7 +89,7 @@ function Board() {
     console.log("Old_Card.position_id & source.index", source.index)
     console.log("Old_Card.list_id & source.droppableId", source.droppableId)
 
-    console.log("\n","New_Card.position & destination.index", destination.index)
+    console.log("\n", "New_Card.position & destination.index", destination.index)
     console.log("New_Card.list_id & destination.droppableId", destination.droppableId)
 
     const cardId = draggableId

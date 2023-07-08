@@ -153,20 +153,24 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
 }
 
 /*Delete A Card Thunk-*/
-export const thunkDeleteCard = (cardId, listId) => async (dispatch, getState) => {
+export const thunkDeleteCard = (cardId, listId) => async (dispatch) => {
     let response;
     try {
         response = await fetch(`/api/cards/${cardId}`, {
             method: 'DELETE'
         });
+        if (!response.ok) {
+            throw new Error("Error deleting card");
+        }
         const deleteCard = await response.json();
         dispatch(deleteCard(cardId, listId));
         return deleteCard;
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+        console.error(err.message);
+        return null;
     }
 }
+
 
 /*-Reducer-*/
 
@@ -219,13 +223,11 @@ const cardsReducer = (state = initialState, action) => {
                     [action.card.id]: action.card
                 }
             };
-        case DELETE_CARD:
-            const cardToDelete = { ...state.cards };
-            delete cardToDelete[action.cardId];
-            return {
-                ...state,
-                cards: cardToDelete
-            };
+            case DELETE_CARD:
+                newState = { ...state };
+                delete newState.cards[action.cardId];
+                newState[action.listId] = newState[action.listId].filter(cardId => cardId !== action.cardId);
+                return newState;
         default:
             return state;
     }
