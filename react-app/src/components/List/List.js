@@ -56,7 +56,7 @@ function List({ list, cards }) {
 
     if (createdCard) {
       const { id, listId } = createdCard;
-      dispatch(thunkMoveCard(id, { listId, positionId: cards.length }));
+      dispatch(thunkMoveCard(id, { listId, position_id: cards.length }));
     }
 
     setNewCardTitle('');
@@ -111,9 +111,9 @@ function List({ list, cards }) {
           <Droppable droppableId={String(list.id)}>
             {(provided) => (
               <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef}>
-                {cards?.map((card, index) => (
-                  <div>
-                    <Card key={card.id} card={card} index={index} />
+                {cards?.sort((a, b) => a.position_id - b.position_id).map((card, index) => (
+                  <div key={card.id}>
+                    <Card card={card} index={index} />
                   </div>
                 ))}
 

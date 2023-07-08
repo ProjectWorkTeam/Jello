@@ -39,10 +39,11 @@ export const editList = (list) => {
 }
 
 /*-Delete List -*/
-export const deleteList = (listId) => {
+export const deleteList = (listId, boardId) => {
   return {
     type: DELETE_LIST,
-    listId
+    listId,
+    boardId
   }
 }
 
@@ -99,14 +100,14 @@ export const thunkEditList = (listId, list) => async (dispatch) => {
 }
 
 /*-Delete A List Thunk-*/
-export const thunkDeleteList = (listId) => async (dispatch) => {
+export const thunkDeleteList = (listId, boardId) => async (dispatch) => {
   let response;
   try {
     response = await fetch(`/api/lists/${listId}`, {
       method: 'DELETE'
     });
     const deleteList = await response.json();
-    dispatch(deleteList(listId));
+    dispatch(deleteList(listId, boardId));
     return deleteList;
   } catch (err) {
     const errors = await err.json();

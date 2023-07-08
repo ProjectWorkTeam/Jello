@@ -42,7 +42,7 @@ const BoardModal = ({ closeModal }) => {
 
       if (createdBoard) {
         closeModal();
-        history.push(`/boards/${createdBoard.board.id}`);
+        history.push(`/board/${createdBoard.board.id}`);
       }
     } catch (error) {
       console.error(error);

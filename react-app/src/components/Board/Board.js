@@ -30,21 +30,21 @@ function Board() {
       // console.log('\n', 'FoundBoard === True', foundBoard.id)
     }
   }, [boards, boardid]);
-  console.log('\n', 'Board_board.js', board);
+  // console.log('\n', 'Board_board.js', board);
   useEffect(() => {
     if (board && board.id) {
       dispatch(thunkBoardLists(board.id));
     }
   }, [dispatch, board]);
   const lists = useSelector(state => state.lists.lists[parseInt(boardid, 10)] || []);
-  console.log('\n', 'lists_board.js', lists);
+  // console.log('\n', 'lists_board.js', lists);
   useEffect(() => {
     lists.forEach(list => {
       dispatch(thunkGetCardsByList(list.id));
     });
   }, [dispatch, lists]);
   const cards = useSelector(state => state.cards || {});
-  console.log('\n', 'cards_board.js', cards);
+  // console.log('\n', 'cards_board.js', cards);
 
   const toggleSidebar = () => {
     setOpenSideBar(!openSideBar);
@@ -82,15 +82,33 @@ function Board() {
 
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-    console.log("draggableId", draggableId)
-    console.log("source", source)
-    console.log("destination", destination)
+    // Index === position
+    // droppableId === ID
+    console.log("Card_id & draggableId", draggableId)
+
+    console.log("Old_Card.position_id & source.index", source.index)
+    console.log("Old_Card.list_id & source.droppableId", source.droppableId)
+
+    console.log("\n","New_Card.position & destination.index", destination.index)
+    console.log("New_Card.list_id & destination.droppableId", destination.droppableId)
+
     const cardId = draggableId
     const newListId = destination.droppableId
     const newPositionId = destination.index + 1
 
+    const oldListId = source.droppableId
+    const oldPositionId = source.index + 1
+
+
+
     // Dispatch an action to update the card's list and position
-    // dispatch(thunkMoveCard(cardId, { list_id: newListId, position_id: newPositionId })); BROKEN DO NOT USE ATM
+    dispatch(thunkMoveCard(cardId, {
+      new_list_id: newListId,
+      new_position_id: newPositionId,
+      old_list_id: oldListId,
+      old_position_id: oldPositionId
+    }));
+    dispatch(thunkBoardLists(board.id))
   }
 
 
