@@ -1,14 +1,13 @@
 # Jello
 App Academy Group Project
 
+## Live Link!!
 
-## Database Schema Design
+https://jello-project-management.onrender.com/
 
-<!--!!START SILENT -->
-![jello-database-schema]
+## Check out our wiki for additional docs!
 
-[jello-database-schema]:zJello.png
-
+https://github.com/ProjectWorkTeam/Jello
 
 ## API Documentation
 
@@ -20,6 +19,12 @@ App Academy Group Project
   - [Update User Information (PUT /users/{UserID})](#put-usersuserid)
   - [Delete a User (DELETE /users/{UserID})](#delete-usersuserid)
 
+## Database Schema Design
+
+<!--!!START SILENT -->
+![jello-database-schema]
+
+[jello-database-schema]:zJello.png
 
 # API Documentation
 
