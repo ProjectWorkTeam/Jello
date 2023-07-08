@@ -88,7 +88,7 @@ function Card({ card, index }) {
           <OpenModalButton
             key={card.id}
             modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
-            buttonText={card.title}
+            buttonText="?"
             onModalClose={closeCardModal}
           />
           <button onClick={handleDelete}>Delete</button>

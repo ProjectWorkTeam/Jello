@@ -18,25 +18,28 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-        <Route exact path="/login">
-          <LoginFormPage />
-        </Route>
-        <Route exact path="/signup">
-          <SignupFormPage />
-        </Route>
-        <Route exact path="/board/:boardid">
-          <Board />
-        </Route>
-        <Route exact path="/home">
-          <BoardList />
-        </Route>
-        <Route exact path="/">
-          <LandingPage />
-        </Route>
-      </Switch>
+          <Route exact path="/login">
+            <Navigation isLoaded={isLoaded} />
+            <LoginFormPage />
+          </Route>
+          <Route exact path="/signup">
+            <Navigation isLoaded={isLoaded} />
+            <SignupFormPage />
+          </Route>
+          <Route exact path="/board/:boardid">
+            <Navigation isLoaded={isLoaded} />
+            <Board />
+          </Route>
+          <Route exact path="/home">
+            <Navigation isLoaded={isLoaded} />
+            <BoardList />
+          </Route>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+        </Switch>
       )}
     </>
   );

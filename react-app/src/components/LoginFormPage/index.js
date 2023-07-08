@@ -55,7 +55,7 @@ function LoginFormPage() {
           <div className="logo-wrapper">
             <img src={jello} alt="Jello" className="logo-image" />
           </div>
-          <div className="logo-text">Jello</div>
+          <div className="logo-text"></div>
         </div>
       </div>
       <h1 className="input-title">Log In</h1>

@@ -24,28 +24,25 @@ const LandingPage = () => {
     return (
         <div>
             <div className="landing-Nav">
-                <div className="logo-container">
-                    <div className="logo-style">
-                        <img src={jello} alt="Jello" className="logo" />
-                    </div>
-                    Jello
+                <div
+                className="logo-container">
                 </div>
                 <div className="Creds">
                     <div className="landing-login" onClick={login}>
                         Log in
                     </div>
                     <div className="landing-SignUp" onClick={signup}>
-                        Get Jello for free
+                        Get Jello Free!
                     </div>
                 </div>
             </div>
             <div className="Info-Body">
                 <div className="Wrapper">
                     <div className="Body">
-                        <h1 className="header">
+                        <h2 className="landing-header">
                             Jello brings all your tasks, teammates, and tools together
-                        </h1>
-                        <div className="text-body">Keep everything in the same place.</div>
+                        </h2>
+                        <h3 className="text-body">Keep everything in the same place.</h3>
                         <div className="SignUp-body" onClick={signup}>
                             Sign up
                         </div>

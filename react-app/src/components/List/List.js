@@ -33,12 +33,12 @@ function List({ list, cards }) {
       alert('Please enter a title for the list.');
       return;
     }
-  
+
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
   };
-  
-  
+
+
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -124,7 +124,6 @@ function List({ list, cards }) {
               title
             )}
           </h3>
-          <h3 className="list-actions">...</h3>
           <button onClick={handleDeleteList}>Delete</button> {/* Delete button added here */}
         </div>
 

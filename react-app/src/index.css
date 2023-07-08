@@ -3,3 +3,10 @@ a {
     text-decoration: none;
     color: black; /*change this to match our theme*/
 }
+
+body {
+    background-image: url('./assets/unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
