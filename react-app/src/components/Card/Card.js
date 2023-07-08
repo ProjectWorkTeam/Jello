@@ -66,32 +66,21 @@ function Card({ card, index }) {
       {(provided) => (
         <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           {editable ? (
-            <input
-              value={title}
-              onChange={handleTitleChange}
-              onBlur={handleTitleBlur}
-              onKeyDown={handleTitleKeyDown}
-              autoFocus
-            />
+            <input value={title} onChange={handleTitleChange} onBlur={handleTitleBlur} onKeyDown={handleTitleKeyDown} autoFocus />
           ) : (
+            <div>
             <p className="card-title" onClick={handleTitleClick}>
               {card.title}
             </p>
-          )}
-          {isMenuOpen && (
-            <div className="card-menu" onClick={handleCardClick}>
-              <ul>
-                <li>Edit</li>
-              </ul>
             </div>
           )}
-          <OpenModalButton
-            key={card.id}
-            modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />}
-            buttonText="?"
-            onModalClose={closeCardModal}
-          />
-          <button onClick={handleDelete}>Delete</button>
+          <div className='button container'>
+          {isMenuOpen && (<div className="card-menu" onClick={handleCardClick}></div>)}
+          <OpenModalButton key={card.id} modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />} onModalClose={closeCardModal} />
+          <button onClick={handleDelete}>
+            <i className="fas fa-trash-alt"></i>
+          </button>
+          </div>
         </div>
       )}
     </Draggable>

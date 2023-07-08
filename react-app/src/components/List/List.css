@@ -1,48 +1,63 @@
-.list-footer{
+.list-footer {
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: .1rem;
+    margin-left: 0.1rem;
     border-radius: 1rem;
     cursor: pointer;
+    padding: 5px;
+  }
 
-}
+  .list-title {
+    padding-left: 15px;
+  }
 
-.add-card {
+
+  .add-card {
     display: flex;
     align-items: center;
     margin-top: 10px;
-}
+    padding-right: 20px;
+  }
 
-.add-card-icon {
+  .add-card-icon {
     font-size: 20px;
     font-weight: bold;
     margin-right: 5px;
-    margin-left: auto
-}
+    margin-left: auto;
+  }
 
-
-.add-card-text {
+  .add-card-text {
     margin: 0;
     margin-left: 1rem;
+  }
 
-}
-
-.list:hover {
+  .list:hover,
+  .list-footer:hover {
     box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
     cursor: pointer;
-}
+  }
 
-
-.list-footer:hover {
-    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
-    cursor: pointer;
-}
-
-
-
-.card-buttons {
+  .card-buttons {
     list-style-type: none;
     padding: 0;
     margin: 0;
+  }
+  .list-footer-adding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .list-footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
   }
 

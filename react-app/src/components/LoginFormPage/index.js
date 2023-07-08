@@ -49,11 +49,11 @@ function LoginFormPage() {
   };
 
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="top">
         <div className="logo-container" onClick={handleLogoClick}>
           <div className="logo-wrapper">
-            <img src={jello} alt="Jello" className="logo-image" />
+            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
           </div>
           <div className="logo-text"></div>
         </div>

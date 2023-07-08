@@ -48,7 +48,7 @@ const LandingPage = () => {
                         </div>
                     </div>
                     <div className="landing-background-img">
-                        <img src={frontPage} alt="background" className="background" />
+                        {/* <img src={frontPage} alt="background" className="background" /> */}
                     </div>
                 </div>
             </div>

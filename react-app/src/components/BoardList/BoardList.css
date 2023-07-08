@@ -74,12 +74,17 @@
     margin: 0;
     font-size: 1.6rem;
     font-weight: 600;
-    color: #2b3e50; /* Dark blue color */
+    color: #2b3e50;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .error-message {
-    color: #db3b3b; /* More subtle red color */
+    color: #db3b3b;
 }
+
+.create-board-banner {
+    display: flex;
+    align-items: center;
+  }
