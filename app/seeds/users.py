@@ -37,25 +37,6 @@ def undo_users():
 
     db.session.commit()
 
-
-# def seed_boards():
-#     board_1 = Board(
-#         name = "A Board", owner_id = 1, background = "https://images.pexels.com/photos/456710/pexels-photo-456710.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-#     )
-
-#     board_2 = Board(
-#         name = "P Board", owner_id = 2, background = "https://images.pexels.com/photos/547125/pexels-photo-547125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-#     )
-
-#     board_3 = Board(
-#         name = "Jello Board", owner_id = 3, background = "https://images.pexels.com/photos/757240/pexels-photo-757240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-#     )
-
-#     db.session.add(board_1)
-#     db.session.add(board_2)
-#     db.session.add(board_3)
-#     db.session.commit()
-
 def seed_boards():
     board_1 = Board(
         name = "A Board", owner_id = 1
