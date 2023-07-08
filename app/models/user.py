@@ -41,6 +41,33 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
+# class Board(db.Model):
+#     __tablename__ = 'boards'
+
+#     if environment == "production":
+#         __table_args__ = {'schema': SCHEMA}
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(255), nullable=False)
+#     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+#     background = db.Column(db.String(400))
+#     position_id = db.Column(db.Integer)
+
+#     # Relationships
+#     owner = db.relationship('User', back_populates='owned_boards', lazy=True)
+#     lists = db.relationship('List', back_populates='board', lazy=True, cascade="all, delete")
+#     members = db.relationship('BoardMember', back_populates='board', lazy=True)
+
+#     def to_dict(self):
+#         return {
+#             'id': self.id,
+#             'name': self.name,
+#             'owner_id': self.owner_id,
+#             'background': self.background,
+#             'postion_id': self.position_id
+#         }
+
+# Without background
 class Board(db.Model):
     __tablename__ = 'boards'
 

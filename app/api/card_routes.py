@@ -58,6 +58,7 @@ def update_card(card_id):
         if not card:
             return generate_error_response("Card not found", 404)
         card.title = form.data['title']
+        card.text = form.data['description']
         db.session.commit()
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
