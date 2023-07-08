@@ -29,9 +29,15 @@ function List({ list, cards }) {
   };
 
   const handleTitleSubmit = async () => {
+    if (title.trim() === '') {
+      alert('Please enter a title for the list.');
+      return;
+    }
+  
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
   };
+  
   
 
   const handleInputChange = (e) => {
