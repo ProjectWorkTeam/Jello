@@ -24,7 +24,6 @@ def get_board_details(board_id):
         'id': board.id,
         'name': board.name,
         'owner_id': board.owner_id,
-        'background': board.background,
         'position_id': board.position_id
     }
 
