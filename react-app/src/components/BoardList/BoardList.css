@@ -72,6 +72,9 @@
     left: 0;
     bottom: 0;
     background-color: aqua;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x:hidden;
     width: 20rem;
     z-index: 1;
     border-right: .2rem gray solid;
