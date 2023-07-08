@@ -47,7 +47,7 @@ def create_card():
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-# Update card details
+# Update card name
 @cards.route('/<int:card_id>', methods=['PUT'])
 @login_required
 def update_card(card_id):
@@ -58,7 +58,6 @@ def update_card(card_id):
         if not card:
             return generate_error_response("Card not found", 404)
         card.title = form.data['title']
-        card.text = form.data.get('description')
         db.session.commit()
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

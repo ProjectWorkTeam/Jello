@@ -1,3 +1,4 @@
+
 /*- Action Types -*/
 const GET_CARDS_BY_LIST = 'cards/getCardsByList';
 const GET_CARD = 'cards/GetCard';
@@ -141,7 +142,10 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
         response = await fetch(`/api/cards/${cardId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(card)
+            body: JSON.stringify({
+                title: card.title,
+                list_id: card.list_id // add list_id here
+            })
         });
         const cardToEdit = await response.json();
         dispatch(editCard(cardToEdit));
@@ -151,6 +155,8 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
         return errors;
     }
 }
+
+
 
 /*Delete A Card Thunk-*/
 export const thunkDeleteCard = (cardId, listId) => async (dispatch) => {
@@ -232,6 +238,5 @@ const cardsReducer = (state = initialState, action) => {
             return state;
     }
 }
-
 
 export default cardsReducer;
