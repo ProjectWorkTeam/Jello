@@ -29,9 +29,10 @@ function List({ list, cards }) {
   };
 
   const handleTitleSubmit = async () => {
-    await dispatch(thunkEditList(list.id, { name: title }));
+    await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
   };
+  
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -106,6 +107,11 @@ function List({ list, cards }) {
                 type="text"
                 value={title}
                 onChange={handleTitleChange}
+                onKeyPress={(event) => {
+                  if (event.key === 'Enter') {
+                    handleTitleSubmit();
+                  }
+                }}
                 autoFocus
               />
             ) : (
