@@ -104,7 +104,7 @@ function Board() {
 
   return (
     <div className="board">
-      <h1>Board Testing</h1>
+      <h2>{boards.name}</h2>
       <div className={`sidebar ${openSideBar ? 'open' : ''}`} style={sidebarStyle}>
         <button className="toggle-side-button" onClick={toggleSidebar}>O</button>
         {openSideBar && (
@@ -136,9 +136,7 @@ function Board() {
         </DragDropContext>
 
       </div>
-      <button onClick={toggleModal}>Create New Board</button>
-      {isModalOpen && <BoardModal closeModal={toggleModal} />}
-    </div>
+   </div>
   );
 }
 

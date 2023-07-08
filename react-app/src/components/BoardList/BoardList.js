@@ -58,11 +58,13 @@ const BoardList = () => {
   return (
     <div className="workspace-container">
     <div className="workspace-info">
-      <h3>Work Space</h3>
+      <h3>{boards.name}Workspace Here</h3>
     </div>
     <div className="sidebar-container">
       <div className="side-bar">
-        <h3>Side Bar</h3>
+        <h2 className="main-workspace">Main Workspace</h2>
+        <a href="/home"><h3>Dashboard</h3></a>
+        <h4>Your Boards</h4>
       </div>
     </div>
     <div className="board-list-container">
