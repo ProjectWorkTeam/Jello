@@ -52,10 +52,11 @@ export const editCard = (card) => {
     }
 }
 /*-Delete Card-*/
-export const deleteCard = (cardId) => {
+export const deleteCard = (cardId, listId) => {
     return {
         type: DELETE_CARD,
-        cardId
+        cardId,
+        listId
     }
 }
 
@@ -73,7 +74,12 @@ export const thunkMoveCard = (cardId, data) => async (dispatch) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+            new_list_id: data.new_list_id,
+            new_position_id: data.new_position_id,
+            old_list_id: data.old_list_id,
+            old_position_id: data.old_position_id
+          }),
     });
 
     if (response.ok) {
@@ -121,7 +127,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
         console.log('new card!', cardResponse);
         return cardResponse;
     } catch (err) {
-        console.log('\n','ERROR CardsReducer',err, '\n')
+        console.log('\n', 'ERROR CardsReducer', err, '\n')
         const errors = await err.json();
         return errors;
     }
@@ -147,20 +153,24 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
 }
 
 /*Delete A Card Thunk-*/
-export const thunkDeleteCard = (cardId) => async (dispatch, getState) => {
+export const thunkDeleteCard = (cardId, listId) => async (dispatch) => {
     let response;
     try {
         response = await fetch(`/api/cards/${cardId}`, {
             method: 'DELETE'
         });
+        if (!response.ok) {
+            throw new Error("Error deleting card");
+        }
         const deleteCard = await response.json();
-        dispatch(deleteCard(cardId));
+        dispatch(deleteCard(cardId, listId));
         return deleteCard;
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+        console.error(err.message);
+        return null;
     }
 }
+
 
 /*-Reducer-*/
 
@@ -171,15 +181,10 @@ const cardsReducer = (state = initialState, action) => {
         case GET_CARDS_BY_LIST: {
             const newState = { ...state };
             const { listId, cards } = action.payload;
-
-            // Store each card with card id as the key
             cards.forEach(card => {
                 newState.cards[card.id] = card;
             });
-
-            // Store list of card ids for each list id
             newState[listId] = cards.map(card => card.id);
-
             return newState;
         }
         case GET_CARD:
@@ -193,12 +198,13 @@ const cardsReducer = (state = initialState, action) => {
         case MOVE_CARD:
             newState = { ...state };
             const { cardId, listId, positionId } = action;
-            // You may need to adjust the below code depending on your state structure
-            const card = newState.lists[state.lists[listId]].cards.find(card => card.id === cardId);
+            const card = Object.values(newState.cards).find(card => card.id === cardId);
             if (card) {
-                card.position = positionId;
+                card.list_id = listId;
+                card.position_id = positionId;
             }
             return newState;
+
         case MAKE_CARD: {
             return {
                 ...state,
@@ -217,13 +223,11 @@ const cardsReducer = (state = initialState, action) => {
                     [action.card.id]: action.card
                 }
             };
-        case DELETE_CARD:
-            const cardToDelete = { ...state.cards };
-            delete cardToDelete[action.cardId];
-            return {
-                ...state,
-                cards: cardToDelete
-            };
+            case DELETE_CARD:
+                newState = { ...state };
+                delete newState.cards[action.cardId];
+                newState[action.listId] = newState[action.listId].filter(cardId => cardId !== action.cardId);
+                return newState;
         default:
             return state;
     }

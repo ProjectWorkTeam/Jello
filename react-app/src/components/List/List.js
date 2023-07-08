@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
-import { thunkEditList } from '../../store/listsReducer'
+import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer'
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
+
 import './List.css';
 
 
@@ -56,12 +57,19 @@ function List({ list, cards }) {
 
     if (createdCard) {
       const { id, listId } = createdCard;
-      dispatch(thunkMoveCard(id, { listId, positionId: cards.length }));
+      dispatch(thunkMoveCard(id, { listId, position_id: cards.length }));
     }
 
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
+  };
+
+  const handleDeleteList = async () => {
+    if (window.confirm("Are you sure you want to delete this list?")) {
+      dispatch(thunkDeleteList(list.id));
+      dispatch(thunkBoardLists(list.board_id));
+    }
   };
 
 
@@ -105,15 +113,16 @@ function List({ list, cards }) {
             )}
           </h3>
           <h3 className="list-actions">...</h3>
+          <button onClick={handleDeleteList}>Delete</button> {/* Delete button added here */}
         </div>
 
         <div className="cards-list">
           <Droppable droppableId={String(list.id)}>
             {(provided) => (
               <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef}>
-                {cards?.map((card, index) => (
-                  <div>
-                    <Card key={card.id} card={card} index={index} />
+                {cards?.sort((a, b) => a.position_id - b.position_id).map((card, index) => (
+                  <div key={card.id}>
+                    <Card card={card} index={index} />
                   </div>
                 ))}
 
