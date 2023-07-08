@@ -5,15 +5,12 @@
 
 .card-modal{
     background-color: gray;
-
 }
-
 
 #modal-content{
     width: 50%;
     height: 50%;
     border-radius: 200rem;
-    
 }
 
 #modal-background{

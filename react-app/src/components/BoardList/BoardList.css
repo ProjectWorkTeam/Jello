@@ -12,8 +12,6 @@
 .board-list {
     display: flex;
     flex-wrap: nowrap;
-
-
 }
 
 .board-tile {

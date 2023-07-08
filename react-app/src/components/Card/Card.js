@@ -15,14 +15,10 @@ function Card({ card, index }) {
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(card.title);
 
-  const openMenu = () => {
-    setMenuOpen(true);
-  };
-
   const closeMenu = () => {
     setMenuOpen(false);
   };
-  
+
   const handleCardClick = () => {
     openCardModal(card.id)
   };

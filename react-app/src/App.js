@@ -31,7 +31,6 @@ function App() {
           <Board />
         </Route>
         <Route exact path="/home">
-          <h1>Dashboard</h1>
           <BoardList />
         </Route>
         <Route exact path="/">
