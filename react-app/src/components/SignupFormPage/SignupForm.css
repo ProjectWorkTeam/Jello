@@ -5,11 +5,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
     font-size: 2rem;
     font-weight: 600;
     padding-top: 3rem;
-    background-color: white;
     color: black;
     font-family: Roboto, Helvetica Neue, sans-serif
 }
@@ -18,8 +16,7 @@
     cursor: pointer;
 }
 
-.logo-image {
-    height: 5rem;
-    width: 5rem;
-    margin-right: 0.5rem;
+.title{
+    display: flex;
+    justify-content: center;
 }

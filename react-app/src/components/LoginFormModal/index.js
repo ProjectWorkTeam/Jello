@@ -43,40 +43,46 @@ function LoginFormModal() {
   }
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
+    <div className="login-form-modal">
+      <h1 className="login-form-title">Log In</h1>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <ul className="login-form-errors">
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        <div className="login-form-input-group">
+          <label className="login-form-label">
+            Email
+            <input
+              className="login-form-input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <div className="login-form-input-group">
+          <label className="login-form-label">
+            Password
+            <input
+              className="login-form-input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+        </div>
+        <button className="login-form-button" type="submit">Log In</button>
       </form>
-      <div className="demo-wrapper">
-        <button className="buttons" onClick={demo}>
+      <div className="login-form-demo-wrapper">
+        <button className="login-form-demo-button" onClick={demo}>
           Demo User
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

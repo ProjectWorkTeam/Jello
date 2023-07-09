@@ -72,13 +72,13 @@ function SignupFormPage() {
     <div className="container">
       <div className="top">
         <div className="logo-container" onClick={handleLogoClick}>
-          <div className="logo-wrapper">
-            <img src={jello} alt="Jello" className="logo-image" />
-          </div>
-          <div className="logo-text">Jello</div>
+          {/* <div className="logo-wrapper"> */}
+            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
+          {/* </div> */}
+          {/* <div className="logo-text">Jello</div> */}
         </div>
       </div>
-      <h1 className="title">Sign up for your account</h1>
+      <h2 className="title">Sign up for your account</h2>
       <form onSubmit={handleSubmit} className="form-wrapper">
         {Object.keys(errors).length > 0 && (
           <ul className="error-list">

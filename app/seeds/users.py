@@ -37,7 +37,6 @@ def undo_users():
 
     db.session.commit()
 
-
 def seed_boards():
     board_1 = Board(
         name = "A Board", owner_id = 1

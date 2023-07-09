@@ -1,21 +1,15 @@
-.card-modal-container{
-   display: flex;
-   background-color: gray;
+.card-modal-container {
+    display: flex;
 }
 
-.card-modal{
-    background-color: gray;
+.card-modal {}
 
-}
-
-
-#modal-content{
+#modal-content {
     width: 50%;
     height: 50%;
     border-radius: 200rem;
-    
 }
 
-#modal-background{
+#modal-background {
     background-color: gray;
 }

@@ -33,12 +33,12 @@ function List({ list, cards }) {
       alert('Please enter a title for the list.');
       return;
     }
-  
+
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
   };
-  
-  
+
+
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -79,30 +79,6 @@ function List({ list, cards }) {
     }
   };
 
-
-  const toggleAddingCard = () => {
-    setAddingCard(!addingCard);
-    setNewCardTitle('');
-  };
-
-  const handleCardTitleChange = (e) => {
-    setNewCardTitle(e.target.value);
-  };
-
-  const handleNewCard = () => {
-    if (newCardTitle.trim() === '') {
-      return;
-    }
-    const newCard = {
-      id: cards.length + 1,
-      title: newCardTitle,
-      list_id: list.id,
-    };
-    setCards([...addCards, newCard]);
-    setAddingCard(false);
-    setNewCardTitle('');
-  };
-
   return (
     <div className="list-container">
       <div className="list">
@@ -124,8 +100,7 @@ function List({ list, cards }) {
               title
             )}
           </h3>
-          <h3 className="list-actions">...</h3>
-          <button onClick={handleDeleteList}>Delete</button> {/* Delete button added here */}
+          <button onClick={handleDeleteList}><i className="fas fa-trash-alt"></i></button>
         </div>
 
         <div className="cards-list">
@@ -146,7 +121,8 @@ function List({ list, cards }) {
 
         <div className="list-footer">
           {isAdding ? (
-            <div>
+            <div className='list-footer-adding'>
+            <div className="list-footer-content">
               <input
                 type="text"
                 value={newCardTitle}
@@ -160,12 +136,16 @@ function List({ list, cards }) {
                 onChange={handleDescriptionChange}
                 placeholder="Enter a description for this card..."
               />
-              <button onClick={handleInputSubmit}>Submit</button>
+              <div className="button-group">
+                <button onClick={handleInputSubmit}>Submit</button>
+                <button className="cancel-button" onClick={() => setIsAdding(false)}>Cancel</button>
+              </div>
             </div>
+          </div>
+
           ) : (
             <div className="add-card" onClick={() => setIsAdding(true)}>
-              <a className="add-card-icon">+</a>
-              <h4 className="add-card-text">Add a card</h4>
+              <h4 className="add-card-text">+  Add a card</h4>
             </div>
           )}
         </div>
