@@ -1,69 +1,84 @@
+.workspace-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar-container {
+    width: 20rem;
+    height: 600px;
+    border-right: 0.2rem solid #aaa;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+}
+
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-workspace {
+    border-bottom: 0.2rem solid #aaa;
+    color: #2b3e50;
+}
+
+.workspace-content {
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-info {
+    margin-bottom: 1rem;
+}
+
 .board-list-container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-top: 1rem;
-    margin-left: 20rem;
+    flex-direction: column;
     gap: 1rem;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
 
-.board-list {
+.board_list {
     display: flex;
-    flex-wrap: nowrap;
-
-
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    overflow-y: auto;
+    height: 100%;
 }
+
 
 .board-tile {
-    background-color: #ebecf0;
-    border-radius: 4px;
+    background-color: rgba(235, 236, 240, 0.7);
+    border-radius: 0.4rem;
     box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-    margin-top: 1rem;
-    padding: 12px;
-    width: 200px;
-    height: 35px;
+    padding: 1.2rem;
+    width: 40%;
+    height: 3.5rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    cursor: grab;
+}
+.board-tile:active {
+    cursor: grabbing;
 }
 
 .board-tile h3 {
     margin: 0;
-    font-size: 16px;
+    font-size: 1.6rem;
     font-weight: 600;
-    color: #172b4d;
+    color: #2b3e50;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.board-list-placeholder {
-    background-color: #ebecf0;
-    border-radius: 4px;
-    width: 240px;
-    height: 32px;
-}
-
-.workspace-container {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.workspace-info {
-    position: fixed;
-    width: 90%;
-    height: 10%;
-    background-color: aqua;
-    border-bottom: .2rem solid grey;
-    top: 3.9rem;
-    left: 20rem;
-    right: 9rem;
-    bottom: 50rem;
-}
-
-.main-workspace{
-    border-bottom: .2rem gray solid;
 }
 
 .side-bar{
@@ -78,10 +93,12 @@
     width: 20rem;
     z-index: 1;
     border-right: .2rem gray solid;
+.error-message {
+    color: #db3b3b;
+}
 }
 
-.side-bar-container {
+.create-board-banner {
     display: flex;
-    flex-direction: column;
-    margin-left: 20rem;
-}
+    align-items: center;
+  }

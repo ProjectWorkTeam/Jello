@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     width: 250px;
-    background-color: aqua;
+    background-color: rgba(255, 255, 255, 0.3);
     transition: width 0.5s ease;
 }
 
@@ -28,6 +28,19 @@
 .toggle-side-button:hover{
     transform: translateX(13rem) scale(1.1);
 }
+
+.board-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .board-header h2 {
+    margin-right: 10px;
+  }
+
+  .board-header i {
+    cursor: pointer;
+  }
 
 .board-content {
     overflow-y: auto;
@@ -54,9 +67,6 @@
     padding: 8px;
 }
 
-
-
-
 .list-header {
     display: flex;
     align-items: center;
@@ -68,7 +78,6 @@
     font-size: 18px;
     font-weight: bold;
 }
-
 
 .card {
     background-color: #fff;
@@ -87,7 +96,6 @@
     border: none;
     border-radius: 20px;
     padding: 8px;
-    margin-bottom: 10px;
     cursor: pointer;
 }
 
@@ -95,12 +103,31 @@
     background-color: #d0d2d4;
 }
 
+.add-list-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .create-list-modal {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: calc(100% + 10px);
+  }
+
+  .create-list-input {
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
 .create-board-button {
     background-color: #e2e4e6;
     border: none;
     border-radius: 20px;
     padding: 8px;
-    margin-top: 10px;
     cursor: pointer;
 }
 
@@ -115,10 +142,16 @@
 }
 
 .create-list-button {
+    width: 100px;
     background-color: #e2e4e6;
     border: none;
     border-radius: 20px;
     padding: 8px;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.create-list-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

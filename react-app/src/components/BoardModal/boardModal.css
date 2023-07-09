@@ -1,22 +1,22 @@
 #modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #modal-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 #modal-content {
@@ -27,59 +27,67 @@
     width: 500px;
     height: 500px;
     z-index: 2;
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  z-index: 2;
+  width: 400px;
+  height: 400px
 }
 
 .board-name-input {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .board-name-input label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .board-name-input input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .image-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .modal-background-img {
-    width: 5rem;
-    height: 5rem;
-    cursor: pointer;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  border: 2px solid transparent; /* Add a transparent border */
+  transition: border-color 0.3s ease; /* Add a transition for a smooth effect */
 }
 
-.selected {
-    border: 2px solid blue;
+.modal-background-img.selected {
+  border-color: blue; /* Apply border color when selected */
 }
 
 .preview-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .preview-background {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 10px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 .button-container {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 button {
-    margin-left: 10px;
+  margin-left: 10px;
 }

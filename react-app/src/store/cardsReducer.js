@@ -80,7 +80,7 @@ export const thunkMoveCard = (cardId, data) => async (dispatch) => {
             new_position_id: data.new_position_id,
             old_list_id: data.old_list_id,
             old_position_id: data.old_position_id
-          }),
+        }),
     });
 
     if (response.ok) {
@@ -136,7 +136,7 @@ export const thunkMakeCard = (card) => async (dispatch) => {
 
 /*-Edit A Card Thunk-*/
 export const thunkEditCard = (cardId, card) => async (dispatch) => {
-    console.log('edit card thunk reached', card)
+    console.log('edit card thunk reached', card);
     let response;
     try {
         response = await fetch(`/api/cards/${cardId}`, {
@@ -144,8 +144,9 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 title: card.title,
-                list_id: card.list_id // add list_id here
-            })
+                description: card.text || '',
+                list_id: card.list_id,
+            }),
         });
         const cardToEdit = await response.json();
         dispatch(editCard(cardToEdit));
@@ -154,7 +155,8 @@ export const thunkEditCard = (cardId, card) => async (dispatch) => {
         const errors = await err.json();
         return errors;
     }
-}
+};
+
 
 
 
@@ -229,11 +231,11 @@ const cardsReducer = (state = initialState, action) => {
                     [action.card.id]: action.card
                 }
             };
-            case DELETE_CARD:
-                newState = { ...state };
-                delete newState.cards[action.cardId];
-                newState[action.listId] = newState[action.listId].filter(cardId => cardId !== action.cardId);
-                return newState;
+        case DELETE_CARD:
+            newState = { ...state };
+            delete newState.cards[action.cardId];
+            newState[action.listId] = newState[action.listId].filter(cardId => cardId !== action.cardId);
+            return newState;
         default:
             return state;
     }

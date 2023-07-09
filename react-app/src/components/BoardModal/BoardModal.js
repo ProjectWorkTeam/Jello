@@ -9,11 +9,11 @@ import './boardModal.css';
 
 const BoardModal = ({ closeModal }) => {
   const [boardName, setBoardName] = useState('');
-  const [selectedImage, setSelectedImage] = useState(image_1_icon); // Set image1 as the default selected image
+  const [selectedImage, setSelectedImage] = useState(image_1_icon);
   const [isNameValid, setIsNameValid] = useState(false);
 
   const dispatch = useDispatch();
-  const history = useHistory(); // Hook to manage navigation
+  const history = useHistory();
 
   const handleImageSelect = (image) => {
     setSelectedImage(image);
@@ -22,7 +22,7 @@ const BoardModal = ({ closeModal }) => {
   const handleBoardNameChange = (e) => {
     const name = e.target.value;
     setBoardName(name);
-    setIsNameValid(name.trim().length > 0); // Check if the name has at least one character
+    setIsNameValid(name.trim().length > 0 && name.trim().length < 15);
   };
 
   const handleCreateBoard = async () => {
@@ -104,7 +104,7 @@ const BoardModal = ({ closeModal }) => {
           </button>
           <button
             onClick={(e) => {
-              e.stopPropagation(); // Stop event propagation immediately
+              e.stopPropagation();
               closeModal();
             }}
           >
