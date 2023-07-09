@@ -106,7 +106,7 @@ function List({ list, cards }) {
         <div className="cards-list">
           <Droppable droppableId={String(list.id)}>
             {(provided) => (
-              <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef}>
+               <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: "5px" }}>
                 {cards?.sort((a, b) => a.position_id - b.position_id).map((card, index) => (
                   <div key={card.id}>
                     <Card card={card} index={index} />

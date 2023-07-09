@@ -1,7 +1,7 @@
 .top {
     height: 3.75rem;
     top: 0;
-    width: 100vw;
+    width: 90vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,4 +19,21 @@
 .title{
     display: flex;
     justify-content: center;
+}
+
+
+/* Input */
+.form-wrapper label input[type=text]{
+    background-color:rgba(255,255,255,0.7);
+    border-style:none;
+   }
+
+   /* Buttons */
+#root .form-wrapper .buttons{
+    transform: translatex(-6px);
+   }
+
+
+#root .top .logo-container{
+    transform: translatex(80px);
 }

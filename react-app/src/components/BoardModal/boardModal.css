@@ -84,3 +84,45 @@
 button {
   margin-left: 10px;
 }
+
+
+#root .board-modal .board-modal-content{
+  background-color:rgba(255,255,255,0.62);
+  transform:translatex(0px) translatey(0px);
+ }
+
+ /* Board modal input */
+ .board-modal div input[type=text].board-modal-input{
+  background-color:rgba(255,255,255,0.48);
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+ }
+
+ /* Button */
+ .board-modal div button:nth-child(2){
+  color:#ffffff;
+  background-color:#3498db;
+  border-style:none;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  width:60px;
+  height:25px;
+ }
+
+ /* Button */
+ .board-modal div button:nth-child(1){
+  color:#ffffff;
+  background-color:#3498db;
+  border-style:none;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  height:25px;
+  width:60px;
+ }

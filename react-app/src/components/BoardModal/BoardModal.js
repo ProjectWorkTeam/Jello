@@ -56,6 +56,7 @@ const BoardModal = ({ closeModal }) => {
         <h2>Create a Board</h2>
         <div>
           <input
+            className="board-modal-input"
             type="text"
             placeholder="Enter board name"
             value={boardName}

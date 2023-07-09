@@ -1,12 +1,12 @@
 .workspace-container {
     display: flex;
-    height: 100vh;
+    height: 90vh;
     overflow: hidden;
 }
 
 .sidebar-container {
     width: 20rem;
-    height: 600px;
+    height: 1000px;
     border-right: 0.2rem solid #aaa;
     background-color: rgba(255, 255, 255, 0.7);
     padding: 1rem;
@@ -28,7 +28,7 @@
     overflow: hidden;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.4);
-    height: 600px;
+    height: 1000px;
     display: flex;
     flex-direction: column;
 }
@@ -49,12 +49,12 @@
     gap: 1rem;
     padding: 1rem 0;
     overflow-y: auto;
-    height: 100%;
+    height: 700px;
 }
 
 
 .board-tile {
-    background-color: rgba(235, 236, 240, 0.7); 
+    background-color: rgba(235, 236, 240, 0.7);
     border-radius: 0.4rem;
     box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
     padding: 1.2rem;
@@ -89,3 +89,8 @@
     display: flex;
     align-items: center;
   }
+
+#root .create-board-banner .create-board-button{
+    color:#ffffff;
+    background-color:#3498db;
+   }
