@@ -50,9 +50,9 @@ const BoardModal = ({ closeModal }) => {
   };
 
   return (
-    <div id="modal">
-      <div id="modal-background" onClick={closeModal} />
-      <div id="modal-content">
+    <div className="board-modal">
+      <div className="board-modal-background" onClick={closeModal} />
+      <div className="board-modal-content">
         <h2>Create a Board</h2>
         <div>
           <input

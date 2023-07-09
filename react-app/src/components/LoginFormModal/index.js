@@ -40,10 +40,22 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     }
-  }
+  };
+
+  const handleModalClick = (e) => {
+    e.stopPropagation();
+  };
+
+  const handleBackgroundClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeModal();
+    }
+  };
 
   return (
     <div className="login-form-modal">
+      <div className="login-modal-background" onClick={handleBackgroundClick} >
+      <div className="login-modal-content" onClick={handleModalClick}>
       <h1 className="login-form-title">Log In</h1>
       <form className="login-form" onSubmit={handleSubmit}>
         <ul className="login-form-errors">
@@ -81,6 +93,8 @@ function LoginFormModal() {
         <button className="login-form-demo-button" onClick={demo}>
           Demo User
         </button>
+      </div>
+      </div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ function SignupFormModal() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
+
 		// Validation checks
 		const validationErrors = {};
 		if (firstName.trim() === "") {
@@ -38,7 +38,7 @@ function SignupFormModal() {
 		if (password !== confirmPassword) {
 			validationErrors.confirmPassword = "Confirm Password must match the Password field";
 		}
-		
+
 		if (Object.keys(validationErrors).length > 0) {
 			setErrors(Object.values(validationErrors));
 		} else {
@@ -52,72 +52,80 @@ function SignupFormModal() {
 	};
 
 	return (
-		<>
-			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					First Name
-					<input
-						type="text"
-						value={firstName}
-						onChange={(e) => setFirstName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Last Name
-					<input
-						type="text"
-						value={lastName}
-						onChange={(e) => setLastName(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
-			</form>
-		</>
+		<div className="signup-form-modal">
+		<h1 className="signup-form-title">Sign Up</h1>
+		<form className="signup-form" onSubmit={handleSubmit}>
+		  <ul className="signup-form-errors">
+			{errors.map((error, idx) => (
+			  <li key={idx}>{error}</li>
+			))}
+		  </ul>
+		  <label className="signup-form-label">
+			First Name
+			<input
+			  className="signup-form-input"
+			  type="text"
+			  value={firstName}
+			  onChange={(e) => setFirstName(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <label className="signup-form-label">
+			Last Name
+			<input
+			  className="signup-form-input"
+			  type="text"
+			  value={lastName}
+			  onChange={(e) => setLastName(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <label className="signup-form-label">
+			Username
+			<input
+			  className="signup-form-input"
+			  type="text"
+			  value={username}
+			  onChange={(e) => setUsername(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <label className="signup-form-label">
+			Email
+			<input
+			  className="signup-form-input"
+			  type="text"
+			  value={email}
+			  onChange={(e) => setEmail(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <label className="signup-form-label">
+			Password
+			<input
+			  className="signup-form-input"
+			  type="password"
+			  value={password}
+			  onChange={(e) => setPassword(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <label className="signup-form-label">
+			Confirm Password
+			<input
+			  className="signup-form-input"
+			  type="password"
+			  value={confirmPassword}
+			  onChange={(e) => setConfirmPassword(e.target.value)}
+			  required
+			/>
+		  </label>
+		  <button className="signup-form-button" type="submit">
+			Sign Up
+		  </button>
+		</form>
+	  </div>
 	);
-}
+  }
 
-export default SignupFormModal;
+  export default SignupFormModal;

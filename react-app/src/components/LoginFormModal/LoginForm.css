@@ -1,8 +1,233 @@
 .login-form-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 30%;
-    height: 30%;
-    padding: 10rem;
 }
+
+.login-modal-background{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.login-modal-content{
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    z-index: 2;
+    width: 400px;
+    height: 400px
+}
+
+.login-modal-content{
+
+}
+
+
+/* Font Icon */
+#profile-wrapper .profile i{
+    transform:translatex(0px) translatey(0px);
+   }
+
+   /* Profile wrapper */
+   #profile-wrapper{
+    transform:translatex(0px) translatey(0px);
+   }
+
+   /* Nav contents */
+   #root header .nav-contents{
+    transform:translatex(0px) translatey(0px);
+   }
+
+   /* Login modal content */
+   .login-form-modal .login-modal-content{
+    transform:translatex(757px) translatey(217px);
+   }
+
+
+
+   .login-form-modal h1{
+    margin-left:140px;
+   }
+
+   /* Login form input group */
+   #root div .modal .modal-content .login-form-modal .login-modal-background .login-modal-content .login-form .login-form-input-group{
+    width:50% !important;
+   }
+
+   /* Login form input group */
+   .login-form-modal .login-form .login-form-input-group{
+    height:72px;
+    min-width:0px;
+    max-width:0px;
+    position:relative;
+    top:9px;
+    left:99px;
+   }
+
+   /* Login form */
+   .login-form-modal .login-form{
+    transform:translatex(-8px) translatey(-6px);
+   }
+
+   /* Login form button */
+   .login-form-modal .login-form .login-form-button{
+    position:relative;
+    left:89px;
+    border-top-left-radius:0px;
+    background-color:#3498db;
+    color:#ffffff;
+    border-style:none;
+    width:92px;
+    min-width:86px;
+    height:33px;
+   }
+
+   /* Login form demo button */
+   .login-form-modal .login-form-demo-wrapper .login-form-demo-button{
+    position:relative;
+    left:181px;
+    top:-40px;
+    background-color:#3498db;
+    color:#ffffff;
+    border-style:none;
+    height:33px;
+    width:92px;
+   }
+
+   /* Login modal content */
+   .login-form-modal .login-modal-content{
+    width:349px;
+    height:272px;
+    background-color:rgba(255,255,255,0.5);
+   }
+
+   /* Login form title */
+   .login-form-modal .login-form-title{
+    position:relative;
+    top:-4px;
+    left:-20px;
+   }
+
+   /* Login form input */
+   .login-form .login-form-label input[type=email].login-form-input{
+    background-color:rgba(255,255,255,0.48);
+    border-style:none;
+    border-width:0px;
+    height:20px;
+    overflow:hidden;
+   }
+
+   /* Login form input */
+   .login-form .login-form-label input[type=password].login-form-input{
+    background-color:rgba(255,255,255,0.48);
+    border-style:none;
+    height:20px;
+   }
+
+
+   .login-form-modal .login-modal-content{
+    height:330px;
+    overflow:hidden;
+    width:360px;
+   }
+
+   /* Login modal content */
+.login-form-modal .login-modal-content{
+    height:330px;
+    overflow:hidden;
+    width:360px;
+   }
+
+   /* Login form errors */
+   .login-form-modal .login-form .login-form-errors{
+    color:#ff1e1e;
+    text-decoration:none;
+    list-style-type: none;
+    position:relative;
+    left:37px;
+   }
+
+   /* List Item */
+   .login-form .login-form-errors li:nth-child(1){
+    text-decoration:none;
+   }
+
+   /* Login form input */
+   .login-form .login-form-label input[type=email].login-form-input{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Login form input */
+   .login-form .login-form-label input[type=password].login-form-input{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Login form button */
+   .login-form-modal .login-form .login-form-button{
+    min-width:0px;
+    width:100px;
+    height:30px;
+    left:60px;
+   }
+
+   /* Login form demo button */
+   .login-form-modal .login-form-demo-wrapper .login-form-demo-button{
+    width:100px;
+    height:30px;
+    top:-36px;
+    left:177px;
+   }
+
+   .login-form-modal .login-form-title{
+    left:-12px;
+   }
+
+
+   /* Login modal content */
+.login-form-modal .login-modal-content{
+    transform:translatex(49px) translatey(63px);
+   }
+
+   /* Login modal background */
+   #root .login-form-modal .login-modal-background{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Login form modal */
+   .modal .login-form-modal{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   #root div .modal-content{
+    transform:translatex(0px) translatey(0px);
+    height:500px;
+    width:500px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }

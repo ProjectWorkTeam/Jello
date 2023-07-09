@@ -1,0 +1,176 @@
+/* Signup form */
+#root .signup-form-modal .signup-form{
+    height:417px;
+    overflow:visible;
+    min-width:231px;
+    max-width:170px;
+    transform: translatex(110px) translatey(70px);
+   }
+
+   /* Signup form modal */
+   #root div .signup-form-modal{
+    background-color:rgba(255,255,255,0.36);
+    height:569px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    transform:translatex(0px) translatey(0px);
+   }
+
+   /* Modal content */
+   #root div .modal-content{
+    background-color:rgba(255,255,255,0);
+   }
+
+   /* Login modal background */
+   #root .login-form-modal .login-modal-background{
+    transform:translatex(0px) translatey(0px);
+    background-color:transparent;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(2) input[type=text].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    height:30px;
+    width:260px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(3) input[type=text].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    width:260px;
+    height:30px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(4) input[type=text].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    transform:translatex(0px) translatey(0px);
+    width:260px;
+    height:30px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(5) input[type=text].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    width:260px;
+    height:30px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(6) input[type=password].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    width:260px;
+    height:30px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form input */
+   .signup-form .signup-form-label:nth-child(7) input[type=password].signup-form-input{
+    background-color:rgba(255,255,255,0.38);
+    border-style:none;
+    width:260px;
+    height:30px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+   }
+
+   /* Signup form errors */
+   .signup-form-modal .signup-form .signup-form-errors{
+    color:#ca2525;
+    text-decoration:none;
+    transform: translatey(-26px);
+    list-style-type:none;
+   }
+
+   /* Signup form title */
+   #root .signup-form-modal .signup-form-title{
+    transform: translatex(173px) translatey(40px);
+   }
+
+   /* Signup form button */
+   .signup-form-modal .signup-form .signup-form-button{
+    background-color:#3498db;
+    border-color:transparent;
+    color:#ffffff;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    width:205px;
+    height:37px;
+    transform: translatex(20px) translatey(20px);
+   }
+
+   /* Signup form label */
+   .signup-form-modal .signup-form .signup-form-label:nth-child(2){
+    transform:translatex(0px) translatey(0px);
+    position:relative;
+    top:-10px;
+   }
+
+   /* Signup form label */
+   .signup-form-modal .signup-form .signup-form-label:nth-child(3){
+    position:relative;
+    top:-5px;
+   }
+
+   /* Modal background */
+   #root div .modal-background{
+    transform:translatex(0px) translatey(0px);
+   }
+
+   /* Signup form label */
+   .signup-form-modal .signup-form .signup-form-label:nth-child(7){
+    position:relative;
+    bottom:-15px;
+   }
+
+   /* Signup form label */
+   .signup-form-modal .signup-form .signup-form-label:nth-child(6){
+    position:relative;
+    bottom:-10px;
+   }
+
+   /* Signup form label */
+   .signup-form-modal .signup-form .signup-form-label:nth-child(5){
+    position:relative;
+    bottom:-5px;
+   }
+
+   /* Signup form */
+   #root div .modal .modal-content .signup-form-modal .signup-form{
+    width:288px !important;
+   }
+
+   /* List Item */
+   .signup-form .signup-form-errors li:nth-child(2){
+    list-style-type:none;
+   }
