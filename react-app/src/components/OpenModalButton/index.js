@@ -16,7 +16,8 @@ function OpenModalButton({
   };
 
   return (
-    <button onClick={onClick}><i className="fas fa-align-left"></i></button>
+    <button onClick={onClick}>{buttonText}</button>
+
   );
 }
 
