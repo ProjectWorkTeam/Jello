@@ -1,63 +1,64 @@
 .list-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.1rem;
-    border-radius: 1rem;
-    cursor: pointer;
-    padding: 5px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  padding: 5px;
+}
 
-  .list-title {
-    padding-left: 15px;
-  }
+.list-title {
+  padding-left: 15px;
+}
 
 
-  .add-card {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding-right: 20px;
-  }
+.add-card {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-right: 20px;
+}
 
-  .add-card-icon {
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 5px;
-    margin-left: auto;
-  }
+.add-card-icon {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: auto;
+}
 
-  .add-card-text {
-    margin: 0;
-    margin-left: 1rem;
-  }
+.add-card-text {
+  margin: 0;
+  margin-left: 1rem;
+}
 
-  .list:hover,
-  .list-footer:hover {
-    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
-    cursor: pointer;
-  }
+.list:hover,
+.list-footer:hover {
+  box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
+  cursor: pointer;
+}
 
-  .card-buttons {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  .list-footer-adding {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.card-buttons {
+  list-style-type: none;
+  /* min-height: 100px; */
+  padding: 0;
+  margin: 0;
+}
 
-  .list-footer-content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+.list-footer-adding {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
+.list-footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
