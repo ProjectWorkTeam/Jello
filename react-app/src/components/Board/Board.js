@@ -110,6 +110,7 @@ function Board() {
       setBoard(prevBoard => ({ ...prevBoard, name: editedBoardName }));
       setBoardNameValidationMessage("");
     }
+    dispatch(thunkAllBoards())
     setIsEditing(false);
     setEditedBoardName("");
   };
