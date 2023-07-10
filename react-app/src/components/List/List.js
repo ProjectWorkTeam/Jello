@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Droppable,Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
 import ListDeleteModal from '../List/ListDeleteModal';
 import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer';
@@ -8,7 +8,7 @@ import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 
 import './List.css';
 
-function List({ list, cards,index }) {
+function List({ list, cards, index }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
   const [newCardTitle, setNewCardTitle] = useState('');
@@ -94,7 +94,7 @@ function List({ list, cards,index }) {
 
   return (
     <Draggable draggableId={String(list.id)} index={index}>
-  {(provided, snapshot) => (
+      {(provided, snapshot) => (
         <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <div className="list">
             <div className="list-header">
@@ -168,7 +168,7 @@ function List({ list, cards,index }) {
           </div>
         </div>
       )}
-</Draggable>
+    </Draggable>
   );
 }
 

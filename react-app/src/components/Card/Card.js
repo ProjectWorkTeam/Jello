@@ -67,7 +67,7 @@ function Card({ card, index }) {
   if (!card) return null;
   return (
     <Draggable draggableId={String(card.id)} index={index}>
-  {(provided, snapshot) => (
+      {(provided, snapshot) => (
         <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           {editable ? (
             <input value={title} onChange={handleTitleChange} onBlur={handleTitleBlur} onKeyDown={handleTitleKeyDown} autoFocus />
@@ -84,7 +84,7 @@ function Card({ card, index }) {
           </div>
         </div>
       )}
-</Draggable>
+    </Draggable>
   );
 }
 
