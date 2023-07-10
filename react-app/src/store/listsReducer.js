@@ -142,23 +142,32 @@ export const thunkDeleteList = (listId) => async (dispatch) => {
 
 /*- Move List Thunk -*/
 export const thunkMoveList = (listId, newPosition) => async (dispatch) => {
-  const response = await fetch(`/api/lists/${listId}/position`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      position_id: newPosition,
-    }),
-  });
+  try {
+    const response = await fetch(`/api/lists/${listId}/position`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        position_id: newPosition,
+      }),
+    });
 
-  if (response.ok) {
+    if (!response.ok) {
+      console.error(`HTTP error! status: ${response.status}`);
+      return;
+    }
+
     const updatedList = await response.json();
+
+    // Only dispatch the action if the server response is successful
     dispatch(moveList(listId, updatedList.position_id));
+
     return updatedList;
-  } else {
-    console.error(`HTTP error! status: ${response.status}`);
+  } catch (error) {
+    console.error('Error in thunkMoveList:', error);
     return;
   }
 }
+
 
 
 /*- Reducer -*/
