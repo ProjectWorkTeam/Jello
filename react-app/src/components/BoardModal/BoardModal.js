@@ -63,7 +63,7 @@ const BoardModal = ({ closeModal }) => {
             onChange={handleBoardNameChange}
           />
         </div>
-        <div>
+        {/* <div>
           <h3>Choose a Background Image</h3>
           <div>
             <img
@@ -98,7 +98,7 @@ const BoardModal = ({ closeModal }) => {
               alt="Selected background"
             />
           )}
-        </div>
+        </div> */}
         <div>
           <button onClick={handleCreateBoard} disabled={!isNameValid}>
             Create
