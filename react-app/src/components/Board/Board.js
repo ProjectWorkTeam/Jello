@@ -184,16 +184,11 @@ function Board() {
           </div>
         </div>
         <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="all-lists" direction="horizontal" type="list">
-            {(provided) => (
-              <div className="lists-container" style={{ display: "flex", flexDirection: "row" }} {...provided.droppableProps} ref={provided.innerRef}>
+              <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
                 {[...lists].sort((a, b) => a.position_id - b.position_id).map((list, index) => (
                   <List key={list.id} list={list} index={index} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
                 ))}
-                {provided.placeholder}
               </div>
-            )}
-          </Droppable>
         </DragDropContext>
       </div>
     </div>
