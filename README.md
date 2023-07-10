@@ -1,6 +1,6 @@
 # Jello
 
-App Academy Group Project
+An App Academy Group Project
 
 ## Live Link
 
@@ -9,6 +9,29 @@ App Academy Group Project
 ## Check out our wiki for additional docs
 
 <https://github.com/ProjectWorkTeam/Jello>
+
+# Jello
+
+Welcome to Jello! This web application is a task and project management tool, mimicking the functionality and design of the popular tool Trello. Users can create boards for different projects or aspects of their work or personal life. Within these boards, users can create lists to further categorize tasks. Individual tasks, represented by cards, can be added to these lists. These cards can be moved between listss, making this a flexible and intuitive tool for managing tasks and tracking project progress. Whether you're coordinating a large team project, planning your next big event, or just making a shopping list, our Jello is designed to keep you organized and in control.
+
+# Technologies Used
+
+ Jello is powered by an array of modern web development technologies across the stack. Here's a brief rundown:
+
+- **JavaScript**: The core language of the application, used for building interactive elements on the client side.
+- **React**: A JavaScript library for building user interfaces. We've used React to build the components of our app in a modular and maintainable way.
+- **JSX**: Syntax extension for JavaScript, used with React to describe what the UI should look like.
+- **Redux**: A predictable state container for JavaScript apps. We used Redux alongside React for state management.
+- **Python**: The core language on the server side, used to build the backend of the application.
+- **Flask**: A Python web framework used to create the server side of the application. We've used Flask to handle requests and responses.
+- **Flask-CORS**: A Flask extension for handling Cross Origin Resource Sharing (CORS), making cross-origin AJAX possible.
+- **Flask-SQLAlchemy**: A Flask extension that simplifies the use of SQLAlchemy (a SQL toolkit and Object-Relational Mapping system) with Flask by providing useful defaults and extra helpers.
+- **Alembic**: A database migration tool for SQLAlchemy, used to handle changes in the database schema.
+- **Python-Pillow (PIL)**: An open-source Python Imaging Library that adds image processing capabilities to our Python interpreter.
+- **Font Awesome**: A toolkit for vector icons and social logos, used for adding intuitive icons throughout the application.
+- **WTForms**: A flexible forms validation and rendering library for Python, used in the server side for form validation.
+
+These technologies work together to create a seamless, interactive, and user-friendly web application that replicates the key features of Trello.
 
 ## API Documentation
 
