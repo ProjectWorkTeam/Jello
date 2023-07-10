@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { thunkAllBoards, thunkAEditBoard } from '../../store/boardsReducer';
 import { thunkBoardLists, thunkMakeList } from '../../store/listsReducer';
 import { thunkGetCardsByList, thunkMoveCard } from '../../store/cardsReducer';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import List from '../List/List';
 import './Board.css';
 
@@ -143,7 +143,7 @@ function Board() {
       <div className={`board-content ${openSideBar ? 'sidebar-open' : ''}`} style={boardContentStyle}>
         <div className="board-header">
           {!isEditing ? (
-            <h2>{board?.name}</h2>
+              <h2>{board?.name}</h2>
           ) : (
             <div>
               <input
@@ -172,11 +172,16 @@ function Board() {
           </div>
         </div>
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
-            {lists.map((list) => (
-              <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
-            ))}
-          </div>
+        <Droppable droppableId="all-lists" direction="horizontal" type="list">
+            {(provided) => (
+              <div className="lists-container" style={{ display: "flex", flexDirection: "row" }} {...provided.droppableProps} ref={provided.innerRef}>
+                {lists.map((list, index) => (
+                  <List key={list.id} list={list} index={index} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     </div>
