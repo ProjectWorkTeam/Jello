@@ -58,8 +58,8 @@ function List({ list, cards,index }) {
       return;
     }
 
-    if (newCardTitle.length > 15) {
-      setCardErrorMessage('Title cannot be more than 15 characters long');
+    if (newCardTitle.length > 20) {
+      setCardErrorMessage('Title cannot be more than 20 characters long');
       return;
     }
 
