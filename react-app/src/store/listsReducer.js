@@ -3,6 +3,8 @@ const GET_LISTS = 'lists/GetLists';
 const MAKE_LIST = 'lists/MakeList';
 const EDIT_LIST = 'lists/EditList';
 const DELETE_LIST = 'lists/DeleteList';
+const MOVE_LIST = 'lists/MoveList';
+
 
 const initialState = {
   lists: {},
@@ -43,6 +45,17 @@ export const deleteList = (listId) => {
   return {
     type: DELETE_LIST,
     listId
+  }
+}
+
+/*- Move List -*/
+export const moveList = (listId, newPosition) => {
+  return {
+    type: MOVE_LIST,
+    payload: {
+      listId,
+      newPosition,
+    },
   }
 }
 
@@ -127,6 +140,25 @@ export const thunkDeleteList = (listId) => async (dispatch) => {
   }
 }
 
+/*- Move List Thunk -*/
+export const thunkMoveList = (listId, newPosition) => async (dispatch) => {
+  const response = await fetch(`/api/lists/${listId}/position`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      position_id: newPosition,
+    }),
+  });
+
+  if (response.ok) {
+    const updatedList = await response.json();
+    dispatch(moveList(listId, updatedList.position_id));
+    return updatedList;
+  } else {
+    console.error(`HTTP error! status: ${response.status}`);
+    return;
+  }
+}
 
 
 /*- Reducer -*/
@@ -142,23 +174,32 @@ const listsReducer = (state = initialState, action) => {
       newState = { ...state };
       newState.lists[action.list.boardId] = [...newState.lists[action.list.boardId], action.list];
       return newState;
-      case EDIT_LIST:
-        newState = { ...state };
-        if (newState.lists[action.list.boardId]) {
-          newState.lists[action.list.boardId] = newState.lists[action.list.boardId].map(list =>
-            list.id === action.list.id ? action.list : list
-          );
-        }
-        return newState;
+    case EDIT_LIST:
+      newState = { ...state };
+      if (newState.lists[action.list.boardId]) {
+        newState.lists[action.list.boardId] = newState.lists[action.list.boardId].map(list =>
+          list.id === action.list.id ? action.list : list
+        );
+      }
+      return newState;
     case DELETE_LIST:
       newState = { ...state };
       for (const boardId in newState.lists) {
         newState.lists[boardId] = newState.lists[boardId].filter(list => list.id !== action.listId);
       }
       return newState;
+    case MOVE_LIST:
+      newState = { ...state };
+      for (const boardId in newState.lists) {
+        newState.lists[boardId] = newState.lists[boardId].map(list =>
+          list.id === action.payload.listId ? { ...list, position_id: action.payload.newPosition } : list
+        );
+      }
+      return newState;
     default:
       return state;
   }
 }
+
 
 export default listsReducer;

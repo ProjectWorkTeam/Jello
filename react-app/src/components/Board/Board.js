@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkAllBoards, thunkAEditBoard } from '../../store/boardsReducer';
-import { thunkBoardLists, thunkMakeList } from '../../store/listsReducer';
+import { thunkBoardLists, thunkMakeList, thunkMoveList } from '../../store/listsReducer';
 import { thunkGetCardsByList, thunkMoveCard } from '../../store/cardsReducer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import List from '../List/List';
@@ -73,26 +73,31 @@ function Board() {
   };
 
   const handleDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+    const { destination, source, draggableId, type } = result;
 
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-    const cardId = draggableId
-    const newListId = destination.droppableId
-    const newPositionId = destination.index + 1
+    if(type === 'list') {
+      const listId = draggableId;
+      const newPosition = destination.index + 1;
+      dispatch(thunkMoveList(listId, newPosition));
+    } else {
+      const cardId = draggableId;
+      const newListId = destination.droppableId;
+      const newPositionId = destination.index + 1;
 
-    const oldListId = source.droppableId
-    const oldPositionId = source.index + 1
+      const oldListId = source.droppableId;
+      const oldPositionId = source.index + 1;
 
-    dispatch(thunkMoveCard(cardId, {
-      new_list_id: newListId,
-      new_position_id: newPositionId,
-      old_list_id: oldListId,
-      old_position_id: oldPositionId
-    }));
-    dispatch(thunkBoardLists(board.id))
-  }
+      dispatch(thunkMoveCard(cardId, {
+        new_list_id: newListId,
+        new_position_id: newPositionId,
+        old_list_id: oldListId,
+        old_position_id: oldPositionId
+      }));
+    }
+  };
 
   const handleEditBoardName = () => {
     setIsEditing(true);
@@ -175,7 +180,7 @@ function Board() {
         <Droppable droppableId="all-lists" direction="horizontal" type="list">
             {(provided) => (
               <div className="lists-container" style={{ display: "flex", flexDirection: "row" }} {...provided.droppableProps} ref={provided.innerRef}>
-                {lists.map((list, index) => (
+                {[...lists].sort((a, b) => a.position_id - b.position_id).map((list, index) => (
                   <List key={list.id} list={list} index={index} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
                 ))}
                 {provided.placeholder}

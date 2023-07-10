@@ -77,7 +77,6 @@ def delete_list(list_id):
 
 
 # Update a list position
-#Currently this is my easy workaround for updating position of lists. We can do some sort of re-sorthing method instead, but I just knocked this out because it's late and  ya
 @lists.route('/<int:list_id>/position', methods=['PUT'])
 @login_required
 def update_list_position(list_id):
@@ -92,14 +91,21 @@ def update_list_position(list_id):
     current_position = list.position_id
     board_id = list.board_id
 
+    # Only proceed if the new_position is different from current_position
     if new_position != current_position:
-        # Find the list which is currently at the new position
-        swapped_list = List.query.filter_by(board_id=board_id, position_id=new_position).first()
+        # If the new_position is lower than the current_position, increment the position_id of the lists between the new_position and current_position
+        if new_position < current_position:
+            lists_to_shift = List.query.filter(List.board_id == board_id, List.position_id >= new_position, List.position_id < current_position).all()
+            for l in lists_to_shift:
+                l.position_id += 1
+        # If the new_position is higher than the current_position, decrement the position_id of the lists between the current_position and new_position
+        else:
+            lists_to_shift = List.query.filter(List.board_id == board_id, List.position_id > current_position, List.position_id <= new_position).all()
+            for l in lists_to_shift:
+                l.position_id -= 1
 
-        if swapped_list:
-            # Swap positions of the two lists
-            swapped_list.position_id = current_position
-            list.position_id = new_position
-            db.session.commit()
+        # Finally set the new_position of the moved list
+        list.position_id = new_position
+        db.session.commit()
 
     return generate_success_response(list.to_dict())
