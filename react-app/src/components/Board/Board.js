@@ -13,12 +13,13 @@ function Board() {
   const [openSideBar, setOpenSideBar] = useState(false);
   const [isCreateListModalOpen, setCreateListModalOpen] = useState(false);
   const [newListName, setNewListName] = useState("");
-  const boards = useSelector((state) => Object.values(state.boards.boards) || []);
   const { boardid } = useParams();
   const [board, setBoard] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [editedBoardName, setEditedBoardName] = useState("");
   const [boardNameValidationMessage, setBoardNameValidationMessage] = useState("");
+
+  const boards = useSelector((state) => Object.values(state.boards.boards) || []);
 
   useEffect(() => {
     dispatch(thunkAllBoards());
@@ -66,7 +67,8 @@ function Board() {
       list_name: newListName,
       board_id: board.id,
     };
-    await dispatch(thunkMakeList(newList));
+
+    dispatch(thunkMakeList(newList));
     setNewListName("");
     toggleCreateListModal();
     dispatch(thunkBoardLists(board.id));
@@ -82,6 +84,7 @@ function Board() {
       const listId = draggableId;
       const newPosition = destination.index + 1;
       dispatch(thunkMoveList(listId, newPosition));
+      dispatch(thunkBoardLists(board.id));
     } else {
       const cardId = draggableId;
       const newListId = destination.droppableId;
@@ -96,6 +99,7 @@ function Board() {
         old_list_id: oldListId,
         old_position_id: oldPositionId
       }));
+      dispatch(thunkBoardLists(board.id));
     }
   };
 
