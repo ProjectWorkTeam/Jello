@@ -7,16 +7,16 @@ import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 
 import './List.css';
 
-
 function List({ list, cards }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [newCardDescription, setNewCardDescription] = useState('');
   const [isAdding, setIsAdding] = useState(false);
+  const [listErrorMessage, setListErrorMessage] = useState('');
+  const [cardErrorMessage, setCardErrorMessage] = useState('');
 
-  const [addingCard, setAddingCard] = useState(false);
-  const [addCards, setCards] = useState([]);
+
 
   const dispatch = useDispatch();
 
@@ -30,15 +30,14 @@ function List({ list, cards }) {
 
   const handleTitleSubmit = async () => {
     if (title.trim() === '') {
-      alert('Please enter a title for the list.');
+      setListErrorMessage('Please enter a title for the list.');
       return;
     }
 
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
+    setListErrorMessage('');
   };
-
-
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -50,7 +49,7 @@ function List({ list, cards }) {
 
   const handleInputSubmit = async () => {
     if (newCardTitle.trim() === '') {
-      alert('Please enter a title for the card.');
+      setCardErrorMessage('Please enter a title for the card.');
       return;
     }
 
@@ -70,6 +69,7 @@ function List({ list, cards }) {
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
+    setCardErrorMessage('');
   };
 
   const handleDeleteList = async () => {
@@ -83,6 +83,7 @@ function List({ list, cards }) {
     <div className="list-container">
       <div className="list">
         <div className="list-header">
+          {listErrorMessage && <div className="error-message">{listErrorMessage}</div>}
           <h3 className="list-title" onClick={handleTitleClick}>
             {editMode ? (
               <input
@@ -106,13 +107,12 @@ function List({ list, cards }) {
         <div className="cards-list">
           <Droppable droppableId={String(list.id)}>
             {(provided) => (
-               <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: "5px" }}>
+              <ul className="card-buttons" {...provided.droppableProps} ref={provided.innerRef} style={{ minHeight: "5px" }}>
                 {cards?.sort((a, b) => a.position_id - b.position_id).map((card, index) => (
                   <div key={card.id}>
                     <Card card={card} index={index} />
                   </div>
                 ))}
-
                 {provided.placeholder}
               </ul>
             )}
@@ -122,29 +122,29 @@ function List({ list, cards }) {
         <div className="list-footer">
           {isAdding ? (
             <div className='list-footer-adding'>
-            <div className="list-footer-content">
-              <input
-                type="text"
-                value={newCardTitle}
-                onChange={handleInputChange}
-                placeholder="Enter a title for this card..."
-                autoFocus
-                className="list-card-title-input"
-              />
-              <input
-                type="text"
-                value={newCardDescription}
-                onChange={handleDescriptionChange}
-                placeholder="Enter a description for this card..."
-                className="list-card-description-input"
-              />
-              <div className="button-group">
-                <button onClick={handleInputSubmit}>Submit</button>
-                <button className="cancel-button" onClick={() => setIsAdding(false)}>Cancel</button>
+              {cardErrorMessage && <div className="error-message">{cardErrorMessage}</div>}
+              <div className="list-footer-content">
+                <input
+                  type="text"
+                  value={newCardTitle}
+                  onChange={handleInputChange}
+                  placeholder="Enter a title for this card..."
+                  autoFocus
+                  className="list-card-title-input"
+                />
+                <input
+                  type="text"
+                  value={newCardDescription}
+                  onChange={handleDescriptionChange}
+                  placeholder="Enter a description for this card..."
+                  className="list-card-description-input"
+                />
+                <div className="button-group">
+                  <button onClick={handleInputSubmit}>Submit</button>
+                  <button className="cancel-button" onClick={() => setIsAdding(false)}>Cancel</button>
+                </div>
               </div>
             </div>
-          </div>
-
           ) : (
             <div className="add-card" onClick={() => setIsAdding(true)}>
               <h4 className="add-card-text">+  Add a card</h4>

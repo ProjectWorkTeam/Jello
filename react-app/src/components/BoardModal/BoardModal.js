@@ -10,7 +10,7 @@ import './boardModal.css';
 const BoardModal = ({ closeModal }) => {
   const [boardName, setBoardName] = useState('');
   const [selectedImage, setSelectedImage] = useState(image_1_icon);
-  const [isNameValid, setIsNameValid] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -22,12 +22,18 @@ const BoardModal = ({ closeModal }) => {
   const handleBoardNameChange = (e) => {
     const name = e.target.value;
     setBoardName(name);
-    setIsNameValid(name.trim().length > 0 && name.trim().length < 15);
+
+    if (name.trim().length > 0 && name.trim().length < 15) {
+      setValidationMessage('');
+    }
   };
 
   const handleCreateBoard = async () => {
-    if (!isNameValid || selectedImage === '') {
-      // Handle error case
+    if (boardName.trim().length === 0) {
+      setValidationMessage('Name cannot be empty');
+      return;
+    } else if (boardName.trim().length >= 15) {
+      setValidationMessage('Name should be less than 15 characters');
       return;
     }
 
@@ -55,6 +61,7 @@ const BoardModal = ({ closeModal }) => {
       <div className="board-modal-content">
         <h2>Create a Board</h2>
         <div>
+          {validationMessage && <p className="validation-message">{validationMessage}</p>}
           <input
             className="board-modal-input"
             type="text"
@@ -63,7 +70,7 @@ const BoardModal = ({ closeModal }) => {
             onChange={handleBoardNameChange}
           />
         </div>
-        <div>
+        {/* <div>
           <h3>Choose a Background Image</h3>
           <div>
             <img
@@ -98,9 +105,9 @@ const BoardModal = ({ closeModal }) => {
               alt="Selected background"
             />
           )}
-        </div>
+        </div> */}
         <div>
-          <button onClick={handleCreateBoard} disabled={!isNameValid}>
+          <button onClick={handleCreateBoard}>
             Create
           </button>
           <button
