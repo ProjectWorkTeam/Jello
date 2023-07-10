@@ -428,3 +428,214 @@ https://github.com/ProjectWorkTeam/Jello
       "message": "Board not found."
     }
     ```
+## Lists
+
+### GET /lists/board/{boardID}
+
+**Description:** Get all lists belonging to a specific board
+
+**Require Authentication:** True
+
+**Request:**
+- Method: GET
+- URL: /api/lists/board/{boardID}
+- Headers:
+    - Content-Type: application/json
+- Body: None
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "lists": [
+          {
+            "id": 1,
+            "name": "List Name",
+            "board_id": 1,
+            "position_id": 1
+          },
+          //...
+      ]
+    }
+    ```
+
+**Error response: No lists found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "No lists found."
+    }
+    ```
+
+### POST /lists
+
+**Description:** Create a new list
+
+**Require Authentication:** True
+
+**Request:**
+- Method: POST
+- URL: /api/lists
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "list_name": "New List Name",
+      "board_id": 1
+    }
+    ```
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "list": {
+        "id": 1,
+        "name": "New List Name",
+        "board_id": 1,
+        "position_id": 1
+      }
+    }
+    ```
+
+**Error response: Board not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board not found."
+    }
+    ```
+
+### PUT /lists/{listID}
+
+**Description:** Update a list's name
+
+**Require Authentication:** True
+
+**Request:**
+- Method: PUT
+- URL: /api/lists/{listID}
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "list_name": "Updated List Name"
+    }
+    ```
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "id": 1,
+      "name": "Updated List Name",
+      "board_id": 1,
+      "position_id": 1
+    }
+    ```
+
+**Error response: List not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "List not found."
+    }
+    ```
+
+### DELETE /lists/{listID}
+
+**Description:** Delete a specific list
+
+**Require Authentication:** True
+
+**Request:**
+- Method: DELETE
+- URL: /api/lists/{listID}
+- Headers:
+    - Content-Type: application/json
+- Body: None
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "List deleted successfully."
+    }
+    ```
+
+**Error response: List not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "List not found."
+    }
+    ```
+
+### PUT /lists/{listID}/position
+
+**Description:** Update a list's position
+
+**Require Authentication:** True
+
+**Request:**
+- Method: PUT
+- URL: /api/lists/{listID}/position
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "position_id": "New Position ID"
+    }
+    ```
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "id": 1,
+      "name": "List Name",
+      "board_id": 1,
+      "position_id": "New Position ID"
+    }
+    ```
+
+**Error response: List not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "List not found."
+    }
+    ```
