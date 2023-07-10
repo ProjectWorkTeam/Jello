@@ -128,7 +128,7 @@ function Board() {
     setIsEditing(false);
     setEditedBoardName("");
   };
-  
+
 
   const handleCancelEditBoardName = () => {
     setIsEditing(false);

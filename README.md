@@ -232,3 +232,199 @@ https://github.com/ProjectWorkTeam/Jello
       "message": "User not found"
     }
     ```
+
+## Boards
+
+### GET /boards/{boardID}
+
+**Description:** Get the details of a specific board
+
+**Require Authentication:** True
+
+**Request:**
+- Method: GET
+- URL: /api/boards/{boardID}
+- Headers:
+    - Content-Type: application/json
+- Body: None
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "board": {
+        "id": 1,
+        "name": "Board Name",
+        "owner_id": 1,
+        "position_id": 1
+      }
+    }
+    ```
+
+**Error response: Board not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board not found."
+    }
+    ```
+
+### GET /boards
+
+**Description:** Get all boards owned by the user
+
+**Require Authentication:** True
+
+**Request:**
+- Method: GET
+- URL: /api/boards
+- Headers:
+    - Content-Type: application/json
+- Body: None
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "boards": [
+          {
+            "id": 1,
+            "name": "Board Name",
+            "owner_id": 1,
+            "position_id": 1
+          },
+          //...
+      ]
+    }
+    ```
+
+### POST /boards
+
+**Description:** Create a new board
+
+**Require Authentication:** True
+
+**Request:**
+- Method: POST
+- URL: /api/boards
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "name": "New Board Name"
+    }
+    ```
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board created successfully.",
+      "board": {
+        "id": 1,
+        "name": "New Board Name",
+        "owner_id": 1,
+        "position_id": 1
+      }
+    }
+    ```
+
+**Error response: Invalid form submission**
+- Status Code: 400
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Invalid form submission."
+    }
+    ```
+
+### PUT /boards/{boardID}
+
+**Description:** Update a board's name and/or position
+
+**Require Authentication:** True
+
+**Request:**
+- Method: PUT
+- URL: /api/boards/{boardID}
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "name": "Updated Board Name",
+      "position_id": "New Position ID"
+    }
+    ```
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board updated successfully."
+    }
+    ```
+
+**Error response: Board not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board not found."
+    }
+    ```
+
+### DELETE /boards/{boardID}
+
+**Description:** Delete a specific board
+
+**Require Authentication:** True
+
+**Request:**
+- Method: DELETE
+- URL: /api/boards/{boardID}
+- Headers:
+    - Content-Type: application/json
+- Body: None
+
+**Successful Response:**
+- Status Code: 200
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board deleted successfully."
+    }
+    ```
+
+**Error response: Board not found**
+- Status Code: 404
+- Headers:
+    - Content-Type: application/json
+- Body:
+    ```
+    {
+      "message": "Board not found."
+    }
+    ```
