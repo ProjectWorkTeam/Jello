@@ -107,23 +107,30 @@ export const thunkAddBoard = (board) => async (dispatch) => {
 /*-Edit A Board Thunk-*/
 export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
     console.log('edit board thunk reached', board)
-    let response;
     try {
-        response = await fetch(`/api/boards/${boardId}`, {
+        const response = await fetch(`/api/boards/${boardId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(board)
         });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const boardToEdit = await response.json();
         console.log('before board edit thunk gone through', boardToEdit);
         dispatch(editBoard(boardToEdit));
         console.log('after board edit thunk gone through', boardToEdit);
-        return boardToEdit;
+
+        return { payload: boardToEdit };
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+        console.error('Error in thunkAEditBoard:', err);
+        
+        return { error: err.message };
     }
 }
+
 
 
 export const thunkADeleteBoard = (boardId) => async (dispatch) => {

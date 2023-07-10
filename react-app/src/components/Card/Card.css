@@ -1,39 +1,77 @@
-.list {
-    background-color: #e2e4e6;
-    width: 250px;
-    flex-shrink: 0;
-    margin-right: 10px;
-    border-radius: 3px;
-    padding: 8px;
-}
-
-.list h3 {
-    font-size: 18px;
-    font-weight: bold;
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
     margin-bottom: 10px;
-}
+  }
 
-.list ul {
+  .card-title {
+    margin: 0;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .card-menu {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .button-container{
+    padding-top: 0;
+  }
+  .card-menu ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    list-style-type: none;
-}
-
-.card {
     background-color: #fff;
-    border-radius: 3px;
-    padding: 8px;
-    margin-bottom: 10px;
-}
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1;
+  }
 
-.card-title {
-    font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+  .card-menu ul li {
+    padding: 10px;
+    color: #333;
+  }
 
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
 
-.card:hover {
-    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
-    cursor: pointer;
-}
+  .button-container button {
+    margin-left: 10px;
+  }
+/* Card */
+.board div .card{
+  background-color:rgba(255,255,255,0.72);
+ }
+
+ /* Button */
+.board .list button:nth-child(1){
+  color:#ffffff;
+  background-color:#3498db;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+  height:20px;
+ }
+
+ /* Button */
+.board .card button:nth-child(2){
+  color:#ffffff;
+  background-color:#fe4242;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+  height:20px;
+ }

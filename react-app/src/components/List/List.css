@@ -1,39 +1,210 @@
-.list-footer{
+.list-footer {
     display: flex;
+    justify-content: center;
     align-items: center;
-    margin-left: .1rem;
+    margin-left: 0.1rem;
     border-radius: 1rem;
     cursor: pointer;
+    padding: 5px;
+  }
 
-}
+  .list-title {
+    padding-left: 15px;
+  }
 
-.add-card {
+
+  .add-card {
     display: flex;
     align-items: center;
     margin-top: 10px;
-}
+    padding-right: 20px;
+  }
 
-.add-card-icon {
+  .add-card-icon {
     font-size: 20px;
     font-weight: bold;
     margin-right: 5px;
-    margin-left: auto
-}
+    margin-left: auto;
+  }
 
-
-.add-card-text {
+  .add-card-text {
     margin: 0;
     margin-left: 1rem;
+  }
 
-}
-
-.list:hover {
+  .list:hover,
+  .list-footer:hover {
     box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
     cursor: pointer;
+  }
+
+  .card-buttons {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  .list-footer-adding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .list-footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+/* List */
+.board .list-container:nth-child(1) .list{
+  background-color:rgba(226,228,230,0.69);
+  transform:translatex(0px) translatey(0px);
+ }
+
+ /* Button */
+.board .list-container:nth-child(1) .list-header button{
+  border-style:none;
+  background-color:#fe4242;
+  color:#ffffff;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+ }
+
+ .board .list-container:nth-child(1) .list-header .fas{
+  height:15px;
+  width:13px;
+ }
+
+ /* Board content */
+#root .board .board-content{
+  transform:translatex(0px) translatey(0px);
+ }
+
+
+/* List card title input */
+.board .list input[type=text].list-card-title-input{
+  background-color:rgba(255,255,255,0.57);
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+ }
+
+ /* List card description input */
+ .board .list input[type=text].list-card-description-input{
+  background-color:rgba(255,255,255,0.54);
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+ }
+
+ /* Cancel button */
+ .board .button-group .cancel-button{
+  color:#ffffff;
+  background-color:#d73636;
+  border-style:none;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+ }
+
+
+
+.board .list-container:nth-child(2) .list{
+ background-color:rgba(226,228,230,0.8);
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Button */
+.board .list-container:nth-child(2) .list-header button{
+ background-color:#fe4242;
+ color:#ffffff;
+ border-top-left-radius:5px;
+ border-top-right-radius:5px;
+ border-bottom-left-radius:5px;
+ border-bottom-right-radius:5px;
+ border-style:none;
+ width:25px;
+ height:18px;
+}
+
+/* Button */
+.board .list-container:nth-child(1) .list-header button{
+ background-color:#fe4242;
+}
+
+/* Button */
+.board .list-container:nth-child(3) button{
+ background-color:#fe4242;
+ color:#ffffff;
+ border-style:none;
+ border-top-left-radius:5px;
+ border-top-right-radius:5px;
+ border-bottom-left-radius:5px;
+ border-bottom-right-radius:5px;
+ width:25px;
+ height:18px;
+}
+
+/* List */
+.board .list-container:nth-child(3) .list{
+ background-color:rgba(226,228,230,0.78);
+}
+
+/* Button */
+.board .list-container:nth-child(3) button:nth-child(1){
+ background-color:#3498db;
+ width:60px;
+}
+
+/* Cancel button */
+.board .list-container:nth-child(3) .cancel-button{
+ width:60px;
+ background-color:#d73636;
+}
+
+/* Cancel button */
+.board .list-container:nth-child(2) .cancel-button{
+ background-color:#d73636;
 }
 
 
-.list-footer:hover {
-    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.25);
-    cursor: pointer;
+.list-container:last-child .list {
+  background-color: rgba(226, 228, 230, 0.8);
+  transform: translateX(0px) translateY(0px);
 }
+
+.list-container:last-child .list-header button {
+  background-color: #fe4242;
+  color: #ffffff;
+  border-style: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.list-container:last-child .list-header .fas {
+  height: 15px;
+  width: 13px;
+}
+
+
+
+  .error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-bottom: 5px;
+  }

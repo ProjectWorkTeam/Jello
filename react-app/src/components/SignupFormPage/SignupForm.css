@@ -1,15 +1,13 @@
 .top {
     height: 3.75rem;
     top: 0;
-    width: 100vw;
+    width: 90vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
     font-size: 2rem;
     font-weight: 600;
     padding-top: 3rem;
-    background-color: white;
     color: black;
     font-family: Roboto, Helvetica Neue, sans-serif
 }
@@ -18,8 +16,24 @@
     cursor: pointer;
 }
 
-.logo-image {
-    height: 5rem;
-    width: 5rem;
-    margin-right: 0.5rem;
+.title{
+    display: flex;
+    justify-content: center;
+}
+
+
+/* Input */
+.form-wrapper label input[type=text]{
+    background-color:rgba(255,255,255,0.7);
+    border-style:none;
+   }
+
+   /* Buttons */
+#root .form-wrapper .buttons{
+    transform: translatex(-6px);
+   }
+
+
+#root .top .logo-container{
+    transform: translatex(80px);
 }

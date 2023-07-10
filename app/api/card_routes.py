@@ -47,7 +47,7 @@ def create_card():
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
-# Update card details
+# Update card name
 @cards.route('/<int:card_id>', methods=['PUT'])
 @login_required
 def update_card(card_id):
@@ -58,7 +58,7 @@ def update_card(card_id):
         if not card:
             return generate_error_response("Card not found", 404)
         card.title = form.data['title']
-        card.text = form.data.get('description')
+        card.text = form.data['description']
         db.session.commit()
         return generate_success_response(card.to_dict())
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
@@ -79,7 +79,6 @@ def delete_card(card_id):
     db.session.commit()
     return generate_success_response({"message": "Card deleted successfully"})
 
-# Update Card Position
 @cards.route('/<int:card_id>/position', methods=["PUT"])
 @login_required
 def update_card_position(card_id):
@@ -87,14 +86,11 @@ def update_card_position(card_id):
 
     if not card:
         return generate_error_response("Card not found.", 404)
-# we don't currently have .owner_id as a card thing, but we should have something like this later potentially
-    # if card.owner_id != current_user.id:
-    #     return generate_error_response("Unauthorized to update this card.", 403)
 
     data = request.get_json()
 
-    new_list_id = data.get('list_id')
-    new_position_id = data.get('position_id')
+    new_list_id = data.get('new_list_id')
+    new_position_id = data.get('new_position_id')
 
     if new_list_id is None or new_position_id is None:
         return generate_error_response("Both list_id and position_id must be provided.", 400)
@@ -126,7 +122,9 @@ def update_card_position(card_id):
             for c in cards_to_update:
                 c.position_id += 1
 
-    # Update card's list and position
+    db.session.commit()
+
+    # Update card's list and position after all other updates are committed
     card.list_id = new_list_id
     card.position_id = new_position_id
 

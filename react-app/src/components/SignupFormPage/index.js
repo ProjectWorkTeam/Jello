@@ -72,13 +72,13 @@ function SignupFormPage() {
     <div className="container">
       <div className="top">
         <div className="logo-container" onClick={handleLogoClick}>
-          <div className="logo-wrapper">
-            <img src={jello} alt="Jello" className="logo-image" />
-          </div>
-          <div className="logo-text">Jello</div>
+          {/* <div className="logo-wrapper"> */}
+            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
+          {/* </div> */}
+          {/* <div className="logo-text">Jello</div> */}
         </div>
       </div>
-      <h1 className="title">Sign up for your account</h1>
+      <h2 className="title">Sign up for your account</h2>
       <form onSubmit={handleSubmit} className="form-wrapper">
         {Object.keys(errors).length > 0 && (
           <ul className="error-list">
@@ -89,7 +89,7 @@ function SignupFormPage() {
         )}
         <div className="form-group">
           <label>
-            First Name
+            {/* First Name */}
             <input
               type="text"
               value={firstName}
@@ -102,7 +102,7 @@ function SignupFormPage() {
         </div>
         <div className="form-group">
           <label>
-            Last Name
+            {/* Last Name */}
             <input
               type="text"
               value={lastName}
@@ -115,7 +115,7 @@ function SignupFormPage() {
         </div>
         <div className="form-group">
           <label>
-            Username
+            {/* Username */}
             <input
               type="text"
               value={username}
@@ -128,7 +128,7 @@ function SignupFormPage() {
         </div>
         <div className="form-group">
           <label>
-            Email
+            {/* Email */}
             <input
               type="text"
               value={email}
@@ -141,7 +141,7 @@ function SignupFormPage() {
         </div>
         <div className="form-group">
           <label>
-            Password
+            {/* Password */}
             <input
               type="password"
               value={password}
@@ -154,7 +154,7 @@ function SignupFormPage() {
         </div>
         <div className="form-group">
           <label>
-            Confirm Password
+            {/* Confirm Password */}
             <input
               type="password"
               value={confirmPassword}

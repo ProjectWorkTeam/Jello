@@ -1,0 +1,96 @@
+.workspace-container {
+    display: flex;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.sidebar-container {
+    width: 20rem;
+    height: 1000px;
+    border-right: 0.2rem solid #aaa;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 1rem;
+}
+
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-workspace {
+    border-bottom: 0.2rem solid #aaa;
+    color: #2b3e50;
+}
+
+.workspace-content {
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-info {
+    margin-bottom: 1rem;
+}
+
+.board-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.board_list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 0;
+    overflow-y: auto;
+    height: 700px;
+}
+
+
+.board-tile {
+    background-color: rgba(235, 236, 240, 0.7);
+    border-radius: 0.4rem;
+    box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+    padding: 1.2rem;
+    width: 40%;
+    height: 3.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    cursor: grab;
+}
+.board-tile:active {
+    cursor: grabbing;
+}
+
+.board-tile h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #2b3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.error-message {
+    color: #db3b3b;
+}
+
+.create-board-banner {
+    display: flex;
+    align-items: center;
+  }
+
+#root .create-board-banner .create-board-button{
+    color:#ffffff;
+    background-color:#3498db;
+   }

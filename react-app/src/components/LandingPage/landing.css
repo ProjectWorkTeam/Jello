@@ -1,14 +1,19 @@
+
+body {
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+}
+
 .landing-Nav {
-    height: 3.75rem;
+    position: fixed;
     top: 0;
     width: 100vw;
+    height: 4rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
-    font-size: 2rem;
+    background-color: transparent;
+    font-size: 2.5rem;
     font-weight: 1000;
-    background-color: white;
     color: black;
 }
 
@@ -18,42 +23,44 @@
 }
 
 .logo {
-    height: 2.5rem;
-    width: 2.5rem;
-    margin-left: 0.9rem;
+    margin: 0 0.5rem 0 1rem;
+    height: 3rem;
+    width: 3rem;
+}
+
+.logo-container::after {
+    content: "Jello";
+    font-size: 3rem;
+    font-weight: bold;
+    color: #172b4d;;
+}
+
+.Creds,
+.landing-login,
+.landing-SignUp {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
 .Creds {
-    display: flex;
-    align-items: center;
-    height: 100%;
     font-weight: 500;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .landing-login {
-    display: flex;
-    align-items: center;
     color: #172B4D;
-    cursor: pointer;
-    height: 100%;
     padding: 0rem 1.25rem;
 }
 
 .landing-SignUp {
-    display: flex;
-    align-items: center;
-    color: white;
-    height: 100%;
-    background-color: #4576fc;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.SignUp:hover {
-    background-color: darkblue;
+    color: #172b4d;
+    background-color: transparent;
+    padding: 0.6rem 1.25rem;
+    font-weight: bold;
+    border-radius: 0.2rem;
 }
 
 .Info-Body {
@@ -63,8 +70,6 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: purple;
-    /* padding: 3.1rem; */
     overflow: hidden;
     max-height: 80%;
 }
@@ -72,55 +77,35 @@
 .Body {
     display: flex;
     flex-direction: column;
-    /* align-items: flex-start; */
     max-width: 30rem;
     margin: auto;
 }
 
 .header {
-    font-size: 3rem;
-    font-weight: 500;
-    color: white;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #172b4d;
     margin-bottom: 0.63rem;
 }
 
 .text-body {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 400;
-    color: white;
+    color: #172b4d;
     margin-bottom: 0.94rem;
-}
-
-.SignUp-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-color: #4576fc;
-    height: fit-content;
-    width: fit-content;
-    padding: 1.25rem 1.13rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 100ms;
-    border-radius: 0.38rem;
-    user-select: none;
-}
-
-.SignUp-body:hover {
-    background-color: #2c54c2;
 }
 
 .landing-background-img {
     display: flex;
     align-items: flex-end;
+    justify-content: center;
     width: 75rem;
     margin-left: auto;
-    justify-content: center;
     padding-top: 5rem;
 }
 
-.landing-background-img>img {
+.landing-background-img > img {
+    border-radius: 10px;
     width: 39.5rem;
     height: 34.88rem;
 }
@@ -131,9 +116,50 @@
     align-items: center;
     gap: 3.1rem;
     width: 100%;
-    height: 93.9vh;
+    height: 80vh;
 }
 
-body {
-    font-family: "Roboto", "Helvetica Neue", sans-serif;
+.SignUp-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #172b4d;
+    background: rgba(255, 255, 255, 0.3);
+    height: fit-content;
+    width: fit-content;
+    padding: 1.25rem 1.13rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 500ms;
+    border-radius: 0.38rem;
+    user-select: none;
+}
+
+.link-icons {
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s;
+}
+
+.link-icons:hover {
+    transform: scale(1.2);
+}
+
+.about {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px;
+    margin-top: 15px;
+}
+.developer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(128, 128, 128, 0.3);
+    padding-right: 10px;
+    padding-left: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.38rem;
 }

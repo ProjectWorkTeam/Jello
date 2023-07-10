@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import jello from "../../assets/Jello.jpg";
 import "./LoginForm.css";
 
 function LoginFormPage() {
@@ -49,13 +48,13 @@ function LoginFormPage() {
   };
 
   return (
-    <div className="container">
+    <div className="login-container">
       <div className="top">
         <div className="logo-container" onClick={handleLogoClick}>
           <div className="logo-wrapper">
-            <img src={jello} alt="Jello" className="logo-image" />
+            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
           </div>
-          <div className="logo-text">Jello</div>
+          <div className="logo-text"></div>
         </div>
       </div>
       <h1 className="input-title">Log In</h1>
