@@ -1,7 +1,15 @@
 
 body {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
+
 }
+html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
 
 .landing-Nav {
     position: fixed;
@@ -20,12 +28,15 @@ body {
 .logo-container {
     display: flex;
     align-items: center;
+    margin-left: 1rem;
+    
 }
 
 .logo {
     margin: 0 0.5rem 0 1rem;
     height: 3rem;
     width: 3rem;
+    
 }
 
 .logo-container::after {
@@ -49,6 +60,11 @@ body {
     font-weight: 500;
     font-size: 1.6rem;
 }
+
+h2.landing-header{
+    margin-left: 1rem;
+}
+
 
 .landing-login {
     color: #172B4D;
@@ -93,6 +109,7 @@ body {
     font-weight: 400;
     color: #172b4d;
     margin-bottom: 0.94rem;
+    margin-left: 1rem;
 }
 
 .landing-background-img {
@@ -128,6 +145,7 @@ body {
     height: fit-content;
     width: fit-content;
     padding: 1.25rem 1.13rem;
+    margin-left: 1rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 500ms;
