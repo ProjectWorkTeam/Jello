@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import CardModal from '../CardModal/CardModal';
 import OpenModalButton from '../OpenModalButton';
+import CardDeleteModal from '../Card/CardDeleteModal';
 import { thunkDeleteCard, thunkGetCardsByList, thunkEditCard } from '../../store/cardsReducer';
 import { useDispatch } from 'react-redux';
 
@@ -14,6 +15,7 @@ function Card({ card, index }) {
   const [selectCard, setSelectCard] = useState(null);
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(card.title);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // new state for delete modal
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -24,11 +26,13 @@ function Card({ card, index }) {
   };
 
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this card?")) {
-      dispatch(thunkDeleteCard(card.id, card.list_id));
-      dispatch(thunkGetCardsByList(card.list_id))
-    }
-    closeMenu();
+    setDeleteModalOpen(true); // open delete modal instead of window.confirm
+  };
+
+  const confirmDelete = async () => { // function to be called when deletion is confirmed
+    dispatch(thunkDeleteCard(card.id, card.list_id));
+    dispatch(thunkGetCardsByList(card.list_id));
+    setDeleteModalOpen(false);
   };
 
   const openCardModal = (cardId) => {
@@ -38,6 +42,7 @@ function Card({ card, index }) {
   const closeCardModal = () => {
     setSelectCard(null);
   };
+
 
   const handleTitleClick = () => {
     setEditable(true);
@@ -87,8 +92,9 @@ function Card({ card, index }) {
           {isMenuOpen && (<div className="card-menu" onClick={handleCardClick}></div>)}
           <OpenModalButton key={card.id} modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />} onModalClose={closeCardModal} buttonText={<><i className="fa-solid fa-pen-to-square" /> Edit</>}></OpenModalButton>
           <button onClick={handleDelete}>
-            <i className="fas fa-trash-alt"></i>
-          </button>
+      <i className="fas fa-trash-alt"></i>
+    </button>
+    {deleteModalOpen && <CardDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />}
           </div>
         </div>
       )}

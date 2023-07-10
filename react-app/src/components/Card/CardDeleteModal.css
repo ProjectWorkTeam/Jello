@@ -1,0 +1,31 @@
+/* CardDeleteModal.css */
+
+.card-delete-modal {
+    position: fixed; /* Fixed positioning */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Correct alignment (centers the modal exactly, instead of its top-left corner) */
+    z-index: 9999; /* Show on top of everything else */
+    background-color: white; /* Background color */
+    padding: 20px; /* Some padding */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25); /* A bit of shadow for depth perception */
+    width: 80%; /* Width */
+    max-width: 500px; /* Maximum width */
+  }
+  
+  .card-delete-modal button {
+    margin-top: 20px;
+  }
+  
+  /* Overlay styles */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+  }
+  
