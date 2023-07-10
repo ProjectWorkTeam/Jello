@@ -1,4 +1,5 @@
 .card {
+  position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -6,6 +7,16 @@
     background-color: #f1f1f1;
     border-radius: 5px;
     margin-bottom: 10px;
+    &.dragging {
+      position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    margin: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transform: translate(-150%, -150%);
+    user-select: none;
+    }
+
   }
 
   .card-title {

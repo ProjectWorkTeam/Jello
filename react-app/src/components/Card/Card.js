@@ -63,8 +63,18 @@ function Card({ card, index }) {
   if (!card) return null;
   return (
     <Draggable draggableId={String(card.id)} index={index}>
-      {(provided) => (
-        <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+      {(provided, snapshot) => (
+         <div
+         className={`card ${snapshot.isDragging ? 'dragging' : ''}`}
+         ref={provided.innerRef}
+         {...provided.draggableProps}
+         {...provided.dragHandleProps}
+         style={{
+          ...provided.draggableProps.style,
+          left: snapshot.isDragging ? (provided.draggableProps.style.left || 0) - 100 : null,
+          top: snapshot.isDragging ? (provided.draggableProps.style.top || 0) - 10 : null,
+        }}
+       >
           {editable ? (
             <input value={title} onChange={handleTitleChange} onBlur={handleTitleBlur} onKeyDown={handleTitleKeyDown} autoFocus />
           ) : (

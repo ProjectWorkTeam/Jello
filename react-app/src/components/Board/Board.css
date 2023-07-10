@@ -175,3 +175,6 @@
  }
 
 
+ .board .list .card {
+  position: relative; 
+}
