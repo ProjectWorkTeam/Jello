@@ -61,10 +61,8 @@
     gap: 10px;
   }
 
-
   .error-message {
     color: red;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+    font-size: 0.8em;
+    margin-bottom: 5px;    
   }
-  
