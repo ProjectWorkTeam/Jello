@@ -1,5 +1,4 @@
 .card {
-  position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,16 +6,6 @@
     background-color: #f1f1f1;
     border-radius: 5px;
     margin-bottom: 10px;
-    &.dragging {
-      position: fixed;
-    z-index: 9999;
-    pointer-events: none;
-    margin: 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    transform: translate(-150%, -150%);
-    user-select: none;
-    }
-
   }
 
   .card-title {
@@ -64,7 +53,7 @@
  }
 
  /* Button */
-.board .list button:nth-child(1){
+/* .board .list button:nth-child(1){
   color:#ffffff;
   background-color:#3498db;
   border-top-left-radius:5px;
@@ -73,10 +62,10 @@
   border-bottom-right-radius:5px;
   border-style:none;
   height:20px;
- }
+ } */
 
  /* Button */
-.board .card button:nth-child(2){
+/* .board .card button:nth-child(2){
   color:#ffffff;
   background-color:#fe4242;
   border-top-left-radius:5px;
@@ -85,4 +74,4 @@
   border-bottom-right-radius:5px;
   border-style:none;
   height:20px;
- }
+ } */

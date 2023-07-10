@@ -29,11 +29,11 @@
    }
 
    /* Buttons */
-#root .form-wrapper .buttons{
+.form-wrapper .buttons{
     transform: translatex(-6px);
    }
 
 
-#root .top .logo-container{
+.top .logo-container{
     transform: translatex(80px);
 }

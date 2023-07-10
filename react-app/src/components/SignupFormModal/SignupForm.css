@@ -1,5 +1,5 @@
 /* Signup form */
-#root .signup-form-modal .signup-form{
+.signup-form-modal .signup-form{
     height:417px;
     overflow:visible;
     min-width:231px;
@@ -8,7 +8,7 @@
    }
 
    /* Signup form modal */
-   #root div .signup-form-modal{
+   div .signup-form-modal{
     background-color:rgba(255,255,255,0.36);
     height:569px;
     border-top-left-radius:5px;
@@ -19,12 +19,12 @@
    }
 
    /* Modal content */
-   #root div .modal-content{
+   div .modal-content{
     background-color:rgba(255,255,255,0);
    }
 
    /* Login modal background */
-   #root .login-form-modal .login-modal-background{
+   .login-form-modal .login-modal-background{
     transform:translatex(0px) translatey(0px);
     background-color:transparent;
    }
@@ -143,7 +143,7 @@
    }
 
    /* Modal background */
-   #root div .modal-background{
+   div .modal-background{
     transform:translatex(0px) translatey(0px);
    }
 
@@ -166,7 +166,7 @@
    }
 
    /* Signup form */
-   #root div .modal .modal-content .signup-form-modal .signup-form{
+  div .modal .modal-content .signup-form-modal .signup-form{
     width:288px !important;
    }
 

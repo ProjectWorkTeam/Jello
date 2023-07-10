@@ -64,17 +64,16 @@ function Card({ card, index }) {
   return (
     <Draggable draggableId={String(card.id)} index={index}>
       {(provided, snapshot) => (
-         <div
-         className={`card ${snapshot.isDragging ? 'dragging' : ''}`}
-         ref={provided.innerRef}
-         {...provided.draggableProps}
-         {...provided.dragHandleProps}
-         style={{
-          ...provided.draggableProps.style,
-          left: snapshot.isDragging ? (provided.draggableProps.style.left || 0) - 100 : null,
-          top: snapshot.isDragging ? (provided.draggableProps.style.top || 0) - 10 : null,
-        }}
-       >
+           <div
+           className={`card ${snapshot.isDragging ? 'dragging' : ''}`}
+           ref={provided.innerRef}
+           {...provided.draggableProps}
+           {...provided.dragHandleProps}
+           style={{
+             ...provided.draggableProps.style,
+             transform: snapshot.isDragging ? `${provided.draggableProps.style.transform} translate(0, -10px)` : provided.draggableProps.style.transform,
+           }}
+         >
           {editable ? (
             <input value={title} onChange={handleTitleChange} onBlur={handleTitleBlur} onKeyDown={handleTitleKeyDown} autoFocus />
           ) : (

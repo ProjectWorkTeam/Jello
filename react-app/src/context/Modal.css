@@ -23,6 +23,7 @@
   background-color:white;
 }
 
-#root div .modal-background{
+
+.modal-background{
   transform:translatex(0px) translatey(0px);
  }

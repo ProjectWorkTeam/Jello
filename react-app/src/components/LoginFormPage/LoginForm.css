@@ -70,18 +70,17 @@
    }
 
    /* Input title */
-   #root .input-title{
+  .input-title{
     color:#ffffff;
    }
 
 
    /* Logo container */
-
-   #root .top .logo-container{
+ .top .logo-container{
     transform: translatex(3px);
    }
    /* Buttons */
-   #root .demo-wrapper .buttons{
+    .demo-wrapper .buttons{
     transform: translatex(-6px);
    }
 

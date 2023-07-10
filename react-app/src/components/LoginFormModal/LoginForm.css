@@ -44,7 +44,7 @@
    }
 
    /* Nav contents */
-   #root header .nav-contents{
+  header .nav-contents{
     transform:translatex(0px) translatey(0px);
    }
 
@@ -205,7 +205,7 @@
    }
 
    /* Login modal background */
-   #root .login-form-modal .login-modal-background{
+  .login-form-modal .login-modal-background{
     border-top-left-radius:5px;
     border-top-right-radius:5px;
     border-bottom-left-radius:5px;
@@ -220,7 +220,7 @@
     border-bottom-right-radius:5px;
    }
 
-   #root div .modal-content{
+  div .modal-content{
     transform:translatex(0px) translatey(0px);
     height:500px;
     width:500px;

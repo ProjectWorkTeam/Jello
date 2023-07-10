@@ -57,8 +57,7 @@
 }
 
 .lists-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    height: 100%;
     gap: 16px;
     transition: margin-left 0.3s ease;
     margin-left: 0;
@@ -170,11 +169,11 @@
   padding-left: 2rem;
 }
 
-#root .board .sidebar-open{
+ .board .sidebar-open{
   z-index:-10;
  }
 
 
- .board .list .card {
-  position: relative; 
+ .board  {
+  position: relative;
 }
