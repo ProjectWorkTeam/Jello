@@ -94,14 +94,7 @@ function List({ list, cards, index }) {
   };
 
   return (
-    <Draggable draggableId={String(list.id)} index={index}>
-      {(provided, snapshot) => (
-        <NaturalDragAnimation
-          style={provided.draggableProps.style}
-          snapshot={snapshot}
-        >
-          {(style) => (
-            <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={style}>
+            <div className="list-container">
               <div className="list">
                 <div className="list-header">
                   {listErrorMessage && <div className="error-message">{listErrorMessage}</div>}
@@ -173,10 +166,6 @@ function List({ list, cards, index }) {
                 </div>
               </div>
             </div>
-          )}
-        </NaturalDragAnimation>
-      )}
-    </Draggable>
   );
 }
 
