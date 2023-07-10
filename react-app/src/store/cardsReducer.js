@@ -86,6 +86,12 @@ export const thunkMoveCard = (cardId, data) => async (dispatch) => {
     if (response.ok) {
         const { list_id, position_id } = await response.json();
         dispatch(moveCard(cardId, list_id, position_id));
+        const cardResponse = await fetch(`/api/cards/${cardId}`)
+        console.log('CARD RESPONSE', cardResponse)
+        if (cardResponse.ok) {
+            const updatedCard = await cardResponse.json();
+            dispatch(editCard(updatedCard)); 
+          }
         return null;
     } else {
         const errorData = await response.json();
