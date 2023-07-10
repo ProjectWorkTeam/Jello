@@ -32,19 +32,26 @@ const CardModal = ({ cardId }) => {
 
     const handleCardSave = () => {
         if (cardName.trim() === '') {
-            setErrorMessage('Please enter a name for the card.');
-            return;
+          setErrorMessage('Please enter a name for the card.');
+          return;
         }
-
+      
+        // Add validation check for title length
+        if (cardName.length > 20) {
+          setErrorMessage('Title cannot be more than 20 characters long');
+          return;
+        }
+      
         if (isEdit) {
-            const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
-            dispatch(thunkEditCard(cardId, editedCard));
+          const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
+          dispatch(thunkEditCard(cardId, editedCard));
         } else {
-            dispatch(thunkCard(cardId));
+          dispatch(thunkCard(cardId));
         }
         setIsEdit(false);
         setErrorMessage(''); // Clear the error message
-    };
+      };
+      
 
     if (!card) {
         return null;

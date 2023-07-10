@@ -33,11 +33,18 @@ function List({ list, cards,index }) {
       setListErrorMessage('Please enter a title for the list.');
       return;
     }
-
+  
+    // Add validation check for title length
+    if (title.length > 20) {
+      setListErrorMessage('Title cannot be more than 20 characters long');
+      return;
+    }
+  
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
     setListErrorMessage('');
   };
+  
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -52,25 +59,32 @@ function List({ list, cards,index }) {
       setCardErrorMessage('Please enter a title for the card.');
       return;
     }
-
+  
+    // Add validation check for title length
+    if (newCardTitle.length > 20) {
+      setCardErrorMessage('Title cannot be more than 20 characters long');
+      return;
+    }
+  
     const newCard = {
       title: newCardTitle,
       description: newCardDescription,
       listId: list.id,
     };
-
+  
     const createdCard = await dispatch(thunkMakeCard(newCard));
-
+  
     if (createdCard) {
       const { id, listId } = createdCard;
       dispatch(thunkMoveCard(id, { listId, position_id: cards.length }));
     }
-
+  
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
     setCardErrorMessage('');
   };
+  
 
   const handleDeleteList = async () => {
     if (window.confirm("Are you sure you want to delete this list?")) {
