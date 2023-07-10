@@ -1,23 +1,23 @@
 # Jello
+
 App Academy Group Project
 
-## Live Link!!
+## Live Link
 
-https://jello-project-management.onrender.com/
+<https://jello-project-management.onrender.com/>
 
-## Check out our wiki for additional docs!
+## Check out our wiki for additional docs
 
-https://github.com/ProjectWorkTeam/Jello
+<https://github.com/ProjectWorkTeam/Jello>
 
 ## API Documentation
 
 ## Table of Contents
 
-- [Users](#users)
-  - [Create a New User (POST /users)](#post-users)
-  - [Get User Information (GET /users/{UserID})](#get-usersuserid)
-  - [Update User Information (PUT /users/{UserID})](#put-usersuserid)
-  - [Delete a User (DELETE /users/{UserID})](#delete-usersuserid)
+1. [Users](#users)
+2. [Boards](#boards)
+3. [Lists](#lists)
+4. [Cards](#cards)
 
 ## Database Schema Design
 
@@ -37,11 +37,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** False
 
 **Request:**
+
 - Method: POST
 - URL: /api/users
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "firstName": "John",
@@ -53,10 +55,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "user": {
@@ -70,10 +74,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: User already exists with the specified email**
+
 - Status Code: 500
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User already exists",
@@ -84,10 +90,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: User already exists with the specified username**
+
 - Status Code: 500
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User already exists",
@@ -98,10 +106,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Body validation errors**
+
 - Status Code: 400
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Bad Request",
@@ -121,17 +131,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: GET
 - URL: /api/users/{UserID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "user": {
@@ -145,10 +158,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: User not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User not found"
@@ -162,11 +177,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: PUT
 - URL: /api/users/{UserID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "firstName": "UpdatedFirstName",
@@ -177,10 +194,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User information updated successfully"
@@ -188,10 +207,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: User not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User not found"
@@ -205,17 +226,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: DELETE
 - URL: /api/users/{UserID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User deleted successfully"
@@ -223,10 +247,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: User not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "User not found"
@@ -242,17 +268,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: GET
 - URL: /api/boards/{boardID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "board": {
@@ -265,10 +294,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Board not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board not found."
@@ -282,17 +313,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: GET
 - URL: /api/boards
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "boards": [
@@ -314,11 +348,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: POST
 - URL: /api/boards
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "name": "New Board Name"
@@ -326,10 +362,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board created successfully.",
@@ -343,10 +381,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Invalid form submission**
+
 - Status Code: 400
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Invalid form submission."
@@ -360,11 +400,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: PUT
 - URL: /api/boards/{boardID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "name": "Updated Board Name",
@@ -373,10 +415,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board updated successfully."
@@ -384,10 +428,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Board not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board not found."
@@ -401,17 +447,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: DELETE
 - URL: /api/boards/{boardID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board deleted successfully."
@@ -419,15 +468,18 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Board not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board not found."
     }
     ```
+
 ## Lists
 
 ### GET /lists/board/{boardID}
@@ -437,17 +489,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: GET
 - URL: /api/lists/board/{boardID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "lists": [
@@ -463,10 +518,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: No lists found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "No lists found."
@@ -480,11 +537,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: POST
 - URL: /api/lists
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "list_name": "New List Name",
@@ -493,10 +552,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "list": {
@@ -509,10 +570,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: Board not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "Board not found."
@@ -526,11 +589,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: PUT
 - URL: /api/lists/{listID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "list_name": "Updated List Name"
@@ -538,10 +603,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "id": 1,
@@ -552,10 +619,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: List not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "List not found."
@@ -569,17 +638,20 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: DELETE
 - URL: /api/lists/{listID}
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body: None
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "List deleted successfully."
@@ -587,10 +659,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: List not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "List not found."
@@ -604,11 +678,13 @@ https://github.com/ProjectWorkTeam/Jello
 **Require Authentication:** True
 
 **Request:**
+
 - Method: PUT
 - URL: /api/lists/{listID}/position
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "position_id": "New Position ID"
@@ -616,10 +692,12 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Successful Response:**
+
 - Status Code: 200
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "id": 1,
@@ -630,12 +708,323 @@ https://github.com/ProjectWorkTeam/Jello
     ```
 
 **Error response: List not found**
+
 - Status Code: 404
 - Headers:
-    - Content-Type: application/json
+  - Content-Type: application/json
 - Body:
+
     ```
     {
       "message": "List not found."
+    }
+    ```
+
+## Cards
+
+### GET /cards/list/<list_id>
+
+**Description:** Get all cards of a specific list
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: GET
+- URL: /api/cards/list/<list_id>
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    [
+      {
+        "id": 1,
+        "title": "Card Title",
+        "text": "Card description",
+        "list_id": <list_id>,
+        "position_id": 1
+      },
+      ...
+    ]
+    ```
+
+**Error response: List not found**
+
+- Status Code: 404
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "List not found"
+    }
+    ```
+
+### GET /cards/<card_id>
+
+**Description:** Get a specific card
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: GET
+- URL: /api/cards/<card_id>
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "id": 1,
+      "title": "Card Title",
+      "text": "Card description",
+      "list_id": <list_id>,
+      "position_id": 1
+    }
+    ```
+
+**Error response: Card not found**
+
+- Status Code: 404
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card not found"
+    }
+    ```
+
+### POST /cards/
+
+**Description:** Create a new card
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: POST
+- URL: /api/cards
+- Headers:
+  - Content-Type: application/json
+  - csrf_token: <csrf_token>
+- Body:
+
+    ```
+    {
+      "title": "New Card",
+      "description": "Card description",
+      "list_id": <list_id>
+    }
+    ```
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "id": 2,
+      "title": "New Card",
+      "text": "Card description",
+      "list_id": <list_id>,
+      "position_id": 2
+    }
+    ```
+
+**Error response: Body validation errors**
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Bad Request",
+      "errors": {
+        "title": "Title is required",
+        "list_id": "List ID is required"
+      }
+    }
+    ```
+
+### PUT /cards/<card_id>
+
+**Description:** Update a card
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: PUT
+- URL: /api/cards/<card_id>
+- Headers:
+  - Content-Type: application/json
+  - csrf_token: <csrf_token>
+- Body:
+
+    ```
+    {
+      "title": "Updated Card",
+      "description": "Updated description"
+    }
+    ```
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "id": <card_id>,
+      "title": "Updated Card",
+      "text": "Updated description",
+      "list_id": <list_id>,
+      "position_id": <position_id>
+    }
+    ```
+
+**Error response: Card not found**
+
+- Status Code: 404
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card not found"
+    }
+    ```
+
+**Error response: Body validation errors**
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Bad Request",
+      "errors": {
+        "title": "Title is required"
+      }
+    }
+    ```
+
+### DELETE /cards/<card_id>
+
+**Description:** Delete a card
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: DELETE
+- URL: /api/cards/<card_id>
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card deleted successfully"
+    }
+    ```
+
+**Error response: Card not found**
+
+- Status Code: 404
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card not found"
+    }
+    ```
+
+### PUT /cards/<card_id>/position
+
+**Description:** Update a card's position
+
+**Require Authentication:** True
+
+**Request:**
+
+- Method: PUT
+- URL: /api/cards/<card_id>/position
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "new_list_id": <new_list_id>,
+      "new_position_id": <new_position_id>
+    }
+    ```
+
+**Successful Response:**
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card updated successfully"
+    }
+    ```
+
+**Error response: Card not found**
+
+- Status Code: 404
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Card not found"
+    }
+    ```
+
+**Error response: List_id or position_id not provided**
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+    ```
+    {
+      "message": "Both list_id and position_id must be provided"
     }
     ```
