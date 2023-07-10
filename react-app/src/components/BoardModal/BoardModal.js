@@ -106,15 +106,15 @@ const BoardModal = ({ closeModal }) => {
             />
           )}
         </div> */}
-        <div>
-          <button onClick={handleCreateBoard}>
+        <div className='board-modal-button-container'>
+          <button onClick={handleCreateBoard} className='board-modal-button-create'>
             Create
           </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               closeModal();
-            }}
+            }} className='board-modal-button-cancel'
           >
             Cancel
           </button>
