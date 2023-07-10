@@ -22,3 +22,7 @@
   position: absolute;
   background-color:white;
 }
+
+#root div .modal-background{
+  transform:translatex(0px) translatey(0px);
+ }

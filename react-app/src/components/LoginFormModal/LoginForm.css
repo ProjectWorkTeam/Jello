@@ -229,3 +229,7 @@
     border-bottom-left-radius:5px;
     border-bottom-right-radius:5px;
    }
+
+   .error-message {
+    color: #db3b3b;
+}

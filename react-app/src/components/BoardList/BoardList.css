@@ -94,3 +94,16 @@
     color:#ffffff;
     background-color:#3498db;
    }
+
+
+   /* Button */
+.board_list .board-tile button{
+    color:#ffffff;
+    background-color:#eb4b4b;
+    border-style:none;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    cursor: pointer;
+   }

@@ -13,7 +13,7 @@
   list-style: none;
   width: 100%;
   justify-content: space-between;
-  z-index: 0;
+  z-index: 4;
 
 }
 
@@ -23,7 +23,7 @@
   width: 100%;
   height: 4rem;
   border-bottom: .1rem solid #aaa;
-  z-index: 0;
+  z-index: 3;
   background-color: transparent;
 }
 
@@ -49,6 +49,7 @@
   padding: .5rem;
   text-decoration: none;
   list-style-type: none;
+  z-index: 1;
 }
 
 #profile-wrapper {
@@ -56,11 +57,12 @@
   flex-direction: column;
   justify-content: flex-start;
   height: 50px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .login-button{
   border: none;
+  cursor: pointer;
 }
 
 .profile{
@@ -77,10 +79,12 @@
 
 div.menu-buttons.button{
   border: none;
+  cursor: pointer;
 }
 
 .login-button{
   border: none;
+  cursor: pointer;
 }
 
 
@@ -94,6 +98,7 @@ div.menu-buttons.button{
  /* Font Icon */
  #profile-wrapper .profile .fa-user-circle{
   color:#005693;
+  cursor: pointer;
  }
 
  /* Menu buttons */
@@ -120,11 +125,13 @@ div.menu-buttons.button{
   color:#ffffff;
   background-color:#3498db;
   border-style:none;
+  cursor: pointer;
  }
 
  /* Font Icon */
  .menu-buttons button:nth-child(1) .fas{
   border-style:none;
+  cursor: pointer;
  }
 
  /* Button */
@@ -132,6 +139,7 @@ div.menu-buttons.button{
   color:#ffffff;
   background-color:#3498db;
   border-style:none;
+  cursor: pointer;
  }
  #profile-wrapper .profile-dropdown{
   width:65px;
@@ -146,6 +154,7 @@ div.menu-buttons.button{
   border-top-right-radius:5px;
   border-bottom-left-radius:5px;
   border-bottom-right-radius:5px;
+  cursor: pointer;
  }
 
  /* Button */
@@ -157,6 +166,7 @@ div.menu-buttons.button{
   border-top-right-radius:5px;
   border-bottom-left-radius:5px;
   border-bottom-right-radius:5px;
+  cursor: pointer;
  }
 
  /* Font Icon */
@@ -185,5 +195,9 @@ div.menu-buttons.button{
   border-bottom-left-radius:5px;
   border-bottom-right-radius:5px;
   transform: translatex(17px);
+  cursor: pointer;
  }
 
+ #profile-wrapper .profile-dropdown{
+  z-index:1;
+ }

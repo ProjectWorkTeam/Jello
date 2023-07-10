@@ -84,3 +84,8 @@
    #root .demo-wrapper .buttons{
     transform: translatex(-6px);
    }
+
+
+   .error-message {
+    color: #db3b3b;
+}
