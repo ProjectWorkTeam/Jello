@@ -24,6 +24,7 @@ Welcome to Jello! This web application is a task and project management tool, mi
 - **Redux**: A predictable state container for JavaScript apps. We used Redux alongside React for state management.
 - **Python**: The core language on the server side, used to build the backend of the application.
 - **Flask**: A Python web framework used to create the server side of the application. We've used Flask to handle requests and responses.
+- **React-beautiful-dnd (Drag and Drop)**: A highly customizable library for implementing drag and drop functionality, developed by Atlassian. In our application, it allows intuitive, visually pleasing drag-and-drop interactions for tasks across different categories and boards, closely replicating the user-friendly interface of Trello. With features like auto-scrolling and droppable placeholders, it's designed to create a natural drag and drop experience.
 - **Flask-CORS**: A Flask extension for handling Cross Origin Resource Sharing (CORS), making cross-origin AJAX possible.
 - **Flask-SQLAlchemy**: A Flask extension that simplifies the use of SQLAlchemy (a SQL toolkit and Object-Relational Mapping system) with Flask by providing useful defaults and extra helpers.
 - **Alembic**: A database migration tool for SQLAlchemy, used to handle changes in the database schema.

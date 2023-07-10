@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable,Draggable } from 'react-beautiful-dnd';
+import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 import Card from '../Card/Card';
-import ListDeleteModal from '../List/ListDeleteModal'; 
+import ListDeleteModal from '../List/ListDeleteModal';
 import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer';
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 
@@ -34,8 +35,8 @@ function List({ list, cards,index }) {
       return;
     }
 
-    if (title.length > 20) {
-      setListErrorMessage('Title cannot be more than 20 characters long');
+    if (title.length > 15) {
+      setListErrorMessage('Title cannot be more than 15 characters long');
       return;
     }
 
@@ -58,8 +59,8 @@ function List({ list, cards,index }) {
       return;
     }
 
-    if (newCardTitle.length > 20) {
-      setCardErrorMessage('Title cannot be more than 20 characters long');
+    if (newCardTitle.length > 15) {
+      setCardErrorMessage('Title cannot be more than 15 characters long');
       return;
     }
 
@@ -83,10 +84,10 @@ function List({ list, cards,index }) {
   };
 
   const handleDeleteList = () => {
-    setDeleteModalOpen(true); // Open delete modal instead of window.confirm
+    setDeleteModalOpen(true);
   };
 
-  const confirmDelete = async () => { // Function to be called when deletion is confirmed
+  const confirmDelete = async () => {
     dispatch(thunkDeleteList(list.id));
     dispatch(thunkBoardLists(list.board_id));
     setDeleteModalOpen(false);
@@ -94,8 +95,13 @@ function List({ list, cards,index }) {
 
   return (
     <Draggable draggableId={String(list.id)} index={index}>
-      {(provided) => (
-        <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+  {(provided, snapshot) => (
+    <NaturalDragAnimation
+      style={provided.draggableProps.style}
+      snapshot={snapshot}
+    >
+      {(style) => (
+        <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={style}>
           <div className="list">
             <div className="list-header">
               {listErrorMessage && <div className="error-message">{listErrorMessage}</div>}
@@ -117,7 +123,7 @@ function List({ list, cards,index }) {
                 )}
               </h3>
               <button onClick={handleDeleteList}><i className="fas fa-trash-alt"></i></button>
-              {deleteModalOpen && <ListDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />} {/* New delete modal */}
+              {deleteModalOpen && <ListDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />}
             </div>
             <div className="cards-list">
               <Droppable droppableId={String(list.id)}>
@@ -133,7 +139,6 @@ function List({ list, cards,index }) {
                 )}
               </Droppable>
             </div>
-
             <div className="list-footer">
               {isAdding ? (
                 <div className='list-footer-adding'>
@@ -169,7 +174,9 @@ function List({ list, cards,index }) {
           </div>
         </div>
       )}
-    </Draggable>
+    </NaturalDragAnimation>
+  )}
+</Draggable>
   );
 }
 

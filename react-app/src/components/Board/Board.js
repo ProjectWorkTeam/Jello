@@ -60,7 +60,6 @@ function Board() {
 
   const createList = async () => {
     if (newListName.trim() === '') {
-      // Handle error case
       return;
     }
     const newList = {
