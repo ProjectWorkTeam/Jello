@@ -2,7 +2,6 @@
     display: flex;
 }
 
-.card-modal {}
 
 #modal-content {
     width: 50%;
@@ -13,3 +12,84 @@
 #modal-background {
     background-color: gray;
 }
+
+/* Card modal container */
+#root div .card-modal-container{
+    background-color:rgba(255,255,255,0.82);
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    transform:translatex(0px) translatey(0px);
+    height:154px;
+   }
+
+   /* Card modal contents */
+   #root .card-modal .card-modal-contents{
+    transform: translatex(200px);
+   }
+
+   /* Card modal edit */
+   #root .card-modal .card-modal-edit{
+    transform: translatex(138px) translatey(44px);
+   }
+
+   /* Card modal edit input */
+   .card-modal-edit div input[type=text].card-modal-edit-input{
+    transform: translatex(25px) translatey(-17px);
+    background-color:rgba(255,255,255,0.7);
+    border-style:none;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    width:165px;
+    height:30px;
+   }
+
+   /* Card modal */
+   #root .card-modal{
+    transform:translatex(0px) translatey(0px);
+    width:100%;
+    background-color:rgba(0,0,0,0.23);
+   }
+
+   /* Card modal edit textarea */
+   .card-modal-edit div textarea.card-modal-edit-textarea{
+    background-color:rgba(255,255,255,0.56);
+    border-style:none;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    width:160px;
+    transform: translatex(22px);
+   }
+
+   /* Button */
+   .card-modal .card-modal-edit button{
+    color:#ffffff;
+    background-color:#3498db;
+    border-style:none;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+    width:133px;
+    height:26px;
+    transform: translatex(35px);
+   }
+
+   /* Division */
+   .card-modal .card-modal-edit div:nth-child(2){
+    transform: translatex(5px);
+   }
+
+
+   .icon {
+    transition: color 0.2s;
+   }
+
+   .icon:hover{
+    color: white;
+   }

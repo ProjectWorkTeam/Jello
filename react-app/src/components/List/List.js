@@ -129,12 +129,14 @@ function List({ list, cards }) {
                 onChange={handleInputChange}
                 placeholder="Enter a title for this card..."
                 autoFocus
+                className="list-card-title-input"
               />
               <input
                 type="text"
                 value={newCardDescription}
                 onChange={handleDescriptionChange}
                 placeholder="Enter a description for this card..."
+                className="list-card-description-input"
               />
               <div className="button-group">
                 <button onClick={handleInputSubmit}>Submit</button>

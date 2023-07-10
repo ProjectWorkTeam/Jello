@@ -61,3 +61,144 @@
     gap: 10px;
   }
 
+/* List */
+.board .list-container:nth-child(1) .list{
+  background-color:rgba(226,228,230,0.69);
+  transform:translatex(0px) translatey(0px);
+ }
+
+ /* Button */
+.board .list-container:nth-child(1) .list-header button{
+  border-style:none;
+  background-color:#fe4242;
+  color:#ffffff;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+ }
+
+ .board .list-container:nth-child(1) .list-header .fas{
+  height:15px;
+  width:13px;
+ }
+
+ /* Board content */
+#root .board .board-content{
+  transform:translatex(0px) translatey(0px);
+ }
+
+
+/* List card title input */
+.board .list input[type=text].list-card-title-input{
+  background-color:rgba(255,255,255,0.57);
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+ }
+
+ /* List card description input */
+ .board .list input[type=text].list-card-description-input{
+  background-color:rgba(255,255,255,0.54);
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  border-style:none;
+ }
+
+ /* Cancel button */
+ .board .button-group .cancel-button{
+  color:#ffffff;
+  background-color:#d73636;
+  border-style:none;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+ }
+
+
+
+.board .list-container:nth-child(2) .list{
+ background-color:rgba(226,228,230,0.8);
+ transform:translatex(0px) translatey(0px);
+}
+
+/* Button */
+.board .list-container:nth-child(2) .list-header button{
+ background-color:#fe4242;
+ color:#ffffff;
+ border-top-left-radius:5px;
+ border-top-right-radius:5px;
+ border-bottom-left-radius:5px;
+ border-bottom-right-radius:5px;
+ border-style:none;
+ width:25px;
+ height:18px;
+}
+
+/* Button */
+.board .list-container:nth-child(1) .list-header button{
+ background-color:#fe4242;
+}
+
+/* Button */
+.board .list-container:nth-child(3) button{
+ background-color:#fe4242;
+ color:#ffffff;
+ border-style:none;
+ border-top-left-radius:5px;
+ border-top-right-radius:5px;
+ border-bottom-left-radius:5px;
+ border-bottom-right-radius:5px;
+ width:25px;
+ height:18px;
+}
+
+/* List */
+.board .list-container:nth-child(3) .list{
+ background-color:rgba(226,228,230,0.78);
+}
+
+/* Button */
+.board .list-container:nth-child(3) button:nth-child(1){
+ background-color:#3498db;
+ width:60px;
+}
+
+/* Cancel button */
+.board .list-container:nth-child(3) .cancel-button{
+ width:60px;
+ background-color:#d73636;
+}
+
+/* Cancel button */
+.board .list-container:nth-child(2) .cancel-button{
+ background-color:#d73636;
+}
+
+
+.list-container:last-child .list {
+  background-color: rgba(226, 228, 230, 0.8);
+  transform: translateX(0px) translateY(0px);
+}
+
+.list-container:last-child .list-header button {
+  background-color: #fe4242;
+  color: #ffffff;
+  border-style: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.list-container:last-child .list-header .fas {
+  height: 15px;
+  width: 13px;
+}
+
+

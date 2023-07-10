@@ -169,3 +169,21 @@ div.menu-buttons.button{
   transform:translatex(0px) translatey(0px);
  }
 
+ #profile-wrapper .profile-dropdown{
+  overflow:visible;
+  min-width:0%;
+  width:108px;
+ }
+
+ /* Log out  button */
+ #LogOut-Button{
+  color:#ffffff;
+  background-color:#3498db;
+  border-style:none;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  border-bottom-left-radius:5px;
+  border-bottom-right-radius:5px;
+  transform: translatex(17px);
+ }
+

@@ -47,13 +47,14 @@ const CardModal = ({ cardId }) => {
         <div className="card-modal-container">
             <div className="card-modal" onClick={(e) => e.stopPropagation()}>
                 {isEdit ? (
-                    <div>
+                    <div className="card-modal-edit">
                         <div>
                             <input
                                 type="text"
                                 value={cardName}
                                 onChange={handleCardNameChange}
                                 onBlur={handleCardSave}
+                                className="card-modal-edit-input"
                             />
                         </div>
                         <div>
@@ -61,20 +62,21 @@ const CardModal = ({ cardId }) => {
                                 value={cardText}
                                 onChange={handleCardTextChange}
                                 onBlur={handleCardSave}
+                                className="card-modal-edit-textarea"
                             />
                         </div>
                         <button onClick={handleCardSave}>Save</button>
                     </div>
                 ) : (
-                    <div>
+                    <div className="card-modal-contents">
                         <h2 id="card-title" onClick={handleCardTitleClick}>
                             {card.title}
-                            <i className="fa-solid fa-pen-to-square" />
+                            <i className="fa-solid fa-pen-to-square icon" />
                         </h2>
                         <div>Description</div>
                         <p id="card-text" onClick={handleCardTitleClick}>
                             {card.text}
-                            <i className="fa-solid fa-pen-to-square" />
+                            <i className="fa-solid fa-pen-to-square icon" />
                         </p>
                     </div>
                 )}

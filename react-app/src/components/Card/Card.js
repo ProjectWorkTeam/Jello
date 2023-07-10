@@ -76,7 +76,7 @@ function Card({ card, index }) {
           )}
           <div className='button container'>
           {isMenuOpen && (<div className="card-menu" onClick={handleCardClick}></div>)}
-          <OpenModalButton key={card.id} modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />} onModalClose={closeCardModal} />
+          <OpenModalButton key={card.id} modalComponent={<CardModal cardId={card.id} closeModal={closeCardModal} />} onModalClose={closeCardModal} buttonText={<><i className="fa-solid fa-pen-to-square" /> Edit</>}></OpenModalButton>
           <button onClick={handleDelete}>
             <i className="fas fa-trash-alt"></i>
           </button>

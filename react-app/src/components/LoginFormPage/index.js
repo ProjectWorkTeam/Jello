@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
-import jello from "../../assets/Jello.jpg";
 import "./LoginForm.css";
 
 function LoginFormPage() {
