@@ -45,6 +45,7 @@
     border-bottom-right-radius:5px;
     width:165px;
     height:30px;
+    
    }
 
    /* Card modal */
@@ -126,3 +127,10 @@
  transform:translatex(3px) translatey(16px);
 }
 
+
+#error {
+    color: red;
+    font-size: 12px;
+    position: relative;
+    bottom: 20px;
+}
