@@ -16,7 +16,7 @@ function Card({ card, index }) {
   const [selectCard, setSelectCard] = useState(null);
   const [editable, setEditable] = useState(false);
   const [title, setTitle] = useState(card.title);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // new state for delete modal
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const closeMenu = () => {
     setMenuOpen(false);
@@ -27,10 +27,10 @@ function Card({ card, index }) {
   };
 
   const handleDelete = async () => {
-    setDeleteModalOpen(true); // open delete modal instead of window.confirm
+    setDeleteModalOpen(true);
   };
 
-  const confirmDelete = async () => { // function to be called when deletion is confirmed
+  const confirmDelete = async () => {
     dispatch(thunkDeleteCard(card.id, card.list_id));
     dispatch(thunkGetCardsByList(card.list_id));
     setDeleteModalOpen(false);

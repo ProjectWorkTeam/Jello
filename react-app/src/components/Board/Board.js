@@ -109,11 +109,9 @@ function Board() {
 
   const handleSaveBoardName = async () => {
     if (editedBoardName.trim() === '') {
-      // Handle empty board name error
       setBoardNameValidationMessage("Board name cannot be empty");
       return;
     }
-    // New validation check for board name length
     if (editedBoardName.length > 20) {
       setBoardNameValidationMessage("Board name cannot be more than 20 characters long");
       return;
