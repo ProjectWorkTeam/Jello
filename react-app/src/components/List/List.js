@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable,Draggable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
-import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer'
+import ListDeleteModal from '../List/ListDeleteModal'; 
+import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer';
 import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 
 import './List.css';
@@ -15,8 +16,7 @@ function List({ list, cards,index }) {
   const [isAdding, setIsAdding] = useState(false);
   const [listErrorMessage, setListErrorMessage] = useState('');
   const [cardErrorMessage, setCardErrorMessage] = useState('');
-
-
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // New state for delete modal
 
   const dispatch = useDispatch();
 
@@ -33,18 +33,16 @@ function List({ list, cards,index }) {
       setListErrorMessage('Please enter a title for the list.');
       return;
     }
-  
-    // Add validation check for title length
+
     if (title.length > 20) {
       setListErrorMessage('Title cannot be more than 20 characters long');
       return;
     }
-  
+
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
     setListErrorMessage('');
   };
-  
 
   const handleInputChange = (e) => {
     setNewCardTitle(e.target.value);
@@ -59,38 +57,39 @@ function List({ list, cards,index }) {
       setCardErrorMessage('Please enter a title for the card.');
       return;
     }
-  
-    // Add validation check for title length
+
     if (newCardTitle.length > 20) {
       setCardErrorMessage('Title cannot be more than 20 characters long');
       return;
     }
-  
+
     const newCard = {
       title: newCardTitle,
       description: newCardDescription,
       listId: list.id,
     };
-  
+
     const createdCard = await dispatch(thunkMakeCard(newCard));
-  
+
     if (createdCard) {
       const { id, listId } = createdCard;
       dispatch(thunkMoveCard(id, { listId, position_id: cards.length }));
     }
-  
+
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
     setCardErrorMessage('');
   };
-  
 
-  const handleDeleteList = async () => {
-    if (window.confirm("Are you sure you want to delete this list?")) {
-      dispatch(thunkDeleteList(list.id));
-      dispatch(thunkBoardLists(list.board_id));
-    }
+  const handleDeleteList = () => {
+    setDeleteModalOpen(true); // Open delete modal instead of window.confirm
+  };
+
+  const confirmDelete = async () => { // Function to be called when deletion is confirmed
+    dispatch(thunkDeleteList(list.id));
+    dispatch(thunkBoardLists(list.board_id));
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -118,6 +117,7 @@ function List({ list, cards,index }) {
                 )}
               </h3>
               <button onClick={handleDeleteList}><i className="fas fa-trash-alt"></i></button>
+              {deleteModalOpen && <ListDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />} {/* New delete modal */}
             </div>
             <div className="cards-list">
               <Droppable droppableId={String(list.id)}>
