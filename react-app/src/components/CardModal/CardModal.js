@@ -9,6 +9,7 @@ const CardModal = ({ cardId }) => {
     const [isEdit, setIsEdit] = useState(false);
     const [cardName, setCardName] = useState('');
     const [cardText, setCardText] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         if (card) {
@@ -30,14 +31,27 @@ const CardModal = ({ cardId }) => {
     };
 
     const handleCardSave = () => {
+        if (cardName.trim() === '') {
+          setErrorMessage('Please enter a name for the card.');
+          return;
+        }
+      
+        // Add validation check for title length
+        if (cardName.length > 20) {
+          setErrorMessage('Title cannot be more than 20 characters long');
+          return;
+        }
+      
         if (isEdit) {
-            const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
-            dispatch(thunkEditCard(cardId, editedCard));
+          const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
+          dispatch(thunkEditCard(cardId, editedCard));
         } else {
-            dispatch(thunkCard(cardId));
+          dispatch(thunkCard(cardId));
         }
         setIsEdit(false);
-    };
+        setErrorMessage(''); // Clear the error message
+      };
+      
 
     if (!card) {
         return null;
@@ -48,6 +62,7 @@ const CardModal = ({ cardId }) => {
             <div className="card-modal" onClick={(e) => e.stopPropagation()}>
                 {isEdit ? (
                     <div className="card-modal-edit">
+                        {errorMessage && <div id='error'>{errorMessage}</div>}
                         <div>
                             <input
                                 type="text"

@@ -114,6 +114,11 @@ function Board() {
       setBoardNameValidationMessage("Board name cannot be empty");
       return;
     }
+    // New validation check for board name length
+    if (editedBoardName.length > 20) {
+      setBoardNameValidationMessage("Board name cannot be more than 20 characters long");
+      return;
+    }
     const action = await dispatch(thunkAEditBoard(board.id, { name: editedBoardName }));
     if (!action.error) {
       setBoard(prevBoard => ({ ...prevBoard, name: editedBoardName }));
@@ -123,6 +128,7 @@ function Board() {
     setIsEditing(false);
     setEditedBoardName("");
   };
+  
 
   const handleCancelEditBoardName = () => {
     setIsEditing(false);
