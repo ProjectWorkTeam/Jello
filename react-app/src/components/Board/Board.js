@@ -18,6 +18,7 @@ function Board() {
   const [board, setBoard] = useState();
   const [isEditing, setIsEditing] = useState(false);
   const [editedBoardName, setEditedBoardName] = useState("");
+  const [boardNameValidationMessage, setBoardNameValidationMessage] = useState("");
 
   useEffect(() => {
     dispatch(thunkAllBoards());
@@ -27,21 +28,22 @@ function Board() {
     const foundBoard = boards.find(b => b.id === parseInt(boardid, 10));
     setBoard(foundBoard);
   }, [boards, boardid]);
-  // console.log('\n', 'Board_board.js', board);
+
   useEffect(() => {
     if (board && board.id) {
       dispatch(thunkBoardLists(board.id));
     }
   }, [dispatch, board]);
+
   const lists = useSelector(state => state.lists.lists[parseInt(boardid, 10)] || []);
-  // console.log('\n', 'lists_board.js', lists);
+
   useEffect(() => {
     lists.forEach(list => {
       dispatch(thunkGetCardsByList(list.id));
     });
   }, [dispatch, lists]);
+
   const cards = useSelector(state => state.cards || {});
-  // console.log('\n', 'cards_board.js', cards);
 
   const toggleSidebar = () => {
     setOpenSideBar(!openSideBar);
@@ -100,18 +102,17 @@ function Board() {
   const handleSaveBoardName = async () => {
     if (editedBoardName.trim() === '') {
       // Handle empty board name error
-      alert("Board name cannot be empty");
+      setBoardNameValidationMessage("Board name cannot be empty");
       return;
     }
     const action = await dispatch(thunkAEditBoard(board.id, { name: editedBoardName }));
     if (!action.error) {
       setBoard(prevBoard => ({ ...prevBoard, name: editedBoardName }));
+      setBoardNameValidationMessage("");
     }
-    dispatch(thunkAllBoards())
     setIsEditing(false);
     setEditedBoardName("");
   };
-  
 
   const handleCancelEditBoardName = () => {
     setIsEditing(false);
@@ -149,6 +150,7 @@ function Board() {
                 value={editedBoardName}
                 onChange={(e) => setEditedBoardName(e.target.value)}
               />
+              {boardNameValidationMessage && <p className="validation-message">{boardNameValidationMessage}</p>}
               <button onClick={handleSaveBoardName}>Save</button>
               <button onClick={handleCancelEditBoardName}>Cancel</button>
             </div>
@@ -173,7 +175,6 @@ function Board() {
             {lists.map((list) => (
               <List key={list.id} list={list} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
             ))}
-
           </div>
         </DragDropContext>
       </div>

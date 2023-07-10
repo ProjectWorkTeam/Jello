@@ -126,3 +126,9 @@ button {
   height:25px;
   width:60px;
  }
+
+ .validation-message {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}

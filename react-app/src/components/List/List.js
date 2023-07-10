@@ -7,7 +7,6 @@ import { thunkMoveCard, thunkMakeCard } from '../../store/cardsReducer';
 
 import './List.css';
 
-
 function List({ list, cards }) {
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(list.name);
@@ -17,6 +16,7 @@ function List({ list, cards }) {
 
   const [addingCard, setAddingCard] = useState(false);
   const [addCards, setCards] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dispatch = useDispatch();
 
@@ -30,12 +30,13 @@ function List({ list, cards }) {
 
   const handleTitleSubmit = async () => {
     if (title.trim() === '') {
-      alert('Please enter a title for the list.');
+      setErrorMessage('Please enter a title for the list.');
       return;
     }
 
     await dispatch(thunkEditList(list.id, { list_name: title }));
     setEditMode(false);
+    setErrorMessage(''); // Clear the error message
   };
 
 
@@ -47,10 +48,9 @@ function List({ list, cards }) {
   const handleDescriptionChange = (e) => {
     setNewCardDescription(e.target.value);
   };
-
   const handleInputSubmit = async () => {
     if (newCardTitle.trim() === '') {
-      alert('Please enter a title for the card.');
+      setErrorMessage('Please enter a title for the card.');
       return;
     }
 
@@ -70,6 +70,7 @@ function List({ list, cards }) {
     setNewCardTitle('');
     setNewCardDescription('');
     setIsAdding(false);
+    setErrorMessage(''); 
   };
 
   const handleDeleteList = async () => {
@@ -79,10 +80,12 @@ function List({ list, cards }) {
     }
   };
 
+
   return (
     <div className="list-container">
       <div className="list">
         <div className="list-header">
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           <h3 className="list-title" onClick={handleTitleClick}>
             {editMode ? (
               <input
@@ -122,6 +125,7 @@ function List({ list, cards }) {
         <div className="list-footer">
           {isAdding ? (
             <div className='list-footer-adding'>
+              {errorMessage && <div className="error-message">{errorMessage}</div>}
             <div className="list-footer-content">
               <input
                 type="text"
@@ -141,8 +145,7 @@ function List({ list, cards }) {
                 <button className="cancel-button" onClick={() => setIsAdding(false)}>Cancel</button>
               </div>
             </div>
-          </div>
-
+            </div>
           ) : (
             <div className="add-card" onClick={() => setIsAdding(true)}>
               <h4 className="add-card-text">+  Add a card</h4>
