@@ -79,7 +79,7 @@ function Board() {
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-    if(type === 'list') {
+    if(type === 'list-droppable') {
       const listId = draggableId;
       const newPosition = destination.index + 1;
       dispatch(thunkMoveList(listId, newPosition));
@@ -184,7 +184,7 @@ function Board() {
           </div>
         </div>
         <DragDropContext onDragEnd={handleDragEnd}>
-        <Droppable droppableId="all-lists" direction="horizontal" type="list">
+        <Droppable droppableId="all-lists" direction="horizontal" type="list-droppable">
             {(provided) => (
               <div className="lists-container" style={{ display: "flex", flexDirection: "row" }} {...provided.droppableProps} ref={provided.innerRef}>
                 {[...lists].sort((a, b) => a.position_id - b.position_id).map((list, index) => (
