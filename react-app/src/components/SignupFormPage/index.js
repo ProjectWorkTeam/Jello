@@ -37,11 +37,15 @@ function SignupFormPage() {
     // Validate first name
     if (firstName.trim() === "") {
       validationErrors.firstName = "First Name is required";
+    } else if (!/^[A-Za-z]+$/.test(firstName)) {
+      validationErrors.firstName = "First Name must be alphabetic";
     }
 
     // Validate last name
     if (lastName.trim() === "") {
       validationErrors.lastName = "Last Name is required";
+    } else if (!/^[A-Za-z]+$/.test(lastName)) {
+      validationErrors.lastName = "Last Name must be alphabetic";
     }
 
     // Validate password
@@ -63,6 +67,7 @@ function SignupFormPage() {
       }
     }
   };
+
 
   const handleLogoClick = () => {
     history.push("/");
