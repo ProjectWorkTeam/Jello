@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux'; // Assuming you're using Redux
+import { useDispatch } from 'react-redux';
+import BoardDeleteModal from '../List/ListDeleteModal'; 
 import { thunkAllBoards, thunkADeleteBoard } from '../../store/boardsReducer';
 
 const BoardTile = ({ board, index }) => {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // New state for delete modal
   const dispatch = useDispatch();
 
-  const handleDelete = (boardId) => {
-    if (window.confirm('Are you sure you want to delete this board?')) {
-      dispatch(thunkADeleteBoard(boardId)).then(() => {
-        dispatch(thunkAllBoards());
-      });
-    }
+  const handleDelete = () => {
+    setDeleteModalOpen(true); // Open delete modal instead of window.confirm
+  };
+
+  const confirmDelete = () => { // Function to be called when deletion is confirmed
+    dispatch(thunkADeleteBoard(board.id)).then(() => {
+      dispatch(thunkAllBoards());
+    });
+    setDeleteModalOpen(false);
   };
 
   return (
@@ -22,7 +27,8 @@ const BoardTile = ({ board, index }) => {
           <Link to={`/board/${board.id}`}>
             <h3>{board.name}</h3>
           </Link>
-          <button onClick={() => handleDelete(board.id)}>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
+          {deleteModalOpen && <BoardDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />} {/* New delete modal */}
         </div>
       )}
     </Draggable>
