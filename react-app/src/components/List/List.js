@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Droppable,Draggable } from 'react-beautiful-dnd';
-import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 import Card from '../Card/Card';
 import ListDeleteModal from '../List/ListDeleteModal';
 import { thunkEditList, thunkBoardLists, thunkDeleteList } from '../../store/listsReducer';
@@ -17,7 +16,7 @@ function List({ list, cards,index }) {
   const [isAdding, setIsAdding] = useState(false);
   const [listErrorMessage, setListErrorMessage] = useState('');
   const [cardErrorMessage, setCardErrorMessage] = useState('');
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // New state for delete modal
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -96,12 +95,7 @@ function List({ list, cards,index }) {
   return (
     <Draggable draggableId={String(list.id)} index={index}>
   {(provided, snapshot) => (
-    <NaturalDragAnimation
-      style={provided.draggableProps.style}
-      snapshot={snapshot}
-    >
-      {(style) => (
-        <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={style}>
+        <div className="list-container" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <div className="list">
             <div className="list-header">
               {listErrorMessage && <div className="error-message">{listErrorMessage}</div>}
@@ -174,8 +168,6 @@ function List({ list, cards,index }) {
           </div>
         </div>
       )}
-    </NaturalDragAnimation>
-  )}
 </Draggable>
   );
 }

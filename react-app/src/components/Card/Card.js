@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import NaturalDragAnimation from "natural-drag-animation-rbdnd";
 import CardModal from '../CardModal/CardModal';
 import OpenModalButton from '../OpenModalButton';
 import CardDeleteModal from '../Card/CardDeleteModal';
@@ -69,9 +68,7 @@ function Card({ card, index }) {
   return (
     <Draggable draggableId={String(card.id)} index={index}>
   {(provided, snapshot) => (
-    <NaturalDragAnimation style={provided.draggableProps.style} snapshot={snapshot}>
-      {(style) => (
-        <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} style={style}>
+        <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           {editable ? (
             <input value={title} onChange={handleTitleChange} onBlur={handleTitleBlur} onKeyDown={handleTitleKeyDown} autoFocus />
           ) : (
@@ -87,8 +84,6 @@ function Card({ card, index }) {
           </div>
         </div>
       )}
-    </NaturalDragAnimation>
-  )}
 </Draggable>
   );
 }
