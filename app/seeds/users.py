@@ -16,7 +16,7 @@ def seed_users():
         first_name='Bobbie', last_name='Johnson',
         username='Bobbie1', email='bobbie@aa.io', hashed_password='password')
 
-    demo1 = User(first_name='dFirst', last_name='dLast', username='dUsername', email='demo@lit.com', hashed_password='demopass')
+    demo1 = User(first_name='dFirst', last_name='dLast', username='dUsername', email='demo@lit.com', password='demopass')
 
     db.session.add_all([demo, marnie, bobbie, demo1])
     db.session.commit()
@@ -57,7 +57,7 @@ def seed_boards():
 
 def undo_boards():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.boards RESTART IDENTITY CASCARD;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.boards RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM boards"))
 
@@ -87,7 +87,7 @@ def seed_lists():
 
 def undo_lists():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.lists RESTART IDETNTIY CASCARD;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.lists RESTART IDETNTIY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM lists"))
 
@@ -117,7 +117,7 @@ def seed_cards():
 
 def undo_cards():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.cards RESTART IDETNTIY CASCARD;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.cards RESTART IDETNTIY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM cards"))
 
@@ -141,7 +141,7 @@ def seed_labels():
 
 def undo_labels():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.labels RESTART IDETNTIY CASCARD;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.labels RESTART IDETNTIY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM labels"))
 
