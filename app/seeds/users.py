@@ -16,9 +16,9 @@ def seed_users():
         first_name='Bobbie', last_name='Johnson',
         username='Bobbie1', email='bobbie@aa.io', hashed_password='password')
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    demo1 = User(first_name='dFirst', last_name='dLast', username='dUsername', email='demo@lit.com', hashed_password='demopass')
+
+    db.session.add_all([demo, marnie, bobbie, demo1])
     db.session.commit()
 
 
@@ -50,9 +50,9 @@ def seed_boards():
         name = "Jello Board", owner_id = 3
     )
 
-    db.session.add(board_1)
-    db.session.add(board_2)
-    db.session.add(board_3)
+    demo1_board = Board(name="DemoBoard", owner_id=3)
+
+    db.session.add_all([board_1, board_2, board_3, demo1_board])
     db.session.commit()
 
 def undo_boards():
@@ -77,10 +77,12 @@ def seed_lists():
     list_3 = List(
         name = "Jello List", board_id = 3
     )
+    # Added new lists "To Do", "In Progress", and "Completed" for "DemoBoard"
+    demo1_board_list1 = List(name="To Do", board_id=4)
+    demo1_board_list2 = List(name="In Progress", board_id=4)
+    demo1_board_list3 = List(name="Completed", board_id=4)
 
-    db.session.add(list_1)
-    db.session.add(list_2)
-    db.session.add(list_3)
+    db.session.add_all([list_1, list_2, list_3, demo1_board_list1, demo1_board_list2, demo1_board_list3])
     db.session.commit()
 
 def undo_lists():
@@ -105,10 +107,12 @@ def seed_cards():
         title = "Jello", text = "more like hello", list_id = 3
     )
 
+    # Added new cards for lists of "DemoBoard"
+    demo1_board_card1 = Card(title="Task 1", text="Sample task 1", list_id=4)
+    demo1_board_card2 = Card(title="Task 2", text="Sample task 2", list_id=5)
+    demo1_board_card3 = Card(title="Task 3", text="Sample task 3", list_id=6)
 
-    db.session.add(card_1)
-    db.session.add(card_2)
-    db.session.add(card_3)
+    db.session.add_all([card_1, card_2, card_3, demo1_board_card1, demo1_board_card2, demo1_board_card3])
     db.session.commit()
 
 def undo_cards():
