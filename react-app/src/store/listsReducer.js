@@ -68,7 +68,6 @@ export const thunkBoardLists = (boardId) => async (dispatch) => {
   if (response.ok) {
     const boardLists = await response.json();
     dispatch(getBoardLists(boardLists.lists, boardId));
-    console.log('\n', 'List Reducer ThunkBoardLists', boardLists, '\n')
     return boardLists
   }
 }

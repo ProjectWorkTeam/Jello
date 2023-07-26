@@ -71,14 +71,12 @@ export const thunkBoard = (boardId) => async (dispatch, getState) => {
     const response = await fetch(`/api/boards/${boardId}`);
     const boards = await response.json();
     dispatch(getBoard(boards));
-    console.log('GET BOARD BY ID REACHED WAHOO', boards)
 }
 
 /*-Get All Boards Thunk-*/
 export const thunkAllBoards = () => async (dispatch) => {
     const response = await fetch('/api/boards');
     const boards = await response.json();
-    console.log('after response get all boards', boards)
     dispatch(getAllBoards(boards));
 }
 
@@ -91,22 +89,17 @@ export const thunkAddBoard = (board) => async (dispatch) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(board)
         });
-        console.log('create board thunk reached', response)
         const boardResponse = await response.json();
         dispatch(addBoard(boardResponse));
-        console.log('new board!', boardResponse);
         return boardResponse;
     } catch (err) {
-        console.log('before err', err);
         const errors = await err.json();
-        console.log('after err', err);
         return errors;
     }
 }
 
 /*-Edit A Board Thunk-*/
-export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
-    console.log('edit board thunk reached', board)
+export const thunkAEditBoard = (boardId, board) => async (dispatch) =>{
     try {
         const response = await fetch(`/api/boards/${boardId}`, {
             method: 'PUT',
@@ -119,14 +112,10 @@ export const thunkAEditBoard = (boardId, board) => async (dispatch) => {
         }
 
         const boardToEdit = await response.json();
-        console.log('before board edit thunk gone through', boardToEdit);
         dispatch(editBoard(boardToEdit));
-        console.log('after board edit thunk gone through', boardToEdit);
-
         return { payload: boardToEdit };
     } catch (err) {
         console.error('Error in thunkAEditBoard:', err);
-        
         return { error: err.message };
     }
 }

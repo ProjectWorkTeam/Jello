@@ -66,7 +66,6 @@ export const thunkCard = (cardId) => async (dispatch, getState) => {
     const response = await fetch(`/api/cards/${cardId}`);
     const cards = await response.json();
     dispatch(getCard(cards));
-    console.log('GET CARD BY ID REACHED YAHOO', cards)
 }
 
 export const thunkMoveCard = (cardId, data) => async (dispatch) => {
@@ -87,10 +86,9 @@ export const thunkMoveCard = (cardId, data) => async (dispatch) => {
         const { list_id, position_id } = await response.json();
         dispatch(moveCard(cardId, list_id, position_id));
         const cardResponse = await fetch(`/api/cards/${cardId}`)
-        console.log('CARD RESPONSE', cardResponse)
         if (cardResponse.ok) {
             const updatedCard = await cardResponse.json();
-            dispatch(editCard(updatedCard)); 
+            dispatch(editCard(updatedCard));
           }
         return null;
     } else {
@@ -109,7 +107,6 @@ export const thunkGetCardsByList = (listId) => async (dispatch) => {
         const cards = await response.json();
         dispatch(getCardsByList(listId, cards));
     } else {
-        console.log('Error fetching cards by list');
     }
 };
 
@@ -128,13 +125,10 @@ export const thunkMakeCard = (card) => async (dispatch) => {
                 list_id: card.listId,
             })
         });
-        console.log('create card thunk reached', response);
         const cardResponse = await response.json();
         dispatch(makeCard(cardResponse));
-        console.log('new card!', cardResponse);
         return cardResponse;
     } catch (err) {
-        console.log('\n', 'ERROR CardsReducer', err, '\n')
         const errors = await err.json();
         return errors;
     }
@@ -142,7 +136,6 @@ export const thunkMakeCard = (card) => async (dispatch) => {
 
 /*-Edit A Card Thunk-*/
 export const thunkEditCard = (cardId, card) => async (dispatch) => {
-    console.log('edit card thunk reached', card);
     let response;
     try {
         response = await fetch(`/api/cards/${cardId}`, {

@@ -38,7 +38,6 @@ function ProfileButton({ user }) {
         history.push("/");
       })
       .catch((error) => {
-        console.log("Logout error:", error);
       });
   };
 
