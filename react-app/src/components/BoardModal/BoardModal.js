@@ -44,7 +44,6 @@ const BoardModal = ({ closeModal }) => {
 
     try {
       const createdBoard = await dispatch(thunkAddBoard(newBoard));
-      console.log('\n', 'Created Board BoardModal.js', createdBoard);
 
       if (createdBoard) {
         closeModal();

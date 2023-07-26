@@ -12,7 +12,6 @@ board_routes = Blueprint('boards', __name__)
 @login_required
 def get_board_details(board_id):
     board = Board.query.get(board_id)
-    print('\n','Board:',board,'\n')
 
     if not board:
         return generate_error_response("Board not found.", 404)
