@@ -50,7 +50,7 @@ def seed_boards():
         name = "Jello Board", owner_id = 3
     )
 
-    demo1_board = Board(name="DemoBoard", owner_id=3)
+    demo1_board = Board(name="DemoBoard", owner_id=4)
 
     db.session.add_all([board_1, board_2, board_3, demo1_board])
     db.session.commit()
@@ -109,10 +109,13 @@ def seed_cards():
 
     # Added new cards for lists of "DemoBoard"
     demo1_board_card1 = Card(title="Task 1", text="Sample task 1", list_id=4)
-    demo1_board_card2 = Card(title="Task 2", text="Sample task 2", list_id=5)
-    demo1_board_card3 = Card(title="Task 3", text="Sample task 3", list_id=6)
+    demo1_board_card2 = Card(title="Task 2", text="Sample task 2", list_id=4)
+    demo1_board_card3 = Card(title="Task 3", text="Sample task 3", list_id=5)
+    demo1_board_card4 = Card(title="Task 4", text="Sample task 4", list_id=5)
+    demo1_board_card5 = Card(title="Task 5", text="Sample task 5", list_id=6)
+    demo1_board_card6 = Card(title="Task 6", text="Sample task 6", list_id=6)
 
-    db.session.add_all([card_1, card_2, card_3, demo1_board_card1, demo1_board_card2, demo1_board_card3])
+    db.session.add_all([card_1, card_2, card_3, demo1_board_card1, demo1_board_card2, demo1_board_card3,demo1_board_card4,demo1_board_card5,demo1_board_card6])
     db.session.commit()
 
 def undo_cards():
