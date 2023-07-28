@@ -36,7 +36,6 @@ def get_boards():
     boards_data = [{'id': board.id, 'name': board.name, 'owner_id': board.owner_id, 'position_id': board.position_id} for board in boards]
     return generate_success_response({'boards': boards_data})
 
-# Create new board
 @board_routes.route('', methods=["POST"])
 @login_required
 def create_board():
@@ -45,7 +44,7 @@ def create_board():
 
     if form.validate_on_submit():
         highest_position_id_board = Board.query.filter_by(owner_id=current_user.id).order_by(Board.position_id.desc()).first()
-        next_position_id = highest_position_id_board.position_id + 1 if highest_position_id_board else 1
+        next_position_id = highest_position_id_board.position_id + 1 if highest_position_id_board and highest_position_id_board.position_id is not None else 1
 
         new_board = Board(name=form.data["name"], owner_id=current_user.id, position_id=next_position_id)
         db.session.add(new_board)
