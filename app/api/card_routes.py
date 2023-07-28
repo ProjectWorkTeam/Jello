@@ -101,9 +101,10 @@ def update_card_position(card_id):
     # If card is moved to a new list
     if old_list_id != new_list_id:
         # Shift positions of other cards in the old list to fill the gap left by the card
-        old_list_cards_to_update = Card.query.filter(Card.list_id == old_list_id, Card.position_id > old_position_id).all()
-        for c in old_list_cards_to_update:
-            c.position_id -= 1
+        if old_position_id is not None:
+            old_list_cards_to_update = Card.query.filter(Card.list_id == old_list_id, Card.position_id > old_position_id).all()
+            for c in old_list_cards_to_update:
+                c.position_id -= 1
 
         # Shift positions of other cards in the new list to make room for the new card
         new_list_cards_to_update = Card.query.filter(Card.list_id == new_list_id, Card.position_id >= new_position_id).all()
@@ -131,3 +132,4 @@ def update_card_position(card_id):
     db.session.commit()
 
     return generate_success_response({'message': 'Card updated successfully.'})
+
