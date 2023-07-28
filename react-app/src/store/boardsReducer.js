@@ -82,21 +82,32 @@ export const thunkAllBoards = () => async (dispatch) => {
 
 /*-Add a Board Thunk-*/
 export const thunkAddBoard = (board) => async (dispatch) => {
-    let response;
     try {
-        response = await fetch('/api/boards', {
+        const response = await fetch('/api/boards', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(board)
         });
+
+        if (!response.ok) {
+            throw response;
+        }
+
         const boardResponse = await response.json();
         dispatch(addBoard(boardResponse));
         return boardResponse;
     } catch (err) {
-        const errors = await err.json();
-        return errors;
+        if (err instanceof Response) {
+            // If err is an instance of Response then it has come from the fetch
+            const errorMessage = await err.json();
+            return errorMessage;
+        } else {
+            // If it is a different kind of error (like a network error)
+            return err;
+        }
     }
 }
+
 
 /*-Edit A Board Thunk-*/
 export const thunkAEditBoard = (boardId, board) => async (dispatch) =>{
