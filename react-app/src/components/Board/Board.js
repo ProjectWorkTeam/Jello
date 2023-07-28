@@ -83,7 +83,6 @@ function Board() {
       const listId = draggableId;
       const newPosition = destination.index + 1;
 
-      // await added here to ensure the dispatch completes before the next line
       await dispatch(thunkMoveList(listId, newPosition));
       dispatch(thunkBoardLists(board.id));
     } else {
