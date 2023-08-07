@@ -32,8 +32,8 @@ const BoardModal = ({ closeModal }) => {
     if (boardName.trim().length === 0) {
       setValidationMessage('Name cannot be empty');
       return;
-    } else if (boardName.trim().length >= 15) {
-      setValidationMessage('Name should be less than 15 characters');
+    } else if (boardName.trim().length >= 25) {
+      setValidationMessage('Name should be 25 characters or less.');
       return;
     }
 
