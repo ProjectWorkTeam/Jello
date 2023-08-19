@@ -75,12 +75,8 @@ function SignupFormPage() {
 
   return (
     <div className="container">
-      <div className="top">
+      <div className="top-signup">
         <div className="logo-container" onClick={handleLogoClick}>
-          {/* <div className="logo-wrapper"> */}
-            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
-          {/* </div> */}
-          {/* <div className="logo-text">Jello</div> */}
         </div>
       </div>
       <h2 className="title">Sign up for your account</h2>

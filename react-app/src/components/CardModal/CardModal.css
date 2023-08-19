@@ -162,3 +162,8 @@
 #edit-icon {
     margin-left: 1rem;
 }
+
+#card-title{
+    border-bottom: solid 1px black;
+    width: 85%;
+}
