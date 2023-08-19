@@ -7,12 +7,11 @@ function ListDeleteModal({ confirmDelete, closeModal }) {
       <div className="list-delete-modal">
         <h2>Confirm Deletion</h2>
         <p>Are you sure you want to delete this list?</p>
-        <button onClick={confirmDelete}>Yes, delete it</button>
-        <button onClick={closeModal}>No, keep it</button>
+        <button className="yes-delete-button" onClick={confirmDelete}>Yes, delete it</button>
+        <button className="no-delete-button" onClick={closeModal}>No, keep it</button>
       </div>
     </div>
   );
 }
 
 export default ListDeleteModal;
-

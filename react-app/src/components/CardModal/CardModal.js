@@ -32,26 +32,26 @@ const CardModal = ({ cardId }) => {
 
     const handleCardSave = () => {
         if (cardName.trim() === '') {
-          setErrorMessage('Please enter a name for the card.');
-          return;
+            setErrorMessage('Please enter a name for the card.');
+            return;
         }
-      
+
         // Add validation check for title length
         if (cardName.length > 20) {
-          setErrorMessage('Title cannot be more than 20 characters long');
-          return;
+            setErrorMessage('Title cannot be more than 20 characters long');
+            return;
         }
-      
+
         if (isEdit) {
-          const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
-          dispatch(thunkEditCard(cardId, editedCard));
+            const editedCard = { id: cardId, title: cardName, text: cardText, list_id: card.list_id };
+            dispatch(thunkEditCard(cardId, editedCard));
         } else {
-          dispatch(thunkCard(cardId));
+            dispatch(thunkCard(cardId));
         }
         setIsEdit(false);
         setErrorMessage(''); // Clear the error message
-      };
-      
+    };
+
 
     if (!card) {
         return null;
@@ -78,6 +78,8 @@ const CardModal = ({ cardId }) => {
                                 onChange={handleCardTextChange}
                                 onBlur={handleCardSave}
                                 className="card-modal-edit-textarea"
+                                placeholder='Enter a description...'
+                                id="card-textarea"
                             />
                         </div>
                         <button onClick={handleCardSave}>Save</button>
@@ -85,14 +87,20 @@ const CardModal = ({ cardId }) => {
                 ) : (
                     <div className="card-modal-contents">
                         <h2 id="card-title" onClick={handleCardTitleClick}>
+                            <i class="fa-solid fa-newspaper" id="title-icon"></i>
                             {card.title}
-                            <i className="fa-solid fa-pen-to-square icon" />
+                            <i className="fa-solid fa-pen-to-square icon" id="edit-icon" />
                         </h2>
-                        <div>Description</div>
+                        <div className='card-modal-description'></div>
                         <p id="card-text" onClick={handleCardTitleClick}>
-                            {card.text}
-                            <i className="fa-solid fa-pen-to-square icon" />
+                            <i class="fa-solid fa-bars" id="description-icon"></i>
+                            Description
+                            {/* {card.text} */}
+                            <i className="fa-solid fa-pen-to-square icon" id="edit-icon" />
                         </p>
+                        <div className='modal-card-text'>
+                            {card.text}
+                        </div>
                     </div>
                 )}
             </div>

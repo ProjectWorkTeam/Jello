@@ -88,3 +88,17 @@
    .error-message {
     color: #db3b3b;
 }
+
+.top{
+    height: 3.75rem;
+    top: 0;
+    width: 90vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 600;
+    padding-top: 3rem;
+    color: black;
+    font-family: Roboto, Helvetica Neue, sans-serif;
+}
