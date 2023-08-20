@@ -156,6 +156,14 @@ button {
   height: 25px;
 }
 
+.board-modal-button-create:hover{
+  cursor: pointer;
+}
+
+.board-modal-button-cancel:hover{
+  cursor: pointer;
+}
+
 .board-modal-button-cancel {
   color: #ffffff;
   background-color: #3498db;

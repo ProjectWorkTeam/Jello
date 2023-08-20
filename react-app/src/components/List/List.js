@@ -122,7 +122,7 @@ function List({ list, cards, index }) {
                       title
                     )}
                   </h3>
-                  <button onClick={handleDeleteList}><i className="fas fa-trash-alt"></i></button>
+                  <button id="trash-icon" onClick={handleDeleteList}><i className="fas fa-trash-alt"></i></button>
                   {deleteModalOpen && <ListDeleteModal confirmDelete={confirmDelete} closeModal={() => setDeleteModalOpen(false)} />}
                 </div>
                 <div className="cards-list">
@@ -160,7 +160,7 @@ function List({ list, cards, index }) {
                           className="list-card-description-input"
                         />
                         <div className="button-group">
-                          <button onClick={handleInputSubmit}>Submit</button>
+                          <button className="submit-button" onClick={handleInputSubmit}>Submit</button>
                           <button className="cancel-button" onClick={() => setIsAdding(false)}>Cancel</button>
                         </div>
                       </div>

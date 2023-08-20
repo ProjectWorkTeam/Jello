@@ -112,6 +112,14 @@
   border-style:none;
  }
 
+ .cancel-button:hover{
+  cursor: pointer;
+ }
+
+ .submit-button:hover{
+  cursor: pointer;
+ }
+
  /* Cancel button */
  /* .board .button-group .cancel-button{
   color:#ffffff;

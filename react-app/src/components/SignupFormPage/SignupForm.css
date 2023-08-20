@@ -1,4 +1,4 @@
-.top {
+.top-signup {
     height: 3.75rem;
     top: 0;
     width: 90vw;
@@ -9,7 +9,8 @@
     font-weight: 600;
     padding-top: 3rem;
     color: black;
-    font-family: Roboto, Helvetica Neue, sans-serif
+    font-family: Roboto, Helvetica Neue, sans-serif;
+    padding-left: 6rem;
 }
 
 .logo-container:hover {
