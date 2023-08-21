@@ -45,7 +45,6 @@ export const thunkComments = (cardId) => async (dispatch) => {
     if (response.ok) {
         const comments = await response.json();
         dispatch(getComments(comments));
-        console.log('Comments from Card', comments)
     }
 }
 
@@ -53,7 +52,6 @@ export const thunkComments = (cardId) => async (dispatch) => {
 export const thunkAllComments = () => async (dispatch) => {
     const response = await fetch('/api/cardComments');
     const comments = await response.json();
-    console.log('after response get all comments', comments);
     dispatch(getAllComments(comments));
 }
 
@@ -67,52 +65,14 @@ export const thunkPostComments = (cardComment) => async (dispatch) => {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(cardComment)
         });
-        console.log('post comment thunk reached', response);
         const commentResponse = await response.json();
         dispatch(postComments(commentResponse));
-        console.log('new comment!', commentResponse);
         return commentResponse;
     } catch(err) {
         const errors = await err.json();
         return errors;
     }
 }
-
-/*-Edit Comments Thunk-*/
-// export const thunkEditComments = (cardCommentId, cardComment) => async (dispatch) => {
-//     console.log('edit comment thunk reached', cardComment)
-//     let response;
-//     try {
-//         response = await fetch(`/api/cardComments/${cardCommentId}`, {
-//             method: 'PUT',
-//             headers: {'Content-Type' : 'application/json'},
-//             body: JSON.stringify(cardComment)
-//         });
-//         const commentToEdit = await response.json();
-//         dispatch(editComments(commentToEdit));
-//         return commentToEdit;
-//     } catch(err) {
-//         const errors = await err.json();
-//         return errors;
-//     }
-// }
-
-// /*-Delete A Comment Thunk-*/
-// export const thunkDeleteCard = (cardCommentId) => async (dispatch, getState) => {
-//     let response;
-//     try {
-//         response = await fetch(`/api/cardComments/${cardCommentId}`, {
-//             method: 'DELETE'
-//         });
-//         const deleteComent = await response.json();
-//         dispatch(deleteComments(cardCommentId));
-//         return deleteComent;
-//     } catch(err) {
-//         const errors = await err.json();
-//         return errors;
-//     }
-// }
-
 
 /*-Reducer-*/
 const initialState = {

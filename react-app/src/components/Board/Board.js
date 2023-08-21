@@ -73,16 +73,17 @@ function Board() {
     dispatch(thunkBoardLists(board.id));
   };
 
-  const handleDragEnd = (result) => {
+  const handleDragEnd = async (result) => {
     const { destination, source, draggableId, type } = result;
 
     if (!destination) return;
     if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
-    if(type === 'list') {
+    if(type === 'list-droppable') {
       const listId = draggableId;
       const newPosition = destination.index + 1;
-      dispatch(thunkMoveList(listId, newPosition));
+
+      await dispatch(thunkMoveList(listId, newPosition));
       dispatch(thunkBoardLists(board.id));
     } else {
       const cardId = draggableId;
@@ -92,7 +93,7 @@ function Board() {
       const oldListId = source.droppableId;
       const oldPositionId = source.index + 1;
 
-      dispatch(thunkMoveCard(cardId, {
+      await dispatch(thunkMoveCard(cardId, {
         new_list_id: newListId,
         new_position_id: newPositionId,
         old_list_id: oldListId,
@@ -101,6 +102,7 @@ function Board() {
       dispatch(thunkBoardLists(board.id));
     }
   };
+
 
   const handleEditBoardName = () => {
     setIsEditing(true);
@@ -184,7 +186,9 @@ function Board() {
           </div>
         </div>
         <DragDropContext onDragEnd={handleDragEnd}>
-              <div className="lists-container" style={{ display: "flex", flexDirection: "row" }}>
+        <Droppable droppableId="all-lists" direction="horizontal" type="list-droppable">
+            {(provided) => (
+              <div className="lists-container" {...provided.droppableProps} ref={provided.innerRef}>
                 {[...lists].sort((a, b) => a.position_id - b.position_id).map((list, index) => (
                   <List key={list.id} list={list} index={index} cards={cards[list.id]?.map(cardId => cards.cards[cardId])} />
                 ))}

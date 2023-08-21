@@ -58,7 +58,6 @@ export const deleteLabel = (labelId) => {
 export const thunkAllLabels = () => async (dispatch) => {
     const response = await fetch('/api/labels');
     const labels = await response.json();
-    console.log('after response get all labels', labels)
     dispatch(getAllLabels(labels));
 }
 
@@ -67,7 +66,6 @@ export const thunkAllLabels = () => async (dispatch) => {
 export const thunkLabel = (labelId) => async (dispatch) => {
     const response = await csrfFetch(`/api/labels/${labelId}`);
     const label = await response.json();
-    console.log('after response get label by id', label)
     dispatch(getLabel(label))
 };
 
@@ -81,10 +79,8 @@ export const thunkPostLabel = (label) => async (dispatch) => {
             headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify(label)
         })
-        console.log('post lable thunk reached', response)
         const labelResponse = await response.json();
         dispatch(postLabel(labelResponse));
-        console.log('new label! :D', labelResponse)
         return labelResponse;
     } catch(err) {
         const errors = await err.json();
@@ -94,7 +90,6 @@ export const thunkPostLabel = (label) => async (dispatch) => {
 
 /*-Edit A Label-*/
 export const thunkEditLabel = (labelId, label) => async (dispatch) => {
-    console.log('edit label thunk reached', label);
     let response;
     try {
         response = await csrfFetch(`/api/labels/${labelId}`, {
@@ -103,9 +98,7 @@ export const thunkEditLabel = (labelId, label) => async (dispatch) => {
             body: JSON.stringify(label)
         })
         const labelToEdit = await response.json();
-        console.log('before label edit thunk', labelToEdit);
         dispatch(editLabel(labelToEdit));
-        console.log('after label edit thunk', labelToEdit);
         return labelToEdit;
     } catch(err) {
         const errors = await err.json();
