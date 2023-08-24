@@ -52,6 +52,9 @@
     padding-top: 1.5rem;
 }
 
+.buttons{
+    cursor: pointer;
+}
 
 /* Input */
 .form-wrapper .form-group input[type=email]{

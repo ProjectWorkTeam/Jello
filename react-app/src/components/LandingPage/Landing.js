@@ -25,7 +25,7 @@ const LandingPage = () => {
         <div>
             <div className="landing-Nav">
                 <div
-                className="logo-container">
+                    className="logo-container">
                 </div>
                 <div className="Creds">
                     <div className="landing-login" onClick={login}>
@@ -55,40 +55,46 @@ const LandingPage = () => {
             <div className="about">
                 <div className="developer">
                     <h4>Alex Kim</h4>
-                    <a href="https://www.linkedin.com/in/alexgkim/">
-                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    <a href="https://www.linkedin.com/in/alexgkim/" target="_blank">
+                        <img className="link-icons" src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
                     </a>
-                    <a href="https://github.com/Alex-Kim-SD">
-                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    <a href="https://github.com/Alex-Kim-SD" target="_blank">
+                        <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
                     </a>
                 </div>
                 <div className="developer">
                     <h4>Kim Harris</h4>
-                    <a href="https://www.linkedin.com/in/scarlettrobe/">
-                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    <a href="https://www.linkedin.com/in/scarlettrobe/" target="_blank">
+                        <img className="link-icons" src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
                     </a>
-                    <a href="https://github.com/scarlettrobe">
-                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    <a href="https://github.com/scarlettrobe" target="_blank">
+                        <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
                     </a>
                 </div>
                 <div className="developer">
                     <h4>Peter Guan</h4>
-                    <a href="https://www.linkedin.com/in/scarlettrobe/">
-                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    <a href="https://www.linkedin.com/in/peter-guan-704171285/" target="_blank">
+                        <img className="link-icons" src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
                     </a>
-                    <a href="https://github.com/RetepG">
-                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    <a href="https://github.com/RetepG" target="_blank">
+                        <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
                     </a>
                 </div>
                 <div className="developer">
                     <h4>Joey Enright</h4>
-                    <a href="https://www.linkedin.com/in/joey-enright-656057168/">
-                        <img  className="link-icons"src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
+                    <a href="https://www.linkedin.com/in/joey-enright-656057168/" target="_blank">
+                        <img className="link-icons" src="https://www.iconpacks.net/icons/2/free-linkedin-logo-icon-2430-thumb.png"></img>
                     </a>
-                    <a href="https://github.com/Jojovial">
-                        <img className="link-icons"src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                    <a href="https://github.com/Jojovial" target="_blank">
+                        <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
                     </a>
                 </div>
+            </div>
+            <div className="Github-Repo">
+                <h4>Git Repo</h4>
+                <a href="https://github.com/ProjectWorkTeam/Jello" target="_blank">
+                    <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                </a>
             </div>
         </div>
     );
