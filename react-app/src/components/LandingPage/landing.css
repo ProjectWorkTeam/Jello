@@ -1,15 +1,16 @@
-
 body {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
 
 }
-html, body {
+
+html,
+body {
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
-  }
-  
+}
+
 
 .landing-Nav {
     position: fixed;
@@ -29,21 +30,22 @@ html, body {
     display: flex;
     align-items: center;
     margin-left: 1rem;
-    
+
 }
 
 .logo {
     margin: 0 0.5rem 0 1rem;
     height: 3rem;
     width: 3rem;
-    
+
 }
 
 .logo-container::after {
     content: "Jello";
     font-size: 3rem;
     font-weight: bold;
-    color: #172b4d;;
+    color: #172b4d;
+    ;
 }
 
 .Creds,
@@ -61,7 +63,7 @@ html, body {
     font-size: 1.6rem;
 }
 
-h2.landing-header{
+h2.landing-header {
     margin-left: 1rem;
 }
 
@@ -121,7 +123,7 @@ h2.landing-header{
     padding-top: 5rem;
 }
 
-.landing-background-img > img {
+.landing-background-img>img {
     border-radius: 10px;
     width: 39.5rem;
     height: 34.88rem;
@@ -171,6 +173,7 @@ h2.landing-header{
     padding: 15px;
     margin-top: 15px;
 }
+
 .developer {
     display: flex;
     align-items: center;
@@ -180,4 +183,16 @@ h2.landing-header{
     padding-left: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 0.38rem;
+}
+
+.Github-Repo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(128, 128, 128, 0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0.38rem;
+    max-width: 200px;
+    margin: 0 auto;
 }

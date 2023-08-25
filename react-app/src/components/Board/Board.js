@@ -143,6 +143,7 @@ function Board() {
   };
 
   return (
+    <DragDropContext onDragEnd={handleDragEnd}>
     <div className="board">
       <h2>{boards.name}</h2>
       <div className={`sidebar ${openSideBar ? 'open' : ''}`} style={sidebarStyle}>
@@ -185,7 +186,6 @@ function Board() {
             )}
           </div>
         </div>
-        <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="all-lists" direction="horizontal" type="list-droppable">
             {(provided) => (
               <div className="lists-container" {...provided.droppableProps} ref={provided.innerRef}>
@@ -196,9 +196,9 @@ function Board() {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
       </div>
     </div>
+    </DragDropContext>
   );
 }
 
