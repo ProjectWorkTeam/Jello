@@ -12,14 +12,14 @@
     align-items: center;
 }
 
-.form-group {
+.login-form-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1.5rem;
 }
 
-.form-group label {
+.login-form-group label {
     margin-bottom: 0.5rem;
 }
 
@@ -33,17 +33,35 @@
     border-color: lightgray;
 }
 
+.login-signup-Title {
+    margin-top: 50px;
+    font-size: 3.5rem;
+    color: #172b4d;
+    font-weight: 1000;
+    margin-bottom: 50px;
+}
+.login-signup-Title:hover {
+    cursor: pointer;
+}
+
 .buttons {
     padding: .8rem;
     width: 16.4rem;
-    background-color: #0065FF;
+    background-color: #4c8ae7;
     font-weight: 600;
     color: white;
     border: none;
-    border-radius: 0.38rem
+    border-radius: 0.38rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.input-title {
+.buttons:hover {
+    background-color: #6ba2f9;
+    color: black;
+}
+
+.login-input-title {
     font-family: Roboto, Helvetica Neue, sans-serif;
     color: gray
 }
@@ -57,17 +75,17 @@
 }
 
 /* Input */
-.form-wrapper .form-group input[type=email]{
+.form-wrapper .login-form-group input[type=email]{
     background-color:rgba(255,255,255,0.66);
    }
 
    /* Inputs */
-   .form-wrapper .form-group input[type=email].inputs{
+   .form-wrapper .login-form-group input[type=email].inputs{
     border-style:none;
    }
 
    /* Input */
-   .form-wrapper .form-group input[type=password]{
+   .form-wrapper .login-form-group input[type=password]{
     background-color:rgba(255,255,255,0.66);
     border-style:none;
    }
@@ -77,11 +95,6 @@
     color:#ffffff;
    }
 
-
-   /* Logo container */
- .top .logo-container{
-    transform: translatex(3px);
-   }
    /* Buttons */
     .demo-wrapper .buttons{
     transform: translatex(-6px);

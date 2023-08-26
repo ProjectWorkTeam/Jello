@@ -50,21 +50,18 @@ function LoginFormPage() {
   return (
     <div className="login-container">
       <div className="top">
-        <div className="logo-container" onClick={handleLogoClick}>
-          <div className="logo-wrapper">
-            {/* <img src={jello} alt="Jello" className="logo-image" /> */}
-          </div>
-          <div className="logo-text"></div>
+        <div className="login-signup-Title" onClick={handleLogoClick}>
+          Jello
         </div>
       </div>
-      <h1 className="input-title">Log In</h1>
+      <h1 className="login-input-title">Log In</h1>
       <form onSubmit={handleSubmit} className="form-wrapper">
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
-        <div className="form-group">
+        <div className="login-form-group">
           <input
             type="email"
             value={email}
@@ -74,7 +71,7 @@ function LoginFormPage() {
             required
           />
         </div>
-        <div className="form-group">
+        <div className="login-form-group">
           <input
             type="password"
             value={password}

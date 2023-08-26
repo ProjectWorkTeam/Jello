@@ -1,6 +1,5 @@
 body {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
-
 }
 
 html,
@@ -16,6 +15,7 @@ body {
     position: fixed;
     top: 0;
     width: 100vw;
+    margin-top: 25px;
     height: 4rem;
     display: flex;
     align-items: center;
@@ -26,11 +26,10 @@ body {
     color: black;
 }
 
-.logo-container {
+.landing-logo-container {
+    margin-left: 50px;
     display: flex;
     align-items: center;
-    margin-left: 1rem;
-
 }
 
 .logo {
@@ -40,7 +39,7 @@ body {
 
 }
 
-.logo-container::after {
+.landing-logo-container::after {
     content: "Jello";
     font-size: 3rem;
     font-weight: bold;
@@ -59,6 +58,7 @@ body {
 }
 
 .Creds {
+    margin-right: 50px;
     font-weight: 500;
     font-size: 1.6rem;
 }
@@ -136,9 +136,10 @@ h2.landing-header {
     gap: 3.1rem;
     width: 100%;
     height: 80vh;
+    margin-left: 100px;
 }
 
-.SignUp-body {
+.demo-login-landing-body {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,6 +154,12 @@ h2.landing-header {
     transition: all 500ms;
     border-radius: 0.38rem;
     user-select: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.demo-login-landing-body:hover {
+    background-color: #6ba2f9;
+    color: black;
 }
 
 .link-icons {
