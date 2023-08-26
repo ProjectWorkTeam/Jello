@@ -228,7 +228,17 @@ div.menu-buttons.button{
   border-bottom-right-radius:5px;
   transform: translatex(17px);
   cursor: pointer;
+  z-index: 1000;
+  position: relative;
+  transition: background-color 0.3s ease;
  }
+ #LogOut-Button:hover {
+  background-color: #4AA3E1;
+}
+
+#LogOut-Button:active {
+  background-color: #2980b9;
+}
 
  #profile-wrapper .profile-dropdown{
   z-index:1;

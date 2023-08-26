@@ -175,8 +175,3 @@
 .board .sidebar-open {
   z-index: -10;
 }
-
-
-.board {
-  position: relative;
-}
