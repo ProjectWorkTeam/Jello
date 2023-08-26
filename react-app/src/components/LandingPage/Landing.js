@@ -1,19 +1,21 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import jello from "../../assets/Jello.jpg";
-import frontPage from "../../assets/FontPage.jpg";
+import { login as loginAction } from "../../store/session";
 import "./landing.css";
 
 const LandingPage = () => {
     const currentUser = useSelector((state) => state.session.user);
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    if (currentUser) {
-        history.push("/home");
-    }
+    useEffect(() => {
+        if (currentUser) {
+            history.push("/home");
+        }
+    }, [currentUser, history]);
 
-    const login = () => {
+    const navigateToLogin = () => {
         history.push("/login");
     };
 
@@ -21,18 +23,25 @@ const LandingPage = () => {
         history.push("/signup");
     };
 
+    const demo = async () => {
+        const data = await dispatch(loginAction('demo@lit.com', 'demopass'));
+        if (data) {
+            // Do something if needed
+        }
+    };
+
     return (
         <div>
             <div className="landing-Nav">
                 <div
-                    className="logo-container">
+                    className="landing-logo-container">
                 </div>
                 <div className="Creds">
-                    <div className="landing-login" onClick={login}>
-                        Log in
+                    <div className="landing-login" onClick={navigateToLogin}>
+                        Log in!
                     </div>
                     <div className="landing-SignUp" onClick={signup}>
-                        Get Jello Free!
+                        Sign Up!
                     </div>
                 </div>
             </div>
@@ -43,9 +52,10 @@ const LandingPage = () => {
                             Jello brings all your tasks, teammates, and tools together
                         </h2>
                         <h3 className="text-body">Keep everything in the same place.</h3>
-                        <div className="SignUp-body" onClick={signup}>
-                            Sign up
+                        <div className="demo-login-landing-body" onClick={demo}>
+                            Demo Login
                         </div>
+
                     </div>
                     <div className="landing-background-img">
                         {/* <img src={frontPage} alt="background" className="background" /> */}
@@ -92,8 +102,8 @@ const LandingPage = () => {
             </div>
             <div className="Github-Repo">
                 <h4>Git Repo</h4>
-                <a href="https://github.com/ProjectWorkTeam/Jello" target="_blank">
-                    <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png"></img>
+                <a href="https://github.com/ProjectWorkTeam/Jello" target="_blank" rel="noopener noreferrer">
+                    <img className="link-icons" src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Github Repo"></img>
                 </a>
             </div>
         </div>

@@ -74,10 +74,12 @@ function SignupFormPage() {
   };
 
   return (
-    <div className="container">
-      <div className="top-signup">
-        <div className="logo-container" onClick={handleLogoClick}>
-        </div>
+    <div className="signup-container">
+      <div className="login-title-container">
+      <div className="signup-Title" onClick={handleLogoClick}>
+        Jello
+      </div>
+      <h1 className="login-input-title">Sign Up</h1>
       </div>
       <h2 className="title">Sign up for your account</h2>
       <form onSubmit={handleSubmit} className="form-wrapper">
@@ -88,7 +90,7 @@ function SignupFormPage() {
             ))}
           </ul>
         )}
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* First Name */}
             <input
@@ -101,7 +103,7 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* Last Name */}
             <input
@@ -114,7 +116,7 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* Username */}
             <input
@@ -127,7 +129,7 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* Email */}
             <input
@@ -140,7 +142,7 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* Password */}
             <input
@@ -153,7 +155,7 @@ function SignupFormPage() {
             />
           </label>
         </div>
-        <div className="form-group">
+        <div className="signup-form-group">
           <label>
             {/* Confirm Password */}
             <input

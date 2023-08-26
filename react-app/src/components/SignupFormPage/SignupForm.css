@@ -10,10 +10,21 @@
     padding-top: 3rem;
     color: black;
     font-family: Roboto, Helvetica Neue, sans-serif;
-    padding-left: 6rem;
 }
 
-.logo-container:hover {
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.signup-Title {
+    margin-top: 50px;
+    font-size: 3.5rem;
+    color: #172b4d;
+    font-weight: 1000;
+    margin-bottom: 0px;
+}
+.signup-Title:hover {
     cursor: pointer;
 }
 
@@ -22,7 +33,16 @@
     justify-content: center;
 }
 
+.login-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
+.signup-form-group {
+margin-bottom: .25rem;
+}
 /* Input */
 .form-wrapper label input[type=text]{
     background-color:rgba(255,255,255,0.7);
@@ -34,7 +54,17 @@
     transform: translatex(-6px);
    }
 
+   .form-wrapper .signup-form-group input[type=email]{
+    background-color:rgba(255,255,255,0.66);
+   }
 
-.top .logo-container{
-    transform: translatex(80px);
-}
+   /* Inputs */
+   .form-wrapper .signup-form-group input[type=email].inputs{
+    border-style:none;
+   }
+
+   /* Input */
+   .form-wrapper .signup-form-group input[type=password]{
+    background-color:rgba(255,255,255,0.66);
+    border-style:none;
+   }

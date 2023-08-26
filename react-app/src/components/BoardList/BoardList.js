@@ -43,11 +43,11 @@ const BoardList = () => {
       <div className="sidebar-container">
         <div className="side-bar">
           <h2 className="main-workspace">Main Workspace</h2>
-          <h3>Future Features</h3>
+          {/* <h3>Future Features</h3>
           <div className='feature-list'>
             <li>Settings</li>
             <li>Shared</li>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="workspace-content">
