@@ -1,0 +1,45 @@
+.linkedIn{
+    margin-left: 5px;
+}
+
+.github{
+    margin-left: 5px;
+}
+
+.contact-info{
+    margin-bottom: 5px;
+}
+
+.contact-container{
+    text-align: center;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    padding-bottom: 2rem;
+}
+.contact-container > p {
+    font-weight: bold;
+    font-size: 30px;
+}
+.contact-container-icon {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.contact {
+    width: 100%;
+    padding-bottom: 2rem;
+
+}
+
+.Jello-Repo{
+    size: 2rem;
+}
+
+.contact-repo{
+    font-size: 2rem;
+    font-weight: bold;
+}
